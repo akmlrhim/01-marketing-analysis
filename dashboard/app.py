@@ -33,23 +33,40 @@ st.markdown(
     *, body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
     header[data-testid="stHeader"] { background: #0F172A; }
     [data-testid="stMain"] { margin-top: 3.75rem; height: calc(100% - 3.75rem); }
-    h1, h2, h3 { color: #F1F5F9; letter-spacing: -0.02em; }
-    h2 { font-size: 1.3rem; margin-top: .3rem; }
-    h3 { font-size: 1.02rem; }
+    h1, h2, h3, h4 { color: #F1F5F9; letter-spacing: -0.01em; }
+    h2 { font-size: 1.3rem; margin-top: .3rem; letter-spacing: -0.02em; }
+    h3 { font-size: 1.02rem; letter-spacing: -0.02em; }
     .kpi { background:#1E293B; border:1px solid #334155; border-radius:14px;
-           padding:14px 16px; box-shadow:0 1px 2px rgba(0,0,0,.35); min-height:102px; }
-    .kpi-label { color:#94A3B8; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    .kpi-value { font-size:23px; font-weight:750; line-height:1.2; margin-top:4px; }
-    .kpi-sub { color:#94A3B8; font-size:11px; margin-top:3px; }
+           padding:14px 16px; box-shadow:0 1px 2px rgba(0,0,0,.35); min-height:102px;
+           transition:border-color .18s ease, box-shadow .18s ease; }
+    .kpi:hover { border-color:#475569; box-shadow:0 4px 14px rgba(0,0,0,.4); }
+    .kpi-label { color:#94A3B8; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .kpi-value { font-size:23px; font-weight:750; line-height:1.2; margin-top:4px;
+                 font-variant-numeric:tabular-nums; }
+    .kpi-sub { color:#94A3B8; font-size:12px; margin-top:3px; }
     .note { background:rgba(45,212,191,.08); border-left:3px solid #2DD4BF; border-radius:8px;
             padding:10px 14px; color:#99F6E4; font-size:13px; margin:6px 0 12px; }
     .warn { background:rgba(251,191,36,.08); border-left:3px solid #FBBF24; border-radius:8px;
             padding:10px 14px; color:#FDE68A; font-size:13px; margin:6px 0 12px; }
     .small { color:#94A3B8; font-size:12px; }
-    div[data-testid="stDataFrame"] { border:1px solid #334155; border-radius:10px; }
+    div[data-testid="stDataFrame"] { border:1px solid #334155; border-radius:10px;
+                                     font-variant-numeric:tabular-nums; }
     section[data-testid="stSidebar"] { background:#0F172A; border-right:1px solid #334155; }
     [role="tablist"] { gap: 10px; flex-wrap: wrap !important; overflow: visible !important; }
-    [role="tab"] { border-radius:8px 8px 0 0; padding:8px 14px; }
+    [role="tab"] { border-radius:8px 8px 0 0; padding:10px 16px; cursor:pointer;
+                   transition:background-color .18s ease, color .18s ease; }
+    [role="tab"]:hover { background:rgba(148,163,184,.1); }
+    [role="tab"] p { font-weight:600; font-size:.92rem; }
+    button:focus-visible, [role="tab"]:focus-visible, a:focus-visible {
+        outline:2px solid #2DD4BF; outline-offset:2px; }
+    ::-webkit-scrollbar { width:10px; height:10px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:#334155; border-radius:8px; border:2px solid #0F172A; }
+    ::-webkit-scrollbar-thumb:hover { background:#475569; }
+    ::selection { background:rgba(45,212,191,.35); color:#F1F5F9; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -72,6 +89,13 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         plot_bgcolor="rgba(0,0,0,0)",
         showlegend=legend,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
+        hovermode="closest",
+        hoverlabel=dict(
+            bgcolor="#1E293B",
+            bordercolor="#475569",
+            font=dict(family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+                      size=12, color="#F1F5F9"),
+        ),
     )
     fig.update_xaxes(showgrid=False, linecolor="#334155")
     fig.update_yaxes(gridcolor="#334155", zeroline=False)
@@ -428,28 +452,31 @@ with tab_ringkasan:
     left, right = st.columns([1.15, 1])
     with left:
         st.markdown("#### Pertumbuhan ekonomi")
-        growth = makro_f.melt(
-            id_vars=["provinsi"],
-            value_vars=["pertumbuhan_2024_persen", "pertumbuhan_2025_persen"],
-            var_name="Tahun",
-            value_name="Pertumbuhan",
-        )
-        growth["Tahun"] = growth["Tahun"].map(
-            {"pertumbuhan_2024_persen": "2024", "pertumbuhan_2025_persen": "2025"}
-        )
-        growth = growth.dropna(subset=["Pertumbuhan"])
-        fig = px.bar(
-            growth,
-            x="provinsi",
-            y="Pertumbuhan",
-            color="Tahun",
-            barmode="group",
-            text=[fmt_dec(v) for v in growth["Pertumbuhan"]],
-            color_discrete_map={"2024": "#64748B", "2025": TEAL},
-            labels={"provinsi": "", "Pertumbuhan": "% (yoy)"},
-        )
-        fig.update_traces(textposition="outside", cliponaxis=False)
-        chart(style_fig(fig, 340), "growth")
+        if len(makro_f):
+            growth = makro_f.melt(
+                id_vars=["provinsi"],
+                value_vars=["pertumbuhan_2024_persen", "pertumbuhan_2025_persen"],
+                var_name="Tahun",
+                value_name="Pertumbuhan",
+            )
+            growth["Tahun"] = growth["Tahun"].map(
+                {"pertumbuhan_2024_persen": "2024", "pertumbuhan_2025_persen": "2025"}
+            )
+            growth = growth.dropna(subset=["Pertumbuhan"])
+            fig = px.bar(
+                growth,
+                x="provinsi",
+                y="Pertumbuhan",
+                color="Tahun",
+                barmode="group",
+                text=[fmt_dec(v) for v in growth["Pertumbuhan"]],
+                color_discrete_map={"2024": "#64748B", "2025": TEAL},
+                labels={"provinsi": "", "Pertumbuhan": "% (yoy)"},
+            )
+            fig.update_traces(textposition="outside", cliponaxis=False)
+            chart(style_fig(fig, 340), "growth")
+        else:
+            st.info("Pilih minimal satu provinsi pada filter sidebar.")
         st.markdown(
             f'<div class="note"><b>Baca:</b> di antara angka terbaru tiap provinsi, '
             f'{metrics["provinsi_tumbuh_tercepat"]} tertinggi '
@@ -464,31 +491,34 @@ with tab_ringkasan:
 
     with right:
         st.markdown("#### Penetrasi internet 2025")
-        net = makro_f.sort_values("penetrasi_internet_2025_persen")
-        fig = px.bar(
-            net,
-            x="penetrasi_internet_2025_persen",
-            y="provinsi",
-            orientation="h",
-            text=[fmt_dec(v) for v in net["penetrasi_internet_2025_persen"]],
-            color="kelas_penetrasi",
-            color_discrete_map={
-                "Tinggi": TEAL,
-                "Menengah": "#5EEAD4",
-                "Menengah-rendah": "#F59E0B",
-            },
-            labels={"penetrasi_internet_2025_persen": "% populasi", "provinsi": ""},
-            range_x=[0, 100],
-        )
-        fig.add_vline(
-            x=NATIONAL_INTERNET,
-            line_dash="dash",
-            line_color=SLATE,
-            annotation_text=f"Nasional {fmt_dec(NATIONAL_INTERNET)}%",
-            annotation_position="top",
-        )
-        fig.update_traces(textposition="outside", cliponaxis=False)
-        chart(style_fig(fig, 340, legend=False), "net")
+        if len(makro_f):
+            net = makro_f.sort_values("penetrasi_internet_2025_persen")
+            fig = px.bar(
+                net,
+                x="penetrasi_internet_2025_persen",
+                y="provinsi",
+                orientation="h",
+                text=[fmt_dec(v) for v in net["penetrasi_internet_2025_persen"]],
+                color="kelas_penetrasi",
+                color_discrete_map={
+                    "Tinggi": TEAL,
+                    "Menengah": "#5EEAD4",
+                    "Menengah-rendah": "#F59E0B",
+                },
+                labels={"penetrasi_internet_2025_persen": "% populasi", "provinsi": ""},
+                range_x=[0, 100],
+            )
+            fig.add_vline(
+                x=NATIONAL_INTERNET,
+                line_dash="dash",
+                line_color=SLATE,
+                annotation_text=f"Nasional {fmt_dec(NATIONAL_INTERNET)}%",
+                annotation_position="top",
+            )
+            fig.update_traces(textposition="outside", cliponaxis=False)
+            chart(style_fig(fig, 340, legend=False), "net")
+        else:
+            st.info("Pilih minimal satu provinsi pada filter sidebar.")
         st.markdown(
             f'<div class="note"><b>Baca:</b> {metrics["provinsi_internet_tertinggi"]} '
             f'({fmt_dec(metrics["internet_tertinggi"])}%) dan Kaltim '
@@ -772,6 +802,8 @@ with tab_industri_winning:
         fig.update_layout(coloraxis_showscale=False)
         fig.add_vline(x=0, line_color="#475569")
         chart(style_fig(fig, 560, legend=False), "industri_delta")
+    else:
+        st.info("Tidak ada perubahan peringkat pada filter ini.")
 
     banding = industri[
         [
@@ -865,6 +897,11 @@ with tab_kompetitor:
     city_options = ["Semua"] + sorted(city_pool.unique().tolist())
     city_pick = st.selectbox("Filter kota kompetitor", city_options, index=0)
     komp_view = komp_f if city_pick == "Semua" else komp_f[komp_f["kota_utama"] == city_pick].copy()
+    if komp_view.empty:
+        st.info(
+            "Tidak ada kompetitor pada kombinasi filter ini. Longgarkan filter "
+            "kota di atas atau ubah tipe kompetitor di sidebar."
+        )
 
     city_view = komp_view[
         komp_view["lokasi_terverifikasi"].str.contains("Kalimantan", na=False)
@@ -888,61 +925,73 @@ with tab_kompetitor:
     a, b = st.columns([1.15, 1])
     with a:
         st.markdown("#### Sebaran kota di Kalimantan")
-        fig = px.bar(
-            by_city_v,
-            x="jumlah",
-            y="kota_utama",
-            orientation="h",
-            text_auto=True,
-            color="jumlah",
-            color_continuous_scale=["#134E4A", TEAL],
-            labels={"jumlah": "jumlah agency", "kota_utama": ""},
-        )
-        fig.update_layout(coloraxis_showscale=False)
-        chart(style_fig(fig, 320, legend=False), "comp_city")
+        if len(by_city_v):
+            fig = px.bar(
+                by_city_v,
+                x="jumlah",
+                y="kota_utama",
+                orientation="h",
+                text_auto=True,
+                color="jumlah",
+                color_continuous_scale=["#134E4A", TEAL],
+                labels={"jumlah": "jumlah agency", "kota_utama": ""},
+            )
+            fig.update_layout(coloraxis_showscale=False)
+            chart(style_fig(fig, 320, legend=False), "comp_city")
+        else:
+            st.info("Tidak ada data kota pada filter ini.")
 
     with b:
         st.markdown("#### Lokal vs nasional")
-        fig = px.pie(
-            by_type_v,
-            names="tipe_sederhana",
-            values="jumlah",
-            hole=0.58,
-            color="tipe_sederhana",
-            color_discrete_map={
-                "Lokal": TEAL,
-                "Nasional": "#94A3B8",
-            },
-        )
-        fig.update_traces(textinfo="label+percent", textposition="inside")
-        chart(style_fig(fig, 320, legend=False), "comp_type")
+        if len(by_type_v):
+            fig = px.pie(
+                by_type_v,
+                names="tipe_sederhana",
+                values="jumlah",
+                hole=0.58,
+                color="tipe_sederhana",
+                color_discrete_map={
+                    "Lokal": TEAL,
+                    "Nasional": "#94A3B8",
+                },
+            )
+            fig.update_traces(textinfo="label+percent", textposition="inside")
+            chart(style_fig(fig, 320, legend=False), "comp_type")
+        else:
+            st.info("Tidak ada data kompetitor pada filter ini.")
 
     st.markdown("#### Layanan yang paling sering dijual")
-    fig = px.bar(
-        svc_v,
-        x="jumlah",
-        y="layanan",
-        orientation="h",
-        text_auto=True,
-        color="jumlah",
-        color_continuous_scale=["#334155", TEAL],
-        labels={"jumlah": "jumlah kompetitor", "layanan": ""},
-    )
-    fig.update_layout(coloraxis_showscale=False)
-    chart(style_fig(fig, 380, legend=False), "svc_counts")
+    if len(svc_v):
+        fig = px.bar(
+            svc_v,
+            x="jumlah",
+            y="layanan",
+            orientation="h",
+            text_auto=True,
+            color="jumlah",
+            color_continuous_scale=["#334155", TEAL],
+            labels={"jumlah": "jumlah kompetitor", "layanan": ""},
+        )
+        fig.update_layout(coloraxis_showscale=False)
+        chart(style_fig(fig, 380, legend=False), "svc_counts")
+    else:
+        st.info("Tidak ada layanan terdata pada filter ini.")
 
     st.markdown("#### Matrix layanan (top 25 berdasarkan jumlah layanan)")
     st.caption("Angka 1 berarti layanan ditawarkan, 0 berarti tidak. Dihitung dari deskripsi layanan publik.")
     heat = matrix_v.head(25).drop(columns=["Total layanan"])
-    fig = px.imshow(
-        heat,
-        aspect="auto",
-        color_continuous_scale=[[0, "#1E293B"], [1, TEAL]],
-        text_auto=True,
-        labels=dict(color=""),
-    )
-    fig.update_xaxes(side="top")
-    chart(style_fig(fig, 620, legend=False), "svc_heat")
+    if len(heat):
+        fig = px.imshow(
+            heat,
+            aspect="auto",
+            color_continuous_scale=[[0, "#1E293B"], [1, TEAL]],
+            text_auto=True,
+            labels=dict(color=""),
+        )
+        fig.update_xaxes(side="top")
+        chart(style_fig(fig, 620, legend=False), "svc_heat")
+    else:
+        st.info("Tidak ada kompetitor untuk ditampilkan pada matrix layanan.")
 
     st.markdown("#### Database kompetitor")
     st.caption(
@@ -1527,41 +1576,46 @@ with tab_pain:
     pain_f = pain[pain["segmen"].isin(segmen_sel)].copy()
 
     st.markdown("#### Peta pain point")
-    fig = px.scatter(
-        pain_f,
-        x="frekuensi",
-        y="dampak",
-        size="kesiapan_bayar",
-        color="segmen",
-        hover_name="pain_point",
-        hover_data={"skor_prioritas": ":.2f", "kuadran": True},
-        size_max=34,
-        color_discrete_sequence=PALETTE,
-        labels={
-            "frekuensi": "Seberapa sering (1-5)",
-            "dampak": "Dampak ke bisnis (1-5)",
-        },
-    )
-    fig.add_vline(x=4, line_dash="dot", line_color="#475569")
-    fig.add_hline(y=4, line_dash="dot", line_color="#475569")
-    fig.update_traces(marker=dict(line=dict(width=1, color="#0F172A")))
-    chart(style_fig(fig, 440), "pain_bubble")
+    if len(pain_f):
+        fig = px.scatter(
+            pain_f,
+            x="frekuensi",
+            y="dampak",
+            size="kesiapan_bayar",
+            color="segmen",
+            hover_name="pain_point",
+            hover_data={"skor_prioritas": ":.2f", "kuadran": True},
+            size_max=34,
+            color_discrete_sequence=PALETTE,
+            labels={
+                "frekuensi": "Seberapa sering (1-5)",
+                "dampak": "Dampak ke bisnis (1-5)",
+            },
+        )
+        fig.add_vline(x=4, line_dash="dot", line_color="#475569")
+        fig.add_hline(y=4, line_dash="dot", line_color="#475569")
+        fig.update_traces(marker=dict(line=dict(width=1, color="#0F172A")))
+        chart(style_fig(fig, 440), "pain_bubble")
 
-    st.markdown("#### 12 prioritas tertinggi")
-    top = pain_f.head(12).sort_values("skor_prioritas")
-    fig = px.bar(
-        top,
-        x="skor_prioritas",
-        y="pain_point",
-        orientation="h",
-        text=[fmt_dec(v) for v in top["skor_prioritas"]],
-        color="segmen",
-        color_discrete_sequence=PALETTE,
-        labels={"skor_prioritas": "skor prioritas", "pain_point": ""},
-        range_x=[3.8, 5.1],
-    )
-    fig.update_traces(textposition="outside", cliponaxis=False)
-    chart(style_fig(fig, 430, legend=False), "pain_top")
+        st.markdown("#### 12 prioritas tertinggi")
+        top = pain_f.head(12).sort_values("skor_prioritas")
+        fig = px.bar(
+            top,
+            x="skor_prioritas",
+            y="pain_point",
+            orientation="h",
+            text=[fmt_dec(v) for v in top["skor_prioritas"]],
+            color="segmen",
+            color_discrete_sequence=PALETTE,
+            labels={"skor_prioritas": "skor prioritas", "pain_point": ""},
+            range_x=[3.8, 5.1],
+        )
+        fig.update_traces(textposition="outside", cliponaxis=False)
+        chart(style_fig(fig, 430, legend=False), "pain_top")
+    else:
+        st.info(
+            "Tidak ada segmen terpilih. Pilih minimal satu segmen pada filter di atas."
+        )
 
     st.markdown("#### Tabel prioritas pain point")
     st.dataframe(
