@@ -1,0 +1,31 @@
+industri,ukuran_pasar,pertumbuhan,belanja_digital,kompetisi_rendah,akses_dan_sales_cycle,margin_retainer,skor_tertimbang,prioritas,catatan,status_data
+Properti & developer,4,5,5,3,3,5,4.20,Prioritas inti,"Siklus panjang, ticket tinggi, butuh lead berkualitas",Hipotesis analis
+Konstruksi & kontraktor,4,5,4,4,2,4,3.90,Prioritas inti,Tender & kredibilitas; konten teknis,Hipotesis analis
+Jasa pertambangan,5,3,5,4,1,5,3.85,Prioritas inti,"B2B, compliance, relationship-heavy",Hipotesis analis
+Logistik,4,4,4,4,2,5,3.80,Prioritas inti,B2B; butuh lead gen & studi kasus,Hipotesis analis
+F&B,5,4,3,2,5,3,3.75,Prioritas,"Volume tinggi, kompetisi tinggi, konten visual",Hipotesis analis
+Klinik & kesehatan,3,4,4,4,3,4,3.65,Prioritas,"Trust, edukasi, local SEO",Hipotesis analis
+Retail,5,4,3,2,4,3,3.60,Prioritas,Omnichannel; marketplace & retargeting,Hipotesis analis
+Pendidikan,3,3,4,4,3,4,3.45,Potensial,Musiman; trust orang tua,Hipotesis analis
+Sawit & agroindustri,4,3,3,4,2,4,3.30,Potensial,B2B; konten korporat & ESG,Hipotesis analis
+Otomotif & dealer,4,2,4,3,3,4,3.30,Potensial,Lead gen; test drive; after sales,Hipotesis analis
+Jasa profesional,3,3,3,4,3,4,3.25,Potensial,Personal branding; LinkedIn,Hipotesis analis
+Wisata & hospitality,3,4,3,3,3,3,3.20,Potensial,Discovery; OTA; konten pengalaman,Hipotesis analis
+Perbankan & multifinance,4,3,4,3,2,4,3.35,Potensial,Regulasi; lead gen; brand trust,Hipotesis analis
+Asuransi & fintech,3,4,4,3,2,4,3.35,Potensial,Edukasi; compliance; performance,Hipotesis analis
+Telekomunikasi & ISP,4,3,4,3,3,3,3.40,Potensial,Akuisisi; retensi; coverage,Hipotesis analis
+Energi terbarukan & EBT,3,5,3,4,2,4,3.50,Prioritas,B2B; proyek; ESG narrative,Hipotesis analis
+Kawasan industri & IKN,4,5,4,4,2,5,4.00,Prioritas inti,B2B; investor relations; high ticket,Hipotesis analis
+Perkebunan & kehutanan,4,3,2,4,2,4,3.10,Potensial,Korporat; sustainability,Hipotesis analis
+Perikanan & hasil laut,3,3,2,4,3,3,2.95,Potensial,UMKM; ekspor; marketplace,Hipotesis analis
+Pertanian & hortikultura,3,3,2,4,3,3,2.95,Potensial,UMKM; komunitas; e-commerce,Hipotesis analis
+Pertambangan batubara & mineral,5,2,5,3,1,5,3.50,Prioritas,B2B; isu ESG; relationship,Hipotesis analis
+Alat berat & spare parts,3,3,3,4,2,4,3.10,Potensial,B2B; katalog; WhatsApp,Hipotesis analis
+Kosmetik & skincare,4,5,5,2,4,5,4.20,Prioritas inti,Performance; KOL; repeat order,Hipotesis analis
+Fashion & tekstil,4,4,4,2,4,3,3.60,Prioritas,Marketplace; KOL; retargeting,Hipotesis analis
+Elektronik & gadget,4,3,4,2,4,3,3.40,Potensial,Marketplace; review; performance,Hipotesis analis
+Furnitur & interior,3,3,3,3,3,4,3.10,Potensial,Visual; katalog; lead gen,Hipotesis analis
+Wedding & event,3,3,3,3,4,4,3.25,Potensial,Visual; referral; seasonal,Hipotesis analis
+Travel & tour,3,4,3,3,4,3,3.35,Potensial,Discovery; OTA; konten,Hipotesis analis
+Government & BUMN,4,2,4,4,1,4,3.15,Potensial,Tender; compliance; PR,Hipotesis analis
+Properti komersial & coworking,3,4,3,4,3,4,3.45,Potensial,B2B; lead gen; community,Hipotesis analis

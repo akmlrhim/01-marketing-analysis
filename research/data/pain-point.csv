@@ -1,0 +1,54 @@
+segmen,pain_point,frekuensi,dampak,kesiapan_bayar,status,sumber
+UMKM,Tidak punya waktu untuk marketing,5,5,3,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Tidak tahu harus membuat konten apa,5,4,2,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Konten tidak konsisten,5,4,2,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Budget terbatas,4,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Takut mahal dan tertipu agency,4,5,3,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Tidak bisa mengukur hasil,4,5,4,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Tidak paham cara pasang iklan,4,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+UMKM,Kalah dari kompetitor yang viral,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Omzet plateau / stagnan,4,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Iklan boros tanpa tracking,4,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Lead masuk tapi tidak di-follow up,5,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Sulit hire marketing senior,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Konten tidak terdiferensiasi,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Data tersebar di Excel dan WhatsApp,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Tim marketing kecil / overload,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Tidak ada SOP campaign,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Sales dan marketing tidak sinkron,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+SME,Terlalu bergantung pada owner,4,5,3,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Kredibilitas digital lemah,4,5,4,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Lead B2B tidak terkelola,4,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Siklus penjualan panjang,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Employer branding lemah,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Tidak ada konten teknis/studi kasus,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Marketing dianggap cost center,4,5,4,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Vendor agency tidak paham industri,4,4,5,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Reporting tidak actionable,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Compliance & approval lambat,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Korporat/B2B,Integrasi CRM/ERP sulit,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Klinik & kesehatan,Pasien baru stagnan,4,5,4,Hipotesis,Desk research; validasi IDI/survei belum
+Klinik & kesehatan,Reputasi online tidak terkelola,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Klinik & kesehatan,Konten edukasi tidak konsisten,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Klinik & kesehatan,Booking dokter masih manual,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Klinik & kesehatan,Iklan kesehatan dibatasi platform,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Properti & developer,Lead agen tidak terdistribusi,4,5,4,Hipotesis,Desk research; validasi IDI/survei belum
+Properti & developer,Konten visual properti mahal,4,4,5,Hipotesis,Desk research; validasi IDI/survei belum
+Properti & developer,Siklus closing panjang,3,5,3,Hipotesis,Desk research; validasi IDI/survei belum
+Properti & developer,Kualitas lead rendah,4,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+Properti & developer,Perang harga dengan developer lain,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+F&B,Konten menu monoton,4,3,3,Hipotesis,Desk research; validasi IDI/survei belum
+F&B,Review/rating tidak dikelola,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+F&B,Promo tidak terukur,4,4,5,Hipotesis,Desk research; validasi IDI/survei belum
+F&B,Ketergantungan marketplace,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+F&B,Repeat order rendah,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Retail,Stok dan promo tidak sinkron,3,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Retail,Tidak punya first-party data,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Retail,Marketplace vs toko sendiri,4,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Retail,Retargeting tidak jalan,3,4,4,Hipotesis,Desk research; validasi IDI/survei belum
+Retail,Konten produk tidak konsisten,4,3,3,Hipotesis,Desk research; validasi IDI/survei belum
+Pendidikan,Pendaftaran musiman,4,4,3,Hipotesis,Desk research; validasi IDI/survei belum
+Pendidikan,Leads orang tua tidak di-follow up,4,5,5,Hipotesis,Desk research; validasi IDI/survei belum
+Pendidikan,Konten prestasi tidak terdokumentasi,3,3,3,Hipotesis,Desk research; validasi IDI/survei belum
+Pendidikan,Persaingan kursus online,4,3,3,Hipotesis,Desk research; validasi IDI/survei belum
+Pendidikan,Trust orang tua rendah,3,5,4,Hipotesis,Desk research; validasi IDI/survei belum
