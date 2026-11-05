@@ -15,7 +15,7 @@ st.set_page_config(
     page_title="Riset Pasar Kalimantan",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 TEAL = "#2DD4BF"
@@ -32,6 +32,8 @@ st.markdown(
     @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
     *, body { font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
+    [data-testid="stIconMaterial"] { font-family: "Material Symbols Rounded" !important;
+                                     font-size: 20px; line-height: 1; }
     header[data-testid="stHeader"] { background: #0F172A; }
     [data-testid="stMain"] { margin-top: 3.75rem; height: calc(100% - 3.75rem); }
     h1, h2, h3, h4 { color: #F1F5F9; letter-spacing: -0.01em; }
@@ -67,6 +69,23 @@ st.markdown(
     ::selection { background:rgba(45,212,191,.35); color:#F1F5F9; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
+    }
+    /* --- Mobile: layar <= 640px --- */
+    @media (max-width: 640px) {
+      .block-container { padding-left: .75rem; padding-right: .75rem; }
+      header [data-testid="stStatusWidget"], header [data-testid="stDeployButton"] {
+          display: none !important; }
+      h1 { font-size: 1.35rem; }
+      h2 { font-size: 1.12rem; }
+      h3, h4 { font-size: .95rem; }
+      [data-testid="stMain"] [data-testid="stHorizontalBlock"] { flex-wrap: wrap; row-gap: .75rem; }
+      [data-testid="stMain"] [data-testid="stColumn"] { min-width: 100% !important; flex-basis: 100% !important; }
+      .kpi { padding: 12px 14px; min-height: 0; }
+      .kpi-value { font-size: 20px; }
+      [role="tab"] { padding: 8px 12px; }
+      [role="tab"] p { font-size: .85rem; }
+      [data-testid="stDataFrame"] { font-size: 12px; }
+      .note, .warn { font-size: 12px; padding: 8px 10px; }
     }
     </style>
     """,
