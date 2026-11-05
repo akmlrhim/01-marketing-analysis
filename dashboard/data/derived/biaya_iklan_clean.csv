@@ -1,0 +1,15 @@
+kanal,objective,metrik,batas_bawah_rp,batas_atas_rp,satuan,catatan,status,titik_tengah_rp,rentang
+SMM retainer,Retainer,per bulan,2500000,15000000,per bulan,2-4 platform; 12-20 konten,Estimasi,8750000.0,Rp2.500.000 - Rp15.000.000
+Landing page,Konversi,per halaman,980000,5000000,per halaman,Publish mulai Rp980 rb,Sinyal publik,2990000.0,Rp980.000 - Rp5.000.000
+Video production,Produksi,per video,500000,3000000,per video,Reels/TikTok sederhana,Estimasi,1750000.0,Rp500.000 - Rp3.000.000
+TikTok KOL nano,Konten,per video,500000,3000000,per video,1-10 rb followers,Estimasi,1750000.0,Rp500.000 - Rp3.000.000
+SEO local,Lead,per bulan,500000,2500000,per bulan,"Etnicode Rp1,5 jt/bln",Sinyal publik,1500000.0,Rp500.000 - Rp2.500.000
+Instagram KOL nano,Konten,per post,500000,2500000,per konten,1-10 rb followers,Estimasi,1500000.0,Rp500.000 - Rp2.500.000
+Google Search,Lead,CPL,50000,250000,per lead,B2B/konstruksi lebih tinggi,Estimasi,150000.0,Rp50.000 - Rp250.000
+Meta Ads,Lead,CPL,20000,80000,per lead,Tergantung industri & offer,Estimasi,50000.0,Rp20.000 - Rp80.000
+Meta Ads,Awareness,CPM,15000,45000,per 1.000 impresi,Range pasar Indonesia 2025,Estimasi,30000.0,Rp15.000 - Rp45.000
+TikTok Ads,Awareness,CPM,10000,35000,per 1.000 impresi,Range pasar Indonesia 2025,Estimasi,22500.0,Rp10.000 - Rp35.000
+Google Search,Lead,CPC,2000,15000,per klik,Keyword komersial,Estimasi,8500.0,Rp2.000 - Rp15.000
+Meta Ads,Traffic,CPC,1500,5000,per klik,Range pasar Indonesia 2025,Estimasi,3250.0,Rp1.500 - Rp5.000
+TikTok Ads,Traffic,CPC,1000,4000,per klik,Range pasar Indonesia 2025,Estimasi,2500.0,Rp1.000 - Rp4.000
+YouTube,Awareness,CPV,100,500,per view,Range pasar Indonesia,Estimasi,300.0,Rp100 - Rp500
