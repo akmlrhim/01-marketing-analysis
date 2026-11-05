@@ -1,0 +1,13 @@
+.env
+node_modules/
+.opencode
+opencode.json
+graphify-out/
+.venv
+anti-slop
+.playwright-mcp
+opencode*
+.mcp*
+
+__pycache__/
+*.pyc
