@@ -1,6 +1,7 @@
 # KNOWLEDGE.md - Cara Angka, Bobot, dan Skor Hipotesis Dibuat
 
-Dokumen ini menjelaskan **dari mana setiap angka berasal dan bagaimana angka itu dihitung**.
+Dokumen ini menjelaskan **dari mana setiap angka berasal dan bagaimana angka itu dihitung**,
+termasuk metode standar yang diadopsi untuk tiap rumus (dirangkum di bagian 11).
 Target pembacanya: orang yang ingin mengecek, mempertahankan, atau mengkritik angka di
 dashboard dan CSV tanpa harus menebak cara angkanya lahir.
 
@@ -477,14 +478,50 @@ bandingkan peringkat.
 
 ---
 
-## 11. Kamus dashboard untuk presentasi: arti istilah & cara baca tiap tab
+## 11. Asal rumus: metode standar yang diadopsi dan penyesuaiannya
+
+Tidak ada rumus di dokumen ini yang dikarang dari nol. Semuanya diadopsi dari metode
+analisis keputusan yang baku, dengan penyesuaian kecil yang ditulis terbuka. Bagian
+ini menjawab pertanyaan "rumus ini didapat dari mana".
+
+### 11.1 Peta rumus ke metode asal
+
+| Rumus (di bagian) | Didapat dari | Kenapa metode ini yang dipilih |
+| --- | --- | --- |
+| `skor_tertimbang = Σ bobot × skor` (bagian 2) | **Simple Additive Weighting (SAW)**, teknik paling dasar dari keluarga **Multi-Criteria Decision Making (MCDM)**; standar di studi kelayakan dan pemilihan vendor | Bisa dihitung ulang dengan kalkulator oleh siapa saja; sifatnya linear sehingga kontribusi tiap kriteria terlihat langsung (contoh utuh di bagian 8.1); metode MCDM lain seperti AHP menuntut perbandingan berpasangan dan TOPSIS perhitungan jarak ke solusi ideal - keduanya jauh lebih sulit diaudit tanpa menambah informasi baru |
+| Skala 1-5 dengan anchor (bagian 2.3, 4.3) | **BARS** (Behaviorally Anchored Rating Scale) dari psikologi organisasi/HR | Anchor "1 artinya apa, 5 artinya apa" membatasi perbedaan antar penilai; skor 2 dan 4 tidak didefinisikan terpisah karena sekadar interpolasi antar jangkar |
+| Bobot 0.60 permintaan / 0.30 gesekan / 0.10 margin (bagian 2.2) | Keputusan bisnis eksplisit yang ditetapkan sekali sebelum melihat nilai per industri (praktik standar SAW: bobot ditetapkan pembuat keputusan, bukan dihitung dari data) | Regresi atau optimasi bobot butuh data hasil historis (omzet, closing) yang belum ada; bobot jujur dinyatakan sebagai pilihan manusia yang bisa dikritik dan diganti lewat uji sensitivitas (bagian 9) |
+| `kompetisi_terukur = 1 + 4 × (1 - cakupan)` (bagian 3) | **Normalisasi min-max** ke 0-1 lalu regangan linear ke 1-5; arahnya dibalik (`1 - x`) karena pasokan tinggi berarti kompetisi tinggi berarti skor rendah | Regangan `1 + 4x` menjaga hasil tetap di skala 1-5 yang sama dengan versi hipotesis, sehingga kolomnya bisa ditukar di rumus bobot tanpa menyentuh bobot lain |
+| Bobot kekuatan agency `1 + 0.5 × verifikasi + 0.5 × layanan/5` (bagian 3.1) | Confidence weighting: tiap "pesaing" ditimbang dari kualitas buktinya | Agency yang hanya muncul di satu direktori tidak setara dengan agency bersitus terverifikasi dan lima kategori layanan |
+| `skor_prioritas = 0.4 × frekuensi + 0.4 × dampak + 0.2 × kesiapan` (bagian 4) | SAW yang sama dengan bagian 2; rasio 40/40/20 adalah keputusan bisnis dengan rasional tertulis (bagian 4.2) | Satu metode untuk seluruh dokumen supaya pembaca tidak perlu belajar dua rumus |
+| `gap = kepentingan - kinerja` beserta kuadrannya (bagian 5) | **Importance-Performance Analysis (IPA)**, Martilla & James (1977), teknik klasik riset pemasaran yang masih jadi standar buku teks | Framework yang persis menjawab "janji mana yang layak dijadikan positioning": harapan tinggi tapi kinerja pasar rendah = peluang |
+| `demand = 1 + 4 × (0.6 × sinyal + 0.4 × pasokan)` (bagian 7.3) | **Indeks komposit**: tiap komponen dinormalisasi dibagi nilai maksimum wilayahnya, digabung tertimbang 60/40, lalu diregangkan dengan `1 + 4x` yang sama dengan bagian 3 | 60/40 memisahkan dua bukti yang sumbernya berbeda (permintaan dari sisi pencari, pasokan dari sisi penjual); normalisasi dalam wilayah wajib karena volume pencarian antar wilayah tidak sebanding; `1 + 4x` menjaga konsistensi skala 1-5 |
+| `posisi_vs_pasar` (bagian 7.3) | Rasio harga sederhana (price positioning ratio) | Satu angka langsung terbaca: <1 lebih murah dari pasar, >1 premium |
+| Harga paket & harga ideal (bagian 7) | **Anchoring**: harga diposisikan relatif terhadap jangkar yang bisa diverifikasi (pricelist publik kompetitor, benchmark biaya iklan) dan tangga paket internal | Tanpa data willing-to-pay, jangkar publik adalah satu-satunya batas yang bisa dicek orang lain; aturan retainer 10-15% omzet bulanan adalah konvensi umum industri jasa |
+
+### 11.2 Kenapa tidak memakai metode yang lebih canggih
+
+- **Regresi dan machine learning butuh data hasil.** Belum ada historis omzet atau
+  closing per industri untuk melatih model. Model canggih di atas data yang tidak ada
+  hanya menghasilkan overfitting yang terlihat serius.
+- **AHP/TOPSIS menambah presisi semu.** Perbandingan berpasangan tetap diisi penilai
+  yang sama (single rater, lihat bagian 10), jadi presisinya naik di kertas saja
+  sementara sumber bias tidak berubah.
+- **SAW + BARS + IPA dipilih justru karena sederhana.** Setiap pembaca bisa mengaudit,
+  mengkritik, dan mengganti angkanya tanpa memahami matematika di baliknya. Bagian
+  paling rawan (bobot dan skor mentah) sengaja dibuat polos agar mudah diserang,
+  dan dokumen ini adalah tempat menyerangnya.
+
+---
+
+## 12. Kamus dashboard untuk presentasi: arti istilah & cara baca tiap tab
 
 Bagian ini disiapkan agar dashboard bisa dipresentasikan ke **orang awam** (pemilik
 usaha, rekan non-marketing, calon investor). Bacakan dulu enam istilah kunci di
-11.1, lalu saat berpindah tab gunakan kalimat pembuka "Tab ini menjawab
+12.1, lalu saat berpindah tab gunakan kalimat pembuka "Tab ini menjawab
 pertanyaan ..." di tiap subbab.
 
-### 11.1 Enam istilah kunci (jelaskan dulu sebelum masuk tab)
+### 12.1 Enam istilah kunci (jelaskan dulu sebelum masuk tab)
 
 | Istilah                          | Arti untuk orang awam                                                                                                                                                                                                                                                                                                                  |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -495,7 +532,7 @@ pertanyaan ..." di tiap subbab.
 | **CPM / CPC / CPL**              | Tiga cara harga iklan digital diukur. CPM = biaya setiap 1.000 orang _melihat_ iklan (seperti biaya papan iklan disorot mata). CPC = biaya setiap satu orang _mengklik_ (masuk etalase). CPL = biaya setiap satu orang _meninggalkan kontak_ (calon pelanggan nyata). Semakin ke bawah, semakin mahal tapi semakin dekat ke penjualan. |
 | **Demand vs pasokan**            | Demand = seberapa banyak pasar membutuhkan/mencari suatu layanan. Pasokan = seberapa banyak penyedia yang menawarkannya. Peluang bagus = demand tinggi + pasokan rendah (banyak yang cari, sedikit yang jual).                                                                                                                         |
 
-### 11.2 Tab RINGKASAN - "Bagaimana kondisi pasar Kalimantan?"
+### 12.2 Tab RINGKASAN - "Bagaimana kondisi pasar Kalimantan?"
 
 Peta besar pasar sebelum masuk detail. Kalimat pembuka: _"Sebelum bicara strategi,
 ini gambaran medannya: ekonominya tumbuh, penduduknya sudah online, dan ada
@@ -509,7 +546,7 @@ kompetitor nomor satu yang harus kita kalahkan."_
 | Grafik **Platform terbesar**                                        | Di mana orang Kalimantan/Indonesia berkumpul online (TikTok, Instagram, dst), dalam juta pengguna. Menjawab "iklan kita harus tayang di mana".                                                                                           |
 | Grafik **Skor industri**                                            | Peringkat 30 industri dari yang paling menjanjikan. Batang paling atas = industri yang paling layak digodok dulu.                                                                                                                        |
 
-### 11.3 Tab PASAR KOTA - "Di kota mana kita bermain?"
+### 12.3 Tab PASAR KOTA - "Di kota mana kita bermain?"
 
 | Yang tampil              | Menjelaskan apa & cara membacanya                                                                                                                                          |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -519,7 +556,7 @@ kompetitor nomor satu yang harus kita kalahkan."_
 | Grafik **UMKM**          | Jumlah usaha kecil yang terdata per kota = jumlah calon klien potensial di segmen bawah.                                                                                   |
 | Tabel kota               | Detail lengkap per kota + status data (terverifikasi/estimasi) - tunjukkan ini kalau audiens bertanya "dari mana angkanya".                                                |
 
-### 11.4 Tab INDUSTRI WINNING - "Klien dari industri apa yang kita kejar?"
+### 12.4 Tab INDUSTRI WINNING - "Klien dari industri apa yang kita kejar?"
 
 Kalimat pembuka: _"Kita tidak bisa melayani semua orang. Data ini bilang industri
 mana yang paling menguntungkan untuk digodok duluan."_
@@ -532,13 +569,13 @@ mana yang paling menguntungkan untuk digodok duluan."_
 | **Radar** (sarang laba-laba)                           | Perbandingan satu industri vs rata-rata: makin lebar bentuknya di satu arah, makin kuat industri itu di kriteria tersebut (pasar besar, tumbuh, suka belanja digital, kompetisi longgar, mudah diakses, margin bagus).                                         |
 | Grafik **Dampak data kompetitor** & tabel perbandingan | Bukti kejujuran metodologi: ketika skor kompetisi dihitung dari 50 agency nyata (bukan tebakan), peringkat beberapa industri naik/turun. Naik (hijau) = ternyata lebih longgar dari dugaan; turun (oranye) = lebih ramai.                                      |
 
-### 11.5 Tab INDUSTRI POTENSIAL - "Yang belum utama tapi layak dipantau"
+### 12.5 Tab INDUSTRI POTENSIAL - "Yang belum utama tapi layak dipantau"
 
 Industri dengan skor di bawah ambang juara. Sama persis grafiknya dengan tab
 Industri Winning; pesannya: _"Ini cadangan - kalau tim punya sisa kapasitas,
 industri ini bisa dicoba, tapi jangan utamakan budget."_
 
-### 11.6 Tab KOMPETITOR AGENCY - "Siapa lawan kita dan seberapa kuat?"
+### 12.6 Tab KOMPETITOR AGENCY - "Siapa lawan kita dan seberapa kuat?"
 
 | Yang tampil                              | Menjelaskan apa & cara membacanya                                                                                                                                    |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -549,7 +586,7 @@ industri ini bisa dicoba, tapi jangan utamakan budget."_
 | **Matrix layanan** (kotak-kotak)         | Tiap baris = 1 agency, tiap kolom = 1 layanan; kotak hijau berarti agency itu menjualnya. Sekilas terlihat siapa "toko serba ada" dan siapa spesialis.               |
 | Tabel database + **Sinyal harga publik** | Daftar pesaing dengan kekuatan/celah masing-masing - ini "buku catatan mata-mata" saat presentasi; harga yang terlihat adalah harga pajangan, bukan penawaran resmi. |
 
-### 11.7 Tab LAYANAN WINNING - "Produk kita dijual bagaimana?"
+### 12.7 Tab LAYANAN WINNING - "Produk kita dijual bagaimana?"
 
 | Yang tampil                                        | Menjelaskan apa & cara membacanya                                                                                                                                            |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -559,7 +596,7 @@ industri ini bisa dicoba, tapi jangan utamakan budget."_
 | Grafik **Layanan paling sering dijual kompetitor** | Pengingat pasar: banyak yang jual konten/website → kami membedakan diri lewat "terukur" (laporan & KPI), bukan lewat harga termurah.                                         |
 | **Benchmark retainer**                             | Rentang langganan pasarnya - pembanding supaya tangga harga kami tidak jauh melenceng.                                                                                       |
 
-### 11.8 Tab LAYANAN IMPOST - "Layanan kami sendiri: harga ideal & ramai tidaknya permintaan"
+### 12.8 Tab LAYANAN IMPOST - "Layanan kami sendiri: harga ideal & ramai tidaknya permintaan"
 
 | Yang tampil                                                    | Menjelaskan apa & cara membacanya                                                                                                                                                                                                                                             |
 | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -570,7 +607,7 @@ industri ini bisa dicoba, tapi jangan utamakan budget."_
 | **Harga pasar vs harga ideal** (garis abu vs hijau, skala log) | Garis abu-abu = rentang harga yang dipajang pasar; belah ketupat hijau = harga ideal usulan kami. Skala log dipakai karena harganya melompat (ratusan ribu sampai puluhan juta) - jangan bacakan angkanya persis, bacakan posisinya: "ideal kami duduk di bagian mana pasar". |
 | Tabel harga & demand                                           | Angka lengkap + kolom "Ideal vs pasar" (di bawah 1 = lebih murah dari pasar, di atas 1 = premium) + dasar pertimbangan harga. Tekankan label hipotesis: ini usulan yang harus diuji survei.                                                                                   |
 
-### 11.9 Tab SOSIAL MEDIA - "Iklan digital itu mahal tidak?"
+### 12.9 Tab SOSIAL MEDIA - "Iklan digital itu mahal tidak?"
 
 | Yang tampil                                          | Menjelaskan apa & cara membacanya                                                                                                                                                                             |
 | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -579,7 +616,7 @@ industri ini bisa dicoba, tapi jangan utamakan budget."_
 | **Benchmark biaya iklan** (garis-garis dengan titik) | Tiap garis = rentang harga wajar satu jenis iklan (CPM/CPC/CPL per kanal); titik = nilai tengah. Skala log agar semua muat. Untuk audiens: _"pasang iklan Rp1 juta bukan angka aneh - ini rentang pasarnya."_ |
 | **Prioritas kanal per industri** (heatmap) & tabel   | Kotak makin gelap = kanal itu makin penting untuk industri tsb. Contoh baca: properti → Google & website; F&B → TikTok/Instagram.                                                                             |
 
-### 11.10 Tab PAIN POINT OWNER - "Masalah apa yang paling menyiksa calon klien?"
+### 12.10 Tab PAIN POINT OWNER - "Masalah apa yang paling menyiksa calon klien?"
 
 Kalimat pembuka: _"Kami tidak menjual 'sosmed'; kami menjual obat untuk luka ini."_
 
@@ -589,14 +626,14 @@ Kalimat pembuka: _"Kami tidak menjual 'sosmed'; kami menjual obat untuk luka ini
 | Grafik **12 prioritas tertinggi**                                   | Peringkat masalah dari skor 0,4×frekuensi + 0,4×dampak + 0,2×kesiapan bayar.                                                                                                                                                                                    |
 | Kuadran (Kritis / Sering tapi ringan / Jarang tapi berat / Monitor) | Sortir masalah: Kritis = sering + parah (prioritas obat); sisanya dipantau.                                                                                                                                                                                     |
 
-### 11.11 Tab PERSEPSI AGENCY - "Kenapa klien tidak percaya agency?"
+### 12.11 Tab PERSEPSI AGENCY - "Kenapa klien tidak percaya agency?"
 
 | Yang tampil                                            | Menjelaskan apa & cara membacanya                                                                                                                                         |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Grafik **Kepentingan vs kinerja** (batang berpasangan) | Batang hijau = apa yang paling diharapkan klien (mis. laporan transparan); batang oranye = penilaian kinerja agency pada umumnya. Selisih keduanya = **gap** kepercayaan. |
 | KPI Gap terbesar & tabel kesenjangan                   | Dimensi dengan celah paling lebar = janji utama pemasaran kami (mis. "laporan yang bisa dipahami orang biasa").                                                           |
 
-### 11.12 Tab METODOLOGI - "Dari mana semua angka ini?"
+### 12.12 Tab METODOLOGI - "Dari mana semua angka ini?"
 
 Untuk audiens awam cukup tiga kalimat: **(1)** data dikumpulkan dari sumber publik
 resmi dan website kompetitor; **(2)** angka hipotesis diberi label jelas dan rumusnya
@@ -604,3 +641,15 @@ terbuka di `KNOWLEDGE.md`; **(3)** langkah validasi (survei 150-200 responden) s
 dirancang. Tabel _data dictionary_ dipakai kalau ada yang bertanya file apa saja
 yang ada; tombol **Jalankan ulang analisis** membuktikan semua angka bisa
 dihitung ulang, bukan tempelan manual.
+
+### 12.13 Kalimat penutup yang disarankan
+
+> "Semua angka hijau bisa Anda cek sendiri di internet. Semua angka kuning adalah
+> dugaan kami yang jujur dilabeli hipotesis - karena itu tahap survei perlu dijalankan
+> sebelum budget dikunci."
+
+---
+
+_Dibuat sebagai dokumentasi metodologi proyek riset pasar agency digital marketing
+Kalimantan. Rumus yang dikutip di dokumen ini identik dengan yang dijalankan
+`dashboard/analysis.py`; jika keduanya berbeda, kode yang benar._
