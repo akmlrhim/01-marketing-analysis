@@ -280,7 +280,6 @@ layanan_industri = data["layanan_industri"]
 layanan_addon = data["layanan_addon"]
 impost = data["impost"]
 metrics = data["metrics"]
-kaltim_row = makro.loc[makro["provinsi"] == "Kalimantan Timur"].iloc[0]
 
 st.markdown(
     '<div class="warn"><b>Status data:</b> kumpulan data diperluas dari sumber publik, tetapi '
@@ -349,7 +348,6 @@ with st.sidebar:
     st.divider()
     st.caption("Sumber: BPS, BI, APJII 2025, DataReportal 2026, Dukcapil, website kompetitor.")
 
-makro_f = makro[makro["provinsi"].isin(provinsi_sel)].copy()
 industri_f = industri[industri["industri"].isin(industri_sel)].copy()
 if dasar_skor == "Terukur data kompetitor":
     industri_f = industri_f.drop(
@@ -379,7 +377,6 @@ else:
     tab_impost,
     tab_sosmed,
     tab_persepsi,
-    tab_ringkasan,
     tab_kota,
     tab_metodologi,
 ) = st.tabs(
@@ -392,186 +389,10 @@ else:
         "Layanan IMPOST",
         "Sosial Media",
         "Persepsi Agency",
-        "Ringkasan",
         "Pasar Kota",
         "Metodologi",
     ]
 )
-
-# ===========================================================================
-# TAB: RINGKASAN
-# ===========================================================================
-with tab_ringkasan:
-    c1, c2, c3, c4, c5 = st.columns(5)
-    with c1:
-        kpi("Provinsi", str(metrics["n_provinsi"]), "Kalimantan Timur → Utara")
-    with c2:
-        kpi("Kota", str(metrics["n_kota"]), "kota besar dipetakan", accent=BLUE)
-    with c3:
-        kpi(
-            "Kompetitor",
-            str(metrics["n_kompetitor"]),
-            f"{metrics['n_kompetitor_lokal']} lokal · {metrics['n_kompetitor_nasional']} nasional",
-            accent=VIOLET,
-        )
-    with c4:
-        kpi("Industri", str(metrics["n_industri"]), "dinilai 6 kriteria", accent=AMBER)
-    with c5:
-        kpi("Sumber", str(metrics["n_sumber"]), "data & benchmark", accent=TEAL)
-
-    st.write("")
-    a, b, c, d = st.columns(4)
-    with a:
-        kpi(
-            "Tumbuh tercepat",
-            f"{fmt_dec(metrics['pertumbuhan_tercepat'])}%",
-            f"{metrics['provinsi_tumbuh_tercepat']} ({metrics['tahun_pertumbuhan_tercepat']})",
-            accent=TEAL,
-        )
-    with b:
-        kpi(
-            "Internet tertinggi",
-            f"{fmt_dec(metrics['internet_tertinggi'])}%",
-            metrics["provinsi_internet_tertinggi"],
-            accent=BLUE,
-        )
-    with c:
-        kpi(
-            "Industri prioritas",
-            metrics["industri_prioritas"].split(" & ")[0],
-            f"Skor {fmt_dec(metrics['skor_industri_prioritas'])}/5",
-            accent=AMBER,
-        )
-    with d:
-        kpi(
-            "Pain point #1",
-            "Lead follow-up",
-            f"Skor {fmt_dec(metrics['skor_pain_prioritas'])}/5",
-            accent=RED,
-        )
-
-    st.write("")
-    left, right = st.columns([1.15, 1])
-    with left:
-        st.markdown("#### Pertumbuhan ekonomi")
-        if len(makro_f):
-            growth = makro_f.melt(
-                id_vars=["provinsi"],
-                value_vars=["pertumbuhan_2024_persen", "pertumbuhan_2025_persen"],
-                var_name="Tahun",
-                value_name="Pertumbuhan",
-            )
-            growth["Tahun"] = growth["Tahun"].map(
-                {"pertumbuhan_2024_persen": "2024", "pertumbuhan_2025_persen": "2025"}
-            )
-            growth = growth.dropna(subset=["Pertumbuhan"])
-            fig = px.bar(
-                growth,
-                x="provinsi",
-                y="Pertumbuhan",
-                color="Tahun",
-                barmode="group",
-                text=[fmt_dec(v) for v in growth["Pertumbuhan"]],
-                color_discrete_map={"2024": "#64748B", "2025": TEAL},
-                labels={"provinsi": "", "Pertumbuhan": "% (yoy)"},
-            )
-            fig.update_traces(textposition="outside", cliponaxis=False)
-            chart(style_fig(fig, 340), "growth")
-        else:
-            st.info("Pilih minimal satu provinsi pada filter sidebar.")
-        st.markdown(
-            f'<div class="note"><b>Baca:</b> di antara angka terbaru tiap provinsi, '
-            f'{metrics["provinsi_tumbuh_tercepat"]} tertinggi '
-            f'({fmt_dec(metrics["pertumbuhan_tercepat"])}%, '
-            f'{metrics["tahun_pertumbuhan_tercepat"]}). Kaltim turun dari '
-            f'{fmt_dec(kaltim_row["pertumbuhan_2024_persen"])}% (2024) ke '
-            f'{fmt_dec(kaltim_row["pertumbuhan_2025_persen"])}% (2025). '
-            "<b>Interpretasi:</b> pelemahan Kaltim bertepatan dengan periode setelah puncak IKN; "
-            "klaim ini belum diuji dengan data investasi.</div>",
-            unsafe_allow_html=True,
-        )
-
-    with right:
-        st.markdown("#### Penetrasi internet 2025")
-        if len(makro_f):
-            net = makro_f.sort_values("penetrasi_internet_2025_persen")
-            fig = px.bar(
-                net,
-                x="penetrasi_internet_2025_persen",
-                y="provinsi",
-                orientation="h",
-                text=[fmt_dec(v) for v in net["penetrasi_internet_2025_persen"]],
-                color="kelas_penetrasi",
-                color_discrete_map={
-                    "Tinggi": TEAL,
-                    "Menengah": "#5EEAD4",
-                    "Menengah-rendah": "#F59E0B",
-                },
-                labels={"penetrasi_internet_2025_persen": "% populasi", "provinsi": ""},
-                range_x=[0, 100],
-            )
-            fig.add_vline(
-                x=NATIONAL_INTERNET,
-                line_dash="dash",
-                line_color=SLATE,
-                annotation_text=f"Nasional {fmt_dec(NATIONAL_INTERNET)}%",
-                annotation_position="top",
-            )
-            fig.update_traces(textposition="outside", cliponaxis=False)
-            chart(style_fig(fig, 340, legend=False), "net")
-        else:
-            st.info("Pilih minimal satu provinsi pada filter sidebar.")
-        st.markdown(
-            f'<div class="note"><b>Baca:</b> {metrics["provinsi_internet_tertinggi"]} '
-            f'({fmt_dec(metrics["internet_tertinggi"])}%) dan Kaltim '
-            f'({fmt_dec(kaltim_row["penetrasi_internet_2025_persen"])}%) di atas rata-rata '
-            f'nasional ({fmt_dec(metrics["internet_nasional"])}%), sedangkan '
-            f'<b>{metrics["provinsi_internet_terendah"]} '
-            f'{fmt_dec(metrics["internet_terendah"])}%</b>. '
-            "<b>Interpretasi:</b> di wilayah dengan jangkauan terendah, rencana kampanye "
-            "perlu menimbang kanal luring, bukan hanya kanal digital.</div>",
-            unsafe_allow_html=True,
-        )
-
-    st.write("")
-    left2, right2 = st.columns([1, 1.15])
-    with left2:
-        st.markdown("#### Platform terbesar (juta)")
-        plat = platform.head(8).sort_values("jangkauan_iklan_juta")
-        fig = px.bar(
-            plat,
-            x="jangkauan_iklan_juta",
-            y="platform",
-            orientation="h",
-            text_auto=".0f",
-            color="kategori",
-            color_discrete_sequence=PALETTE,
-            labels={"jangkauan_iklan_juta": "juta pengguna", "platform": ""},
-        )
-        fig.update_traces(textposition="outside", cliponaxis=False)
-        chart(style_fig(fig, 330), "platform")
-        st.caption("WhatsApp & Google Search adalah estimasi, bukan ad reach resmi.")
-
-    with right2:
-        st.markdown("#### Skor industri (0-5)")
-        top = industri_f.sort_values("skor_tertimbang").tail(12)
-        fig = px.bar(
-            top,
-            x="skor_tertimbang",
-            y="industri",
-            orientation="h",
-            text=[fmt_dec(v) for v in top["skor_tertimbang"]],
-            color="prioritas",
-            color_discrete_map={
-                "Prioritas inti": TEAL,
-                "Prioritas": "#5EEAD4",
-                "Potensial": "#94A3B8",
-            },
-            labels={"skor_tertimbang": "skor", "industri": ""},
-            range_x=[3.0, 4.5],
-        )
-        fig.update_traces(textposition="outside", cliponaxis=False)
-        chart(style_fig(fig, 330, legend=False), "industry_rank")
 
 # ===========================================================================
 # TAB: PASAR KOTA
