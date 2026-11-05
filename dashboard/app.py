@@ -18,35 +18,35 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-TEAL = "#0F766E"
-SLATE = "#334155"
-AMBER = "#D97706"
-RED = "#DC2626"
-BLUE = "#2563EB"
-VIOLET = "#7C3AED"
-PALETTE = ["#0F766E", "#D97706", "#2563EB", "#DC2626", "#7C3AED", "#0891B2", "#65A30D"]
+TEAL = "#2DD4BF"
+SLATE = "#CBD5E1"
+AMBER = "#FBBF24"
+RED = "#F87171"
+BLUE = "#60A5FA"
+VIOLET = "#A78BFA"
+PALETTE = ["#2DD4BF", "#FBBF24", "#60A5FA", "#F87171", "#A78BFA", "#22D3EE", "#A3E635"]
 
 st.markdown(
     """
     <style>
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
-    header[data-testid="stHeader"] { background: #F8FAFC; }
+    header[data-testid="stHeader"] { background: #0F172A; }
     [data-testid="stMain"] { margin-top: 3.75rem; height: calc(100% - 3.75rem); }
-    h1, h2, h3 { color: #0F172A; letter-spacing: -0.02em; }
+    h1, h2, h3 { color: #F1F5F9; letter-spacing: -0.02em; }
     h2 { font-size: 1.3rem; margin-top: .3rem; }
     h3 { font-size: 1.02rem; }
-    .kpi { background:#fff; border:1px solid #E2E8F0; border-radius:14px;
-           padding:14px 16px; box-shadow:0 1px 2px rgba(15,23,42,.04); min-height:102px; }
-    .kpi-label { color:#64748B; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .kpi { background:#1E293B; border:1px solid #334155; border-radius:14px;
+           padding:14px 16px; box-shadow:0 1px 2px rgba(0,0,0,.35); min-height:102px; }
+    .kpi-label { color:#94A3B8; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
     .kpi-value { font-size:23px; font-weight:750; line-height:1.2; margin-top:4px; }
-    .kpi-sub { color:#64748B; font-size:11px; margin-top:3px; }
-    .note { background:#F0FDFA; border-left:3px solid #0F766E; border-radius:8px;
-            padding:10px 14px; color:#134E4A; font-size:13px; margin:6px 0 12px; }
-    .warn { background:#FFFBEB; border-left:3px solid #D97706; border-radius:8px;
-            padding:10px 14px; color:#78350F; font-size:13px; margin:6px 0 12px; }
-    .small { color:#64748B; font-size:12px; }
-    div[data-testid="stDataFrame"] { border:1px solid #E2E8F0; border-radius:10px; }
-    section[data-testid="stSidebar"] { background:#F8FAFC; border-right:1px solid #E2E8F0; }
+    .kpi-sub { color:#94A3B8; font-size:11px; margin-top:3px; }
+    .note { background:rgba(45,212,191,.08); border-left:3px solid #2DD4BF; border-radius:8px;
+            padding:10px 14px; color:#99F6E4; font-size:13px; margin:6px 0 12px; }
+    .warn { background:rgba(251,191,36,.08); border-left:3px solid #FBBF24; border-radius:8px;
+            padding:10px 14px; color:#FDE68A; font-size:13px; margin:6px 0 12px; }
+    .small { color:#94A3B8; font-size:12px; }
+    div[data-testid="stDataFrame"] { border:1px solid #334155; border-radius:10px; }
+    section[data-testid="stSidebar"] { background:#0F172A; border-right:1px solid #334155; }
     [role="tablist"] { gap: 10px; flex-wrap: wrap !important; overflow: visible !important; }
     [role="tab"] { border-radius:8px 8px 0 0; padding:8px 14px; }
     </style>
@@ -62,7 +62,7 @@ def load_data() -> dict:
 
 def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figure:
     fig.update_layout(
-        template="plotly_white",
+        template="plotly_dark",
         height=height,
         margin=dict(l=8, r=36, t=38, b=8),
         separators=",.",
@@ -72,8 +72,8 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         showlegend=legend,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
     )
-    fig.update_xaxes(showgrid=False, linecolor="#E2E8F0")
-    fig.update_yaxes(gridcolor="#E2E8F0", zeroline=False)
+    fig.update_xaxes(showgrid=False, linecolor="#334155")
+    fig.update_yaxes(gridcolor="#334155", zeroline=False)
     return fig
 
 
@@ -153,9 +153,9 @@ def render_industri(df: pd.DataFrame, key: str, baseline: pd.DataFrame) -> None:
             "skor_tertimbang": "Skor daya tarik",
         },
     )
-    fig.add_vline(x=3, line_dash="dot", line_color="#CBD5E1")
-    fig.add_hline(y=3.6, line_dash="dot", line_color="#CBD5E1")
-    fig.update_traces(marker=dict(line=dict(width=1, color="#FFFFFF")))
+    fig.add_vline(x=3, line_dash="dot", line_color="#475569")
+    fig.add_hline(y=3.6, line_dash="dot", line_color="#475569")
+    fig.update_traces(marker=dict(line=dict(width=1, color="#0F172A")))
     chart(style_fig(fig, 450), f"{key}_scatter")
 
     col_a, col_b = st.columns([1.05, 1])
@@ -221,7 +221,7 @@ def render_industri(df: pd.DataFrame, key: str, baseline: pd.DataFrame) -> None:
                 r=avg + [avg[0]],
                 theta=labels + [labels[0]],
                 name="Rata-rata",
-                line=dict(color="#94A3B8", width=1, dash="dot"),
+                line=dict(color="#64748B", width=1, dash="dot"),
                 fill="none",
             )
         )
@@ -444,7 +444,7 @@ with tab_ringkasan:
             color="Tahun",
             barmode="group",
             text=[fmt_dec(v) for v in growth["Pertumbuhan"]],
-            color_discrete_map={"2024": "#CBD5E1", "2025": TEAL},
+            color_discrete_map={"2024": "#64748B", "2025": TEAL},
             labels={"provinsi": "", "Pertumbuhan": "% (yoy)"},
         )
         fig.update_traces(textposition="outside", cliponaxis=False)
@@ -532,7 +532,7 @@ with tab_ringkasan:
             color_discrete_map={
                 "Prioritas inti": TEAL,
                 "Prioritas": "#5EEAD4",
-                "Potensial": "#CBD5E1",
+                "Potensial": "#94A3B8",
             },
             labels={"skor_tertimbang": "skor", "industri": ""},
             range_x=[3.0, 4.5],
@@ -577,7 +577,7 @@ with tab_kota:
             zoom=4.3,
             center={"lat": 0.2, "lon": 113.8},
             size_max=42,
-            map_style="open-street-map",
+            map_style="carto-darkmatter",
             color_discrete_sequence=PALETTE,
             labels={
                 "penduduk_fmt": "Penduduk",
@@ -617,7 +617,7 @@ with tab_kota:
             orientation="h",
             text=[fmt_dec(v) for v in umk_sorted["umk_juta"]],
             color="umk_juta",
-            color_continuous_scale=["#CCFBF1", TEAL],
+            color_continuous_scale=["#134E4A", TEAL],
             labels={"umk_juta": "Rp juta", "kota": ""},
         )
         fig.update_layout(coloraxis_showscale=False)
@@ -634,7 +634,7 @@ with tab_kota:
             orientation="h",
             text=[fmt_int(v) for v in umkm["umkm_unit"]],
             color="umkm_per_1000_penduduk",
-            color_continuous_scale=["#FEF3C7", AMBER],
+            color_continuous_scale=["#78350F", AMBER],
             labels={"umkm_unit": "unit UMKM", "kota": ""},
         )
         chart(style_fig(fig, 300, legend=False), "city_umkm")
@@ -763,13 +763,13 @@ with tab_industri_winning:
             orientation="h",
             text="delta_peringkat",
             color="delta_peringkat",
-            color_continuous_scale=["#F59E0B", "#E2E8F0", TEAL],
+            color_continuous_scale=["#F59E0B", "#334155", TEAL],
             color_continuous_midpoint=0,
             labels={"delta_peringkat": "selisih peringkat", "industri": ""},
         )
         fig.update_traces(textposition="outside", cliponaxis=False)
         fig.update_layout(coloraxis_showscale=False)
-        fig.add_vline(x=0, line_color="#CBD5E1")
+        fig.add_vline(x=0, line_color="#475569")
         chart(style_fig(fig, 560, legend=False), "industri_delta")
 
     banding = industri[
@@ -894,7 +894,7 @@ with tab_kompetitor:
             orientation="h",
             text_auto=True,
             color="jumlah",
-            color_continuous_scale=["#CCFBF1", TEAL],
+            color_continuous_scale=["#134E4A", TEAL],
             labels={"jumlah": "jumlah agency", "kota_utama": ""},
         )
         fig.update_layout(coloraxis_showscale=False)
@@ -924,7 +924,7 @@ with tab_kompetitor:
         orientation="h",
         text_auto=True,
         color="jumlah",
-        color_continuous_scale=["#E2E8F0", TEAL],
+        color_continuous_scale=["#334155", TEAL],
         labels={"jumlah": "jumlah kompetitor", "layanan": ""},
     )
     fig.update_layout(coloraxis_showscale=False)
@@ -936,7 +936,7 @@ with tab_kompetitor:
     fig = px.imshow(
         heat,
         aspect="auto",
-        color_continuous_scale=[[0, "#F8FAFC"], [1, TEAL]],
+        color_continuous_scale=[[0, "#1E293B"], [1, TEAL]],
         text_auto=True,
         labels=dict(color=""),
     )
@@ -1094,7 +1094,7 @@ with tab_layanan:
         orientation="h",
         text_auto=True,
         color="jumlah",
-        color_continuous_scale=["#E2E8F0", TEAL],
+        color_continuous_scale=["#334155", TEAL],
         labels={"jumlah": "jumlah kompetitor", "layanan": ""},
     )
     fig.update_layout(coloraxis_showscale=False)
@@ -1173,7 +1173,7 @@ with tab_impost:
     fig = px.imshow(
         heat_imp,
         aspect="auto",
-        color_continuous_scale=["#F8FAFC", "#99F6E4", TEAL],
+        color_continuous_scale=["#1E293B", "#99F6E4", TEAL],
         text_auto=True,
         zmin=1,
         zmax=5,
@@ -1230,7 +1230,7 @@ with tab_impost:
             orientation="h",
             text_auto=True,
             color="pasokan_kompetitor",
-            color_continuous_scale=["#FEF3C7", AMBER],
+            color_continuous_scale=["#78350F", AMBER],
             labels={"pasokan_kompetitor": "jumlah kompetitor", "layanan": ""},
         )
         fig.update_layout(coloraxis_showscale=False)
@@ -1482,7 +1482,7 @@ with tab_sosmed:
     fig = px.imshow(
         channel_top,
         aspect="auto",
-        color_continuous_scale=["#F8FAFC", "#99F6E4", TEAL],
+        color_continuous_scale=["#1E293B", "#99F6E4", TEAL],
         text_auto=True,
         labels=dict(color="prioritas"),
     )
@@ -1541,9 +1541,9 @@ with tab_pain:
             "dampak": "Dampak ke bisnis (1-5)",
         },
     )
-    fig.add_vline(x=4, line_dash="dot", line_color="#CBD5E1")
-    fig.add_hline(y=4, line_dash="dot", line_color="#CBD5E1")
-    fig.update_traces(marker=dict(line=dict(width=1, color="#FFFFFF")))
+    fig.add_vline(x=4, line_dash="dot", line_color="#475569")
+    fig.add_hline(y=4, line_dash="dot", line_color="#475569")
+    fig.update_traces(marker=dict(line=dict(width=1, color="#0F172A")))
     chart(style_fig(fig, 440), "pain_bubble")
 
     st.markdown("#### 12 prioritas tertinggi")
