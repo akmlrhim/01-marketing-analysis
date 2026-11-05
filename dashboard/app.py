@@ -30,6 +30,7 @@ st.markdown(
     """
     <style>
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
+    *, body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
     header[data-testid="stHeader"] { background: #0F172A; }
     [data-testid="stMain"] { margin-top: 3.75rem; height: calc(100% - 3.75rem); }
     h1, h2, h3 { color: #F1F5F9; letter-spacing: -0.02em; }
@@ -66,7 +67,7 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         height=height,
         margin=dict(l=8, r=36, t=38, b=8),
         separators=",.",
-        font=dict(family="Inter, Segoe UI, sans-serif", size=12, color=SLATE),
+        font=dict(family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif", size=12, color=SLATE),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         showlegend=legend,
