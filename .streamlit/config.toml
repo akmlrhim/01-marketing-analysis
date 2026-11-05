@@ -4,7 +4,7 @@ primaryColor = "#2DD4BF"
 backgroundColor = "#0F172A"
 secondaryBackgroundColor = "#1E293B"
 textColor = "#E2E8F0"
-font = "'Fira Sans', system-ui, sans-serif"
+font = "'Source Sans 3', system-ui, sans-serif"
 
 [server]
 headless = true

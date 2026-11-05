@@ -29,11 +29,9 @@ PALETTE = ["#2DD4BF", "#FBBF24", "#60A5FA", "#F87171", "#A78BFA", "#22D3EE", "#A
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
-    *, body { font-family: "Fira Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
-    .kpi-value, div[data-testid="stDataFrame"] {
-        font-family: "Fira Code", ui-monospace, "Cascadia Mono", monospace !important; }
+    *, body { font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
     header[data-testid="stHeader"] { background: #0F172A; }
     [data-testid="stMain"] { margin-top: 3.75rem; height: calc(100% - 3.75rem); }
     h1, h2, h3, h4 { color: #F1F5F9; letter-spacing: -0.01em; }
@@ -87,7 +85,7 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         height=height,
         margin=dict(l=8, r=36, t=38, b=8),
         separators=",.",
-        font=dict(family="Fira Sans, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+        font=dict(family="Source Sans 3, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
                   size=12, color=SLATE),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -97,7 +95,7 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         hoverlabel=dict(
             bgcolor="#1E293B",
             bordercolor="#475569",
-            font=dict(family="Fira Sans, system-ui, Segoe UI, Roboto, sans-serif",
+            font=dict(family="Source Sans 3, system-ui, Segoe UI, Roboto, sans-serif",
                       size=12, color="#F1F5F9"),
         ),
     )
