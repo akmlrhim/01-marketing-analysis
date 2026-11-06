@@ -110,8 +110,9 @@ Gaya dashboard gelap utilitarian dengan tiga titik kustomisasi di `app.py`:
 3. **Radius/lebar** — `--radius` dan `--sidebar` di `:root`.
 
 Otomatis: responsif (sidebar jadi bar atas di layar sempit), animasi stagger
-kartu metrik, font IBM Plex Sans untuk teks halaman, dan kartu stats memakai
-`st.metric` native Streamlit dengan font default-nya.
+kartu metrik, dan font Source Sans 3 di seluruh halaman (kartu stats memakai
+`st.metric` native Streamlit). Grafik Plotly dibuat noninteraktif: zoom, pan,
+dan seleksi dimatikan; hover tetap aktif.
 
 ## 5. Catatan penting
 

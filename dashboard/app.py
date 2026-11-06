@@ -1,7 +1,8 @@
 """Streamlit dashboard: Riset Pasar Agency Digital Marketing Kalimantan.
 
-Gaya: dashboard gelap utilitarian, aksen merah bata, font IBM Plex Sans/Mono.
+Gaya: dashboard gelap utilitarian, aksen merah bata, font Source Sans 3.
 Navigasi radio-style di sidebar; tiap halaman = satu blok `if page == ...`.
+Grafik Plotly dibuat noninteraktif (tanpa zoom/pan/seleksi).
 """
 
 from __future__ import annotations
@@ -66,9 +67,9 @@ st.markdown(
       --sidebar: 300px;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
-    *, body { font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
+    *, body { font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
     [data-testid="stIconMaterial"] { font-family: "Material Symbols Rounded" !important;
                                      font-size: 20px; line-height: 1; }
     header[data-testid="stHeader"] { background: var(--bg); }
@@ -88,7 +89,7 @@ st.markdown(
 
     /* --- Kartu stats: st.metric native, font default Streamlit --- */
     [data-testid="stMetric"], [data-testid="stMetric"] * {
-        font-family: "Source Sans Pro", "Source Sans 3", sans-serif !important;
+        font-family: "Source Sans 3", "Source Sans Pro", sans-serif !important;
     }
     /* Animasi stagger: kartu metrik muncul bertahap saat halaman dibuka */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); }
@@ -117,7 +118,7 @@ st.markdown(
     .bars-fill { background: var(--aksen); height: 100%; border-radius: 6px;
                  animation: tumbuh .7s cubic-bezier(.2,.7,.3,1) backwards; }
     @keyframes tumbuh { from { width: 0 !important; } }
-    .bars-value { font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+    .bars-value { font-family: "Source Sans 3", ui-monospace, monospace !important;
                   color: var(--abu); font-size: 13px; min-width: 44px; text-align: right;
                   font-variant-numeric: tabular-nums; }
 
@@ -130,7 +131,7 @@ st.markdown(
                    color: var(--teks); vertical-align: middle; }
     table.tbl tr:hover td { background: rgba(148,163,184,.07); }
     table.tbl td.num, table.tbl th.num { text-align: right;
-                   font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+                   font-family: "Source Sans 3", ui-monospace, monospace !important;
                    font-variant-numeric: tabular-nums; }
 
     .note { background: rgba(193,91,60,.10); border-left: 3px solid var(--aksen); border-radius: 8px;
@@ -185,22 +186,24 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         height=height,
         margin=dict(l=8, r=36, t=38, b=8),
         separators=",.",
-        font=dict(family="IBM Plex Sans, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+        font=dict(family="Source Sans 3, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
                   size=12, color=SLATE),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         showlegend=legend,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
         hovermode="closest",
+        dragmode=False,
         hoverlabel=dict(
             bgcolor="#1E293B",
             bordercolor="#475569",
-            font=dict(family="IBM Plex Sans, system-ui, Segoe UI, Roboto, sans-serif",
+            font=dict(family="Source Sans 3, system-ui, Segoe UI, Roboto, sans-serif",
                       size=12, color="#F1F5F9"),
         ),
     )
-    fig.update_xaxes(showgrid=False, linecolor="#334155")
-    fig.update_yaxes(gridcolor="#334155", zeroline=False)
+    # Noninteraktif: tanpa zoom, pan, atau seleksi; hover tetap aktif.
+    fig.update_xaxes(fixedrange=True, showgrid=False, linecolor="#334155")
+    fig.update_yaxes(fixedrange=True, gridcolor="#334155", zeroline=False)
     return fig
 
 
@@ -288,7 +291,12 @@ def html_table(
 
 
 def chart(fig: go.Figure, key: str) -> None:
-    st.plotly_chart(fig, width="stretch", config={"displayModeBar": False}, key=key)
+    st.plotly_chart(
+        fig,
+        width="stretch",
+        config={"displayModeBar": False, "scrollZoom": False, "doubleClick": False},
+        key=key,
+    )
 
 
 def fmt_int(value: float | int | None) -> str:
