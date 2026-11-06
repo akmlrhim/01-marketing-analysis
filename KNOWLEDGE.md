@@ -31,7 +31,7 @@ Sebelum menilai, semua yang bisa dikutip dikumpulkan dulu:
   (Firecrawl). Direktori "Top 10" pihak ketiga **tidak dipakai** karena isinya template AI.
 - Sinyal harga: pricelist publik kompetitor dan benchmark nasional.
 
-Semua URL tersimpan di `research/data/sumber.csv` (40 sumber).
+Semua URL tersimpan di `research/data/sumber.csv` (42 sumber).
 
 ### Langkah 2 - Tentukan kriteria dan bobotnya
 
@@ -214,7 +214,7 @@ terhadap satu kolom penilaian manual - dan alasan kedua versi tetap ditampilkan.
 
 ## 4. Pain point: frekuensi × dampak × kesiapan bayar
 
-**Sumber data:** `research/data/pain-point.csv` (53 pain point, 3 segmen: UMKM, SME,
+**Sumber data:** `research/data/pain-point.csv` (57 pain point, 3 segmen: UMKM, SME,
 Korporat/B2B, klinik, dll).
 **Perhitungan:** `pain_priority()` di `dashboard/analysis.py`.
 
@@ -293,7 +293,7 @@ tidak perlu dijadikan positioning utama.
 
 ---
 
-## 6. Channel matrix: 30 industri × 10 kanal
+## 6. Channel matrix: 30 industri × 11 kanal
 
 **Sumber data:** `research/data/channel-matrix.csv`.
 Perhitungan hanya agregasi sederhana (rata-rata per industri untuk mengurutkan).
@@ -313,6 +313,13 @@ menjual ke industri ini di kota Kalimantan?"_ Tiga masukan yang dipakai:
 Anchor umum: **5** = kanal utama, wajib ada; **3** = pendukung; **1** = hampir tak
 berguna. Contoh: Jasa pertambangan dapat `tiktok=1, whatsapp=5, linkedin=5`;
 F&B dapat `tiktok=5, instagram=5, google_maps=5`.
+
+Kanal `ai_search` (ditambahkan 2026-11-06) menangkap pencarian lewat asisten AI
+(ChatGPT, AI Overviews, dsb) yang kini jadi pintu masuk calon klien menemukan
+agency. Skornya diturunkan dari `google_search` dengan aturan tetap
+`clamp(round(google_search × 0.8))`: perilaku dasarnya sama dengan pencarian
+Google, tetapi didiskon 20% karena adopsi asisten AI oleh pemilik usaha di
+Kalimantan masih awal (hipotesis; naikkan manual saat ada bukti adopsi lokal).
 
 ---
 
@@ -345,7 +352,7 @@ validasinya sudah disiapkan: Van Westendorp Price Sensitivity Meter di survei
 
 ### 7.3 Harga & demand layanan IMPOST per wilayah (scope tambahan)
 
-**Sumber data:** `research/data/impost-layanan.csv` (11 layanan IMPOST),
+**Sumber data:** `research/data/impost-layanan.csv` (13 layanan IMPOST),
 `research/data/scraping/demand-ringkas.csv` (sinyal pencarian per wilayah).
 Ditampilkan di dashboard tab **Layanan IMPOST**.
 
@@ -434,7 +441,7 @@ di peringkat #2) → menjadi dasar janji positioning
 ```
 
 Untuk data layanan IMPOST, sinyal pencarian dikumpulkan via **MCP Tavily search API**
-(66 query: 11 layanan × 3 wilayah × 2 lokasi; scraping langsung dengan Python
+(66 query awal: 11 layanan × 3 wilayah × 2 lokasi; ditambah 6 query 2 layanan baru pada 2026-11-06; scraping langsung dengan Python
 dihapus karena mesin pencari memblokirnya sebagai bot). Hasilnya disimpan di
 `research/data/scraping/demand-ringkas.csv`; untuk menyegarkan, jalankan ulang
 kumpulan query MCP lalu tulis ulang file tersebut:

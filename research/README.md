@@ -25,13 +25,13 @@
 | `data/platform-indonesia.csv` | **10 platform** + kategori & sumber |
 | `data/ecommerce-indonesia.csv` | 6 marketplace/social commerce |
 | `data/biaya-iklan.csv` | 14 benchmark CPM/CPC/CPL/retainer |
-| `data/channel-matrix.csv` | 30 industri × 10 kanal |
-| `data/pain-point.csv` | **53 pain point** (hipotesis) |
+| `data/channel-matrix.csv` | 30 industri × 11 kanal |
+| `data/pain-point.csv` | **57 pain point** (hipotesis) |
 | `data/persepsi.csv` | 14 dimensi trust gap (hipotesis) |
 | `data/layanan-winning.csv` | 5 paket layanan + harga bulanan |
 | `data/layanan-industri.csv` | 4 paket layanan per industri + KPI |
 | `data/layanan-addon.csv` | 5 add-on + harga |
-| `data/sumber.csv` | 40 sumber + status verifikasi |
+| `data/sumber.csv` | 42 sumber + status verifikasi |
 
 **Dashboard:** `dashboard/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard/README.md`.
 
@@ -81,7 +81,7 @@
 
 Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard/data/derived/`.
 
-Dashboard mencakup peta 9 kota, 50 kompetitor Kalimantan, 30 industri, 53 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 40 sumber dengan status verifikasi.
+Dashboard mencakup peta 9 kota, 50 kompetitor Kalimantan, 30 industri, 57 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 42 sumber dengan status verifikasi.
 
 ---
 

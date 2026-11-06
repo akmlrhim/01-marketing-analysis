@@ -1,7 +1,7 @@
 # Dashboard Riset Pasar Kalimantan
 
 Dashboard Streamlit untuk membaca hasil riset pasar agency digital marketing Kalimantan:
-9 kota, 30 industri, 50 kompetitor Kalimantan, 10 platform, 6 marketplace, 53 pain point, dan 40 sumber.
+9 kota, 30 industri, 50 kompetitor Kalimantan, 10 platform, 6 marketplace, 57 pain point, dan 42 sumber.
 
 ## 1. Jalankan
 
@@ -59,10 +59,10 @@ Data mentah tetap di `research/data/`:
 | `platform-indonesia.csv` | 10 platform + kategori |
 | `ecommerce-indonesia.csv` | 6 marketplace/social commerce |
 | `biaya-iklan.csv` | 14 benchmark CPM/CPC/CPL/retainer |
-| `channel-matrix.csv` | 30 industri × 10 kanal |
-| `pain-point.csv` | 53 pain point (hipotesis) |
+| `channel-matrix.csv` | 30 industri × 11 kanal |
+| `pain-point.csv` | 57 pain point (hipotesis) |
 | `persepsi.csv` | 14 dimensi trust gap (hipotesis) |
-| `sumber.csv` | 40 sumber + status verifikasi |
+| `sumber.csv` | 42 sumber + status verifikasi |
 
 ## 3. Alur analisis
 
@@ -87,15 +87,15 @@ Pipeline akan:
 | Tab | Isi |
 |---|---|
 | **Industri Winning** | Scatter attractiveness, ranking, radar, dan tabel industri prioritas inti + prioritas |
-| **Pain Point Owner** | Bubble 53 pain point, 12 prioritas, tabel per segmen |
+| **Pain Point Owner** | Bubble 57 pain point, 12 prioritas, tabel per segmen |
 | **Industri Potensial** | Scatter, ranking, radar, dan tabel industri kategori potensial |
 | **Kompetitor Agency** | Sebaran kota Kalimantan, lokal vs nasional, matrix layanan, 50 agency dengan lokasi terverifikasi, sinyal harga |
 | **Layanan Winning** | Tangga paket, paket per industri, add-on, layanan terlaris, benchmark retainer |
-| **Sosial Media** | Platform, e-commerce, benchmark biaya iklan, heatmap 10 kanal |
+| **Sosial Media** | Platform, e-commerce, benchmark biaya iklan, heatmap 11 kanal |
 | **Persepsi Agency** | Trust gap 14 dimensi, gap terbesar, tabel prioritas perbaikan |
 | **Layanan IMPOST** | Demand per wilayah, sinyal pencarian, pasokan kompetitor, harga pasar vs ideal |
 | **Pasar Kota** | Peta 9 kota, penduduk, UMK, UMKM, tabel status data |
-| **Metodologi** | Alur, data dictionary, 40 sumber, tombol re-run |
+| **Metodologi** | Alur, data dictionary, 42 sumber, tombol re-run |
 
 ## 5. Catatan penting
 

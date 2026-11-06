@@ -213,7 +213,7 @@ Dashboard memakai dua lapis data yang harus dibaca dengan cara berbeda.
 | Benchmark biaya iklan | Range pasar | Benchmark publik 2025 | Estimasi |
 | Paket layanan | Sintesis riset internal | `research/06-layanan-winning.md` | Usulan |
 
-Setiap baris di CSV menyimpan asal datanya di kolom `sumber`, `status_data`, atau `status_verifikasi`. Daftar 40 sumber lengkap dengan URL ada di `research/data/sumber.csv`.
+Setiap baris di CSV menyimpan asal datanya di kolom `sumber`, `status_data`, atau `status_verifikasi`. Daftar 42 sumber lengkap dengan URL ada di `research/data/sumber.csv`.
 
 #### Kriteria masuk data kompetitor
 
@@ -261,7 +261,7 @@ Angka 1 sampai 5 pada dataset berikut bukan hasil survei. Metodenya adalah desk 
   `0.4 frekuensi + 0.4 dampak + 0.2 kesiapan bayar`.
   Kuadran kritis jika frekuensi dan dampak sama-sama 4 atau lebih.
 - **Persepsi agency**: skor kepentingan dan kinerja 1 sampai 5, lalu `gap = kepentingan - kinerja`.
-- **Channel matrix**: 30 industri x 10 kanal, masing-masing dinilai 1 sampai 5.
+- **Channel matrix**: 30 industri x 11 kanal, masing-masing dinilai 1 sampai 5.
 - **Paket layanan**: usulan harga dari riset layanan, bukan hasil survei harga.
 
 Rumus di atas dijalankan di `dashboard/analysis.py`. Setiap baris diberi label `Hipotesis` atau `status_data = Hipotesis analis`.
@@ -316,14 +316,14 @@ Edit CSV di `research/data/`:
 | `platform-indonesia.csv` | 10 platform |
 | `ecommerce-indonesia.csv` | 6 marketplace/social commerce |
 | `biaya-iklan.csv` | 14 benchmark biaya iklan |
-| `channel-matrix.csv` | 30 industri × 10 kanal |
-| `pain-point.csv` | 53 pain point |
+| `channel-matrix.csv` | 30 industri × 11 kanal |
+| `pain-point.csv` | 57 pain point |
 | `persepsi.csv` | 14 dimensi trust gap |
 | `layanan-winning.csv` | 5 paket layanan + harga |
 | `layanan-industri.csv` | 4 paket per industri + KPI |
 | `layanan-addon.csv` | 5 add-on + harga |
-| `impost-layanan.csv` | 11 layanan IMPOST: harga pasar vs harga ideal + demand per wilayah |
-| `sumber.csv` | 40 sumber |
+| `impost-layanan.csv` | 13 layanan IMPOST: harga pasar vs harga ideal + demand per wilayah |
+| `sumber.csv` | 42 sumber |
 
 Setelah edit:
 
