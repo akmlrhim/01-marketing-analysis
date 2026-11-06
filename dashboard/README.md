@@ -110,7 +110,8 @@ Gaya dashboard gelap utilitarian dengan tiga titik kustomisasi di `app.py`:
 3. **Radius/lebar** — `--radius` dan `--sidebar` di `:root`.
 
 Otomatis: responsif (sidebar jadi bar atas di layar sempit), animasi stagger
-kartu metrik, dan font IBM Plex Sans + IBM Plex Mono untuk angka.
+kartu metrik, font IBM Plex Sans untuk teks halaman, dan kartu stats memakai
+`st.metric` native Streamlit dengan font default-nya.
 
 ## 5. Catatan penting
 

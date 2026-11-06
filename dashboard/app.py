@@ -86,29 +86,18 @@ st.markdown(
     [data-testid="stSidebar"] [data-testid="stExpander"] details {
         border: 1px solid var(--border); border-radius: 10px; background: transparent; }
 
-    /* --- Kartu metrik: label abu kecil → angka mono 34px → delta berwarna --- */
-    .kpi { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
-           padding: 14px 16px; box-shadow: 0 1px 2px rgba(0,0,0,.35); min-height: 128px;
-           transition: border-color .18s ease, box-shadow .18s ease; }
-    .kpi:hover { border-color: #475569; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
-    .kpi-label { color: var(--abu); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .kpi-value { font-family: "IBM Plex Mono", ui-monospace, monospace !important;
-                 font-size: 34px; font-weight: 600; line-height: 1.15; margin-top: 6px;
-                 color: var(--teks); font-variant-numeric: tabular-nums; }
-    .kpi-value.kpi-aksen { color: var(--aksen-terang); }
-    .kpi-sub { color: var(--abu); font-size: 12px; margin-top: 4px; }
-    .kpi-delta { font-family: "IBM Plex Mono", ui-monospace, monospace !important;
-                 font-size: 13px; font-weight: 600; margin-top: 4px; }
-    .kpi-delta.up { color: var(--hijau); }
-    .kpi-delta.down { color: var(--merah); }
+    /* --- Kartu stats: st.metric native, font default Streamlit --- */
+    [data-testid="stMetric"], [data-testid="stMetric"] * {
+        font-family: "Source Sans Pro", "Source Sans 3", sans-serif !important;
+    }
     /* Animasi stagger: kartu metrik muncul bertahap saat halaman dibuka */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); }
                         to { opacity: 1; transform: translateY(0); } }
-    .kpi { animation: fadeUp .45s ease backwards; }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(1) .kpi { animation-delay: .05s; }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(2) .kpi { animation-delay: .15s; }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(3) .kpi { animation-delay: .25s; }
-    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(4) .kpi { animation-delay: .35s; }
+    [data-testid="stMetric"] { animation: fadeUp .45s ease backwards; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(1) [data-testid="stMetric"] { animation-delay: .05s; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(2) [data-testid="stMetric"] { animation-delay: .15s; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(3) [data-testid="stMetric"] { animation-delay: .25s; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(4) [data-testid="stMetric"] { animation-delay: .35s; }
 
     /* --- Badge semantik: pill bulat --- */
     .badge { display: inline-block; padding: 2px 11px; border-radius: 999px;
@@ -173,8 +162,6 @@ st.markdown(
       h3, h4 { font-size: .95rem; }
       [data-testid="stMain"] [data-testid="stHorizontalBlock"] { flex-wrap: wrap; row-gap: .75rem; }
       [data-testid="stMain"] [data-testid="stColumn"] { min-width: 100% !important; flex-basis: 100% !important; }
-      .kpi { padding: 12px 14px; min-height: 0; }
-      .kpi-value { font-size: 26px; }
       .bars-row { grid-template-columns: 110px 1fr auto; gap: 8px; }
       .bars-label { font-size: 12px; }
       table.tbl { font-size: 12px; }
@@ -221,24 +208,20 @@ def kpi(
     label: str,
     value: str,
     sub: str = "",
-    accent: str = AKSEN,
+    accent: str = "",
     delta: str | None = None,
     direction: str = "up",
 ) -> None:
-    """Kartu metrik: label abu → angka besar mono → delta/sub berwarna."""
-    warna = "" if accent == AKSEN else f' style="color:{accent}"'
-    sub_html = f'<div class="kpi-sub">{sub}</div>' if sub else ""
-    delta_html = ""
+    """Kartu stats native Streamlit (st.metric): font default, delta ▲ hijau / ▼ merah."""
+    _ = accent  # dipertahankan demi kompatibilitas pemanggil lama; nilai tidak diwarnai
+    kwargs: dict = {}
     if delta:
-        arah = "up" if direction == "up" else "down"
-        panah = "▲" if direction == "up" else "▼"
-        delta_html = f'<div class="kpi-delta {arah}">{panah} {delta}</div>'
-    st.markdown(
-        f'<div class="kpi"><div class="kpi-label">{label}</div>'
-        f'<div class="kpi-value"{warna}>{value}</div>'
-        f"{delta_html}{sub_html}</div>",
-        unsafe_allow_html=True,
-    )
+        kwargs["delta"] = delta
+        kwargs["delta_arrow"] = "up" if direction == "up" else "down"
+        kwargs["delta_color"] = "inverse" if direction == "down" else "normal"
+    st.metric(label, value, **kwargs)
+    if sub:
+        st.caption(sub)
 
 
 def badge(text: str) -> str:
