@@ -1,4 +1,8 @@
-"""Streamlit dashboard: Riset Pasar Agency Digital Marketing Kalimantan."""
+"""Streamlit dashboard: Riset Pasar Agency Digital Marketing Kalimantan.
+
+Gaya: dashboard gelap utilitarian, aksen merah bata, font IBM Plex Sans/Mono.
+Navigasi radio-style di sidebar; tiap halaman = satu blok `if page == ...`.
+"""
 
 from __future__ import annotations
 
@@ -13,64 +17,153 @@ from analysis import NATIONAL_INTERNET, OUT_DIR, prepare_all
 
 st.set_page_config(
     page_title="Riset Pasar Kalimantan",
-    page_icon="📊",
+    page_icon="ðŸ“Š",
     layout="wide",
     initial_sidebar_state="auto",
 )
 
-TEAL = "#2DD4BF"
+# Palet mengikuti variabel :root di CSS di bawah; ubah keduanya bersama-sama.
+AKSEN = "#C15B3C"  # merah bata
+AKSEN_TERANG = "#E29B7E"
 SLATE = "#CBD5E1"
 AMBER = "#FBBF24"
 RED = "#F87171"
+HIJAU = "#4ADE80"
 BLUE = "#60A5FA"
 VIOLET = "#A78BFA"
-PALETTE = ["#2DD4BF", "#FBBF24", "#60A5FA", "#F87171", "#A78BFA", "#22D3EE", "#A3E635"]
+PALETTE = [AKSEN, AKSEN_TERANG, AMBER, BLUE, VIOLET, "#22D3EE", "#A3E635"]
+
+PAGES = [
+    "Industri Winning",
+    "Pain Point Owner",
+    "Industri Potensial",
+    "Kompetitor Agency",
+    "Layanan Winning",
+    "Layanan IMPOST",
+    "Sosial Media",
+    "Persepsi Agency",
+    "Pasar Kota",
+    "Metodologi",
+]
 
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+    /* ======:root — satu-satunya tempat menyetel warna, radius, dan lebar ====== */
+    :root {
+      --bg: #0F172A;           /* latar halaman */
+      --panel: #1E293B;        /* kartu / panel */
+      --border: #334155;       /* garis */
+      --teks: #F1F5F9;         /* teks utama */
+      --abu: #94A3B8;          /* teks sekunder */
+      --aksen: #C15B3C;        /* merah bata — bullet aktif, bar, elemen inti */
+      --aksen-terang: #E29B7E; /* varian aksen untuk teks di atas panel */
+      --amber: #FBBF24;
+      --hijau: #4ADE80;
+      --merah: #F87171;
+      --netral: #94A3B8;       /* biru-abu untuk badge netral */
+      --radius: 14px;
+      --sidebar: 300px;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
-    *, body { font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
+    *, body { font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
     [data-testid="stIconMaterial"] { font-family: "Material Symbols Rounded" !important;
                                      font-size: 20px; line-height: 1; }
-    header[data-testid="stHeader"] { background: #0F172A; }
+    header[data-testid="stHeader"] { background: var(--bg); }
     [data-testid="stMain"] { margin-top: 3.75rem; height: calc(100% - 3.75rem); }
-    h1, h2, h3, h4 { color: #F1F5F9; letter-spacing: -0.01em; }
+    h1, h2, h3, h4 { color: var(--teks); letter-spacing: -0.01em; }
     h2 { font-size: 1.3rem; margin-top: .3rem; letter-spacing: -0.02em; }
     h3 { font-size: 1.02rem; letter-spacing: -0.02em; }
-    .kpi { background:#1E293B; border:1px solid #334155; border-radius:14px;
-           padding:14px 16px; box-shadow:0 1px 2px rgba(0,0,0,.35); min-height:102px;
-           transition:border-color .18s ease, box-shadow .18s ease; }
-    .kpi:hover { border-color:#475569; box-shadow:0 4px 14px rgba(0,0,0,.4); }
-    .kpi-label { color:#94A3B8; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    .kpi-value { font-size:23px; font-weight:750; line-height:1.2; margin-top:4px;
-                 font-variant-numeric:tabular-nums; }
-    .kpi-sub { color:#94A3B8; font-size:12px; margin-top:3px; }
-    .note { background:rgba(45,212,191,.08); border-left:3px solid #2DD4BF; border-radius:8px;
-            padding:10px 14px; color:#99F6E4; font-size:13px; margin:6px 0 12px; }
-    .warn { background:rgba(251,191,36,.08); border-left:3px solid #FBBF24; border-radius:8px;
-            padding:10px 14px; color:#FDE68A; font-size:13px; margin:6px 0 12px; }
-    .small { color:#94A3B8; font-size:12px; }
-    div[data-testid="stDataFrame"] { border:1px solid #334155; border-radius:10px;
-                                     font-variant-numeric:tabular-nums; }
-    section[data-testid="stSidebar"] { background:#0F172A; border-right:1px solid #334155; }
-    [role="tablist"] { gap: 10px; flex-wrap: wrap !important; overflow: visible !important; }
-    [role="tab"] { border-radius:8px 8px 0 0; padding:10px 16px; cursor:pointer;
-                   transition:background-color .18s ease, color .18s ease; }
-    [role="tab"]:hover { background:rgba(148,163,184,.1); }
-    [role="tab"] p { font-weight:600; font-size:.92rem; }
+
+    /* --- Sidebar: radio-style, bullet merah bata saat aktif --- */
+    section[data-testid="stSidebar"] { background: var(--bg); border-right: 1px solid var(--border); }
+    [data-testid="stSidebar"] input[type="radio"] { accent-color: var(--aksen); }
+    [data-testid="stSidebar"] [role="radiogroup"] label { padding: 3px 0; }
+    [data-testid="stSidebar"] label:has(input[type="radio"]:checked) { color: var(--aksen-terang); font-weight: 600; }
+    [data-testid="stSidebar"] hr { border-color: var(--border); }
+    [data-testid="stSidebar"] [data-testid="stExpander"] details {
+        border: 1px solid var(--border); border-radius: 10px; background: transparent; }
+
+    /* --- Kartu metrik: label abu kecil → angka mono 34px → delta berwarna --- */
+    .kpi { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+           padding: 14px 16px; box-shadow: 0 1px 2px rgba(0,0,0,.35); min-height: 128px;
+           transition: border-color .18s ease, box-shadow .18s ease; }
+    .kpi:hover { border-color: #475569; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
+    .kpi-label { color: var(--abu); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .kpi-value { font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+                 font-size: 34px; font-weight: 600; line-height: 1.15; margin-top: 6px;
+                 color: var(--teks); font-variant-numeric: tabular-nums; }
+    .kpi-value.kpi-aksen { color: var(--aksen-terang); }
+    .kpi-sub { color: var(--abu); font-size: 12px; margin-top: 4px; }
+    .kpi-delta { font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+                 font-size: 13px; font-weight: 600; margin-top: 4px; }
+    .kpi-delta.up { color: var(--hijau); }
+    .kpi-delta.down { color: var(--merah); }
+    /* Animasi stagger: kartu metrik muncul bertahap saat halaman dibuka */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); }
+                        to { opacity: 1; transform: translateY(0); } }
+    .kpi { animation: fadeUp .45s ease backwards; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(1) .kpi { animation-delay: .05s; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(2) .kpi { animation-delay: .15s; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(3) .kpi { animation-delay: .25s; }
+    [data-testid="stHorizontalBlock"] [data-testid="stColumn"]:nth-child(4) .kpi { animation-delay: .35s; }
+
+    /* --- Badge semantik: pill bulat --- */
+    .badge { display: inline-block; padding: 2px 11px; border-radius: 999px;
+             font-size: 11.5px; font-weight: 600; line-height: 1.7; white-space: nowrap; }
+    .badge.tinggi { background: rgba(193,91,60,.16); color: var(--aksen-terang); border: 1px solid var(--aksen); }
+    .badge.sedang { background: rgba(251,191,36,.13); color: var(--amber); border: 1px solid rgba(251,191,36,.55); }
+    .badge.baik   { background: rgba(74,222,128,.12); color: var(--hijau); border: 1px solid rgba(74,222,128,.5); }
+    .badge.netral { background: rgba(148,163,184,.12); color: var(--netral); border: 1px solid rgba(148,163,184,.45); }
+
+    /* --- Bar chart CSS murni: kategori + bar + angka --- */
+    .bars { display: flex; flex-direction: column; gap: 9px; padding: 4px 0 8px; }
+    .bars-row { display: grid; grid-template-columns: minmax(150px, 240px) 1fr auto;
+                gap: 12px; align-items: center; }
+    .bars-label { color: var(--teks); font-size: 13px; overflow: hidden;
+                  text-overflow: ellipsis; white-space: nowrap; }
+    .bars-track { background: rgba(148,163,184,.10); border-radius: 6px; height: 16px; overflow: hidden; }
+    .bars-fill { background: var(--aksen); height: 100%; border-radius: 6px;
+                 animation: tumbuh .7s cubic-bezier(.2,.7,.3,1) backwards; }
+    @keyframes tumbuh { from { width: 0 !important; } }
+    .bars-value { font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+                  color: var(--abu); font-size: 13px; min-width: 44px; text-align: right;
+                  font-variant-numeric: tabular-nums; }
+
+    /* --- Tabel HTML: hover baris, angka rata kanan, badge di kolom status --- */
+    table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table.tbl th { text-align: left; color: var(--abu); font-size: 11px; font-weight: 700;
+                   letter-spacing: .06em; text-transform: uppercase;
+                   padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    table.tbl td { padding: 8px 10px; border-bottom: 1px solid rgba(51,65,85,.55);
+                   color: var(--teks); vertical-align: middle; }
+    table.tbl tr:hover td { background: rgba(148,163,184,.07); }
+    table.tbl td.num, table.tbl th.num { text-align: right;
+                   font-family: "IBM Plex Mono", ui-monospace, monospace !important;
+                   font-variant-numeric: tabular-nums; }
+
+    .note { background: rgba(193,91,60,.10); border-left: 3px solid var(--aksen); border-radius: 8px;
+            padding: 10px 14px; color: var(--aksen-terang); font-size: 13px; margin: 6px 0 12px; }
+    .warn { background: rgba(251,191,36,.08); border-left: 3px solid var(--amber); border-radius: 8px;
+            padding: 10px 14px; color: #FDE68A; font-size: 13px; margin: 6px 0 12px; }
+    .small { color: var(--abu); font-size: 12px; }
+    div[data-testid="stDataFrame"] { border: 1px solid var(--border); border-radius: 10px;
+                                     font-variant-numeric: tabular-nums; }
+    [data-testid="stExpander"] details { border-color: var(--border); border-radius: 10px; }
+
     button:focus-visible, [role="tab"]:focus-visible, a:focus-visible {
-        outline:2px solid #2DD4BF; outline-offset:2px; }
+        outline: 2px solid var(--aksen); outline-offset: 2px; }
     ::-webkit-scrollbar { width:10px; height:10px; }
     ::-webkit-scrollbar-track { background:transparent; }
-    ::-webkit-scrollbar-thumb { background:#334155; border-radius:8px; border:2px solid #0F172A; }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:8px; border:2px solid var(--bg); }
     ::-webkit-scrollbar-thumb:hover { background:#475569; }
-    ::selection { background:rgba(45,212,191,.35); color:#F1F5F9; }
+    ::selection { background: rgba(193,91,60,.35); color: var(--teks); }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration:.01ms !important; animation-duration:.01ms !important; }
     }
-    /* --- Mobile: layar <= 640px --- */
+    /* --- Mobile: layar <= 640px (sidebar otomatis jadi bar atas) --- */
     @media (max-width: 640px) {
       .block-container { padding-left: .75rem; padding-right: .75rem; }
       header [data-testid="stStatusWidget"], header [data-testid="stDeployButton"] {
@@ -81,10 +174,11 @@ st.markdown(
       [data-testid="stMain"] [data-testid="stHorizontalBlock"] { flex-wrap: wrap; row-gap: .75rem; }
       [data-testid="stMain"] [data-testid="stColumn"] { min-width: 100% !important; flex-basis: 100% !important; }
       .kpi { padding: 12px 14px; min-height: 0; }
-      .kpi-value { font-size: 20px; }
-      [role="tab"] { padding: 8px 12px; }
-      [role="tab"] p { font-size: .85rem; }
-      [data-testid="stDataFrame"] { font-size: 12px; }
+      .kpi-value { font-size: 26px; }
+      .bars-row { grid-template-columns: 110px 1fr auto; gap: 8px; }
+      .bars-label { font-size: 12px; }
+      table.tbl { font-size: 12px; }
+      table.tbl th, table.tbl td { padding: 6px 8px; }
       .note, .warn { font-size: 12px; padding: 8px 10px; }
     }
     </style>
@@ -104,7 +198,7 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         height=height,
         margin=dict(l=8, r=36, t=38, b=8),
         separators=",.",
-        font=dict(family="Source Sans 3, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+        font=dict(family="IBM Plex Sans, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
                   size=12, color=SLATE),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -114,7 +208,7 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
         hoverlabel=dict(
             bgcolor="#1E293B",
             bordercolor="#475569",
-            font=dict(family="Source Sans 3, system-ui, Segoe UI, Roboto, sans-serif",
+            font=dict(family="IBM Plex Sans, system-ui, Segoe UI, Roboto, sans-serif",
                       size=12, color="#F1F5F9"),
         ),
     )
@@ -123,11 +217,89 @@ def style_fig(fig: go.Figure, height: int = 360, legend: bool = True) -> go.Figu
     return fig
 
 
-def kpi(label: str, value: str, sub: str = "", accent: str = TEAL) -> None:
+def kpi(
+    label: str,
+    value: str,
+    sub: str = "",
+    accent: str = AKSEN,
+    delta: str | None = None,
+    direction: str = "up",
+) -> None:
+    """Kartu metrik: label abu → angka besar mono → delta/sub berwarna."""
+    warna = "" if accent == AKSEN else f' style="color:{accent}"'
+    sub_html = f'<div class="kpi-sub">{sub}</div>' if sub else ""
+    delta_html = ""
+    if delta:
+        arah = "up" if direction == "up" else "down"
+        panah = "▲" if direction == "up" else "▼"
+        delta_html = f'<div class="kpi-delta {arah}">{panah} {delta}</div>'
     st.markdown(
         f'<div class="kpi"><div class="kpi-label">{label}</div>'
-        f'<div class="kpi-value" style="color:{accent}">{value}</div>'
-        f'<div class="kpi-sub">{sub}</div></div>',
+        f'<div class="kpi-value"{warna}>{value}</div>'
+        f"{delta_html}{sub_html}</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def badge(text: str) -> str:
+    """Pill badge semantik: tinggi (merah bata), sedang (amber), baik (hijau), netral."""
+    kelas = {
+        "tinggi": "tinggi",
+        "kritis": "tinggi",
+        "sedang": "sedang",
+        "perhatian": "sedang",
+        "sering tapi ringan": "sedang",
+        "jarang tapi berat": "sedang",
+        "baik": "baik",
+        "terverifikasi": "baik",
+        "monitor": "netral",
+    }.get(str(text).strip().lower(), "netral")
+    return f'<span class="badge {kelas}">{text}</span>'
+
+
+def css_bars(rows: list[tuple[str, float, str]], key: str) -> None:
+    """Bar chart CSS murni (tanpa library): kategori + bar + angka.
+
+    `rows` berisi (label, nilai_proporsi, angka_tampil). `key` mengatur
+    delay animasi bar bertahap.
+    """
+    maxv = max((v for _, v, _ in rows), default=0) or 1
+    parts = ['<div class="bars">']
+    for i, (label, val, disp) in enumerate(rows):
+        pct = max(2, round(val / maxv * 100))
+        delay = f"animation-delay:{i * 0.06:.2f}s;"
+        parts.append(
+            f'<div class="bars-row"><div class="bars-label">{label}</div>'
+            f'<div class="bars-track"><div class="bars-fill" style="width:{pct}%;{delay}"></div></div>'
+            f'<div class="bars-value">{disp}</div></div>'
+        )
+    parts.append("</div>")
+    st.markdown("".join(parts), unsafe_allow_html=True)
+    _ = key  # disimpan untuk penandaan elemen di masa depan
+
+
+def html_table(
+    headers: list[str],
+    rows: list[list[str]],
+    num_cols: tuple[int, ...] = (),
+    badge_cols: tuple[int, ...] = (),
+) -> None:
+    """Tabel HTML: hover baris, kolom angka rata kanan, badge di kolom status."""
+    head = "".join(
+        f'<th class="{"num" if i in num_cols else ""}">{h}</th>'
+        for i, h in enumerate(headers)
+    )
+    body_rows = []
+    for row in rows:
+        cells = []
+        for i, cell in enumerate(row):
+            cls = "num" if i in num_cols else ""
+            val = badge(cell) if i in badge_cols else str(cell)
+            cells.append(f'<td class="{cls}">{val}</td>')
+        body_rows.append(f"<tr>{''.join(cells)}</tr>")
+    st.markdown(
+        f'<table class="tbl"><thead><tr>{head}</tr></thead>'
+        f'<tbody>{"".join(body_rows)}</tbody></table>',
         unsafe_allow_html=True,
     )
 
@@ -190,8 +362,8 @@ def render_industri(df: pd.DataFrame, key: str, baseline: pd.DataFrame) -> None:
         },
         size_max=44,
         color_discrete_map={
-            "Prioritas inti": TEAL,
-            "Prioritas": "#5EEAD4",
+            "Prioritas inti": AKSEN,
+            "Prioritas": "#E29B7E",
             "Potensial": "#94A3B8",
         },
         labels={
@@ -258,8 +430,8 @@ def render_industri(df: pd.DataFrame, key: str, baseline: pd.DataFrame) -> None:
                 theta=labels + [labels[0]],
                 fill="toself",
                 name=pilih,
-                line=dict(color=TEAL, width=2),
-                fillcolor="rgba(15,118,110,.18)",
+                line=dict(color=AKSEN, width=2),
+                fillcolor="rgba(193,91,60,.18)",
             )
         )
         fig.add_trace(
@@ -311,25 +483,34 @@ st.markdown(
 # Sidebar
 # ---------------------------------------------------------------------------
 with st.sidebar:
-    st.markdown("### Filter data")
-    provinsi_all = list(makro["provinsi"])
-    provinsi_sel = st.multiselect("Provinsi", provinsi_all, default=provinsi_all)
-    industri_all = list(industri["industri"])
-    industri_sel = st.multiselect("Industri", industri_all, default=industri_all)
-    tipe_sel = st.radio(
-        "Tipe kompetitor",
-        ["Semua", "Lokal", "Nasional"],
-        horizontal=True,
+    st.markdown("### Navigasi")
+    page = st.radio(
+        "Halaman",
+        PAGES,
+        label_visibility="collapsed",
+        key="nav_halaman",
     )
-    dasar_skor = st.radio(
-        "Dasar skor industri",
-        ["Hipotesis analis", "Terukur data kompetitor"],
-        horizontal=True,
-        help=(
-            "Terukur data kompetitor menghitung ulang kriteria kompetisi rendah "
-            "dari 50 agency Kalimantan, bukan dari penilaian manual."
-        ),
-    )
+    st.divider()
+
+    with st.expander("Filter data"):
+        provinsi_all = list(makro["provinsi"])
+        provinsi_sel = st.multiselect("Provinsi", provinsi_all, default=provinsi_all)
+        industri_all = list(industri["industri"])
+        industri_sel = st.multiselect("Industri", industri_all, default=industri_all)
+        tipe_sel = st.radio(
+            "Tipe kompetitor",
+            ["Semua", "Lokal", "Nasional"],
+            horizontal=True,
+        )
+        dasar_skor = st.radio(
+            "Dasar skor industri",
+            ["Hipotesis analis", "Terukur data kompetitor"],
+            horizontal=True,
+            help=(
+                "Terukur data kompetitor menghitung ulang kriteria kompetisi rendah "
+                "dari 50 agency Kalimantan, bukan dari penilaian manual."
+            ),
+        )
 
     st.divider()
     st.markdown("### Cakupan data")
@@ -387,36 +568,10 @@ if tipe_sel == "Semua":
 else:
     komp_f = komp_source[komp_source["tipe_sederhana"] == tipe_sel].copy()
 
-(
-    tab_industri_winning,
-    tab_pain,
-    tab_industri_potensial,
-    tab_kompetitor,
-    tab_layanan,
-    tab_impost,
-    tab_sosmed,
-    tab_persepsi,
-    tab_kota,
-    tab_metodologi,
-) = st.tabs(
-    [
-        "Industri Winning",
-        "Pain Point Owner",
-        "Industri Potensial",
-        "Kompetitor Agency",
-        "Layanan Winning",
-        "Layanan IMPOST",
-        "Sosial Media",
-        "Persepsi Agency",
-        "Pasar Kota",
-        "Metodologi",
-    ]
-)
-
 # ===========================================================================
-# TAB: PASAR KOTA
+# HALAMAN: PASAR KOTA
 # ===========================================================================
-with tab_kota:
+if page == "Pasar Kota":
     st.markdown("#### Peta pasar kota")
     st.caption(
         "Ukuran gelembung mengikuti jumlah penduduk, warna menunjukkan provinsi. Data kota "
@@ -490,7 +645,7 @@ with tab_kota:
             orientation="h",
             text=[fmt_dec(v) for v in umk_sorted["umk_juta"]],
             color="umk_juta",
-            color_continuous_scale=["#134E4A", TEAL],
+            color_continuous_scale=["#5C2E22", AKSEN],
             labels={"umk_juta": "Rp juta", "kota": ""},
         )
         fig.update_layout(coloraxis_showscale=False)
@@ -553,9 +708,9 @@ with tab_kota:
     )
 
 # ===========================================================================
-# TAB: INDUSTRI WINNING
+# HALAMAN: INDUSTRI WINNING
 # ===========================================================================
-with tab_industri_winning:
+if page == "Industri Winning":
     winning = industri_f[
         industri_f["prioritas"].isin(["Prioritas inti", "Prioritas"])
     ].copy()
@@ -588,7 +743,7 @@ with tab_industri_winning:
     )
     if dasar_skor == "Terukur data kompetitor":
         st.info(
-            "Skor di tab ini memakai kriteria kompetisi yang dihitung dari data 32 "
+            "Skor di halaman ini memakai kriteria kompetisi yang dihitung dari data 32 "
             "agency Kalimantan. Kriteria lain tetap penilaian analis."
         )
     else:
@@ -609,7 +764,7 @@ with tab_industri_winning:
             "Naik peringkat",
             str(metrics["n_industri_naik"]),
             "industri",
-            accent=TEAL,
+            accent=AKSEN,
         )
     with d2:
         kpi(
@@ -636,7 +791,7 @@ with tab_industri_winning:
             orientation="h",
             text="delta_peringkat",
             color="delta_peringkat",
-            color_continuous_scale=["#F59E0B", "#334155", TEAL],
+            color_continuous_scale=["#F59E0B", "#334155", AKSEN],
             color_continuous_midpoint=0,
             labels={"delta_peringkat": "selisih peringkat", "industri": ""},
         )
@@ -681,9 +836,9 @@ with tab_industri_winning:
     render_industri(winning, "win", industri_baseline)
 
 # ===========================================================================
-# TAB: INDUSTRI POTENSIAL
+# HALAMAN: INDUSTRI POTENSIAL
 # ===========================================================================
-with tab_industri_potensial:
+if page == "Industri Potensial":
     potensial = industri_f[industri_f["prioritas"] == "Potensial"].copy()
     top_pot = (
         potensial.sort_values("skor_tertimbang", ascending=False).iloc[0]
@@ -707,20 +862,20 @@ with tab_industri_potensial:
     )
     if dasar_skor == "Terukur data kompetitor":
         st.info(
-            "Skor di tab ini memakai kriteria kompetisi yang dihitung dari data 32 "
+            "Skor di halaman ini memakai kriteria kompetisi yang dihitung dari data 32 "
             "agency Kalimantan. Kriteria lain tetap penilaian analis."
         )
     render_industri(potensial, "pot", industri_baseline)
 
 # ===========================================================================
-# TAB: KOMPETITOR AGENCY
+# HALAMAN: KOMPETITOR AGENCY
 # ===========================================================================
-with tab_kompetitor:
+if page == "Kompetitor Agency":
     c1, c2, c3, c4 = st.columns(4)
     with c1:
         kpi("Total", str(len(komp_f)), "terpetakan")
     with c2:
-        kpi("Lokal", str(int((komp_f["tipe_sederhana"] == "Lokal").sum())), "agency Kalimantan", accent=TEAL)
+        kpi("Lokal", str(int((komp_f["tipe_sederhana"] == "Lokal").sum())), "agency Kalimantan", accent=AKSEN)
     with c3:
         kpi("Nasional", str(int((komp_f["tipe_sederhana"] == "Nasional").sum())), "jaringan nasional", accent=BLUE)
     with c4:
@@ -775,7 +930,7 @@ with tab_kompetitor:
                 orientation="h",
                 text_auto=True,
                 color="jumlah",
-                color_continuous_scale=["#134E4A", TEAL],
+                color_continuous_scale=["#5C2E22", AKSEN],
                 labels={"jumlah": "jumlah agency", "kota_utama": ""},
             )
             fig.update_layout(coloraxis_showscale=False)
@@ -793,7 +948,7 @@ with tab_kompetitor:
                 hole=0.58,
                 color="tipe_sederhana",
                 color_discrete_map={
-                    "Lokal": TEAL,
+                    "Lokal": AKSEN,
                     "Nasional": "#94A3B8",
                 },
             )
@@ -804,18 +959,11 @@ with tab_kompetitor:
 
     st.markdown("#### Layanan yang paling sering dijual")
     if len(svc_v):
-        fig = px.bar(
-            svc_v,
-            x="jumlah",
-            y="layanan",
-            orientation="h",
-            text_auto=True,
-            color="jumlah",
-            color_continuous_scale=["#334155", TEAL],
-            labels={"jumlah": "jumlah kompetitor", "layanan": ""},
+        svc_top = svc_v.sort_values("jumlah", ascending=False)
+        css_bars(
+            [(r["layanan"], float(r["jumlah"]), fmt_int(r["jumlah"])) for _, r in svc_top.iterrows()],
+            key="svc_counts",
         )
-        fig.update_layout(coloraxis_showscale=False)
-        chart(style_fig(fig, 380, legend=False), "svc_counts")
     else:
         st.info("Tidak ada layanan terdata pada filter ini.")
 
@@ -826,7 +974,7 @@ with tab_kompetitor:
         fig = px.imshow(
             heat,
             aspect="auto",
-            color_continuous_scale=[[0, "#1E293B"], [1, TEAL]],
+            color_continuous_scale=[[0, "#1E293B"], [1, AKSEN]],
             text_auto=True,
             labels=dict(color=""),
         )
@@ -882,12 +1030,12 @@ with tab_kompetitor:
     )
 
 # ===========================================================================
-# TAB: LAYANAN WINNING
+# HALAMAN: LAYANAN WINNING
 # ===========================================================================
-with tab_layanan:
+if page == "Layanan Winning":
     st.caption(
         "Paket dan harga adalah usulan dari riset layanan, bukan penawaran resmi. "
-        "Harga pasar kompetitor ada di tab Kompetitor Agency."
+        "Harga pasar kompetitor ada di halaman Kompetitor Agency."
     )
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -897,7 +1045,7 @@ with tab_layanan:
             "Entry per bulan",
             fmt_rp(metrics["harga_entry_rp"]),
             metrics["paket_entry"],
-            accent=TEAL,
+            accent=AKSEN,
         )
     with c3:
         kpi(
@@ -978,19 +1126,11 @@ with tab_layanan:
         f"Dihitung dari deskripsi layanan publik {len(kompetitor)} kompetitor. Layanan dengan jumlah "
         "tinggi berarti paling banyak dijual, bukan otomatis paling menguntungkan."
     )
-    svc = data["service_counts"].sort_values("jumlah")
-    fig = px.bar(
-        svc,
-        x="jumlah",
-        y="layanan",
-        orientation="h",
-        text_auto=True,
-        color="jumlah",
-        color_continuous_scale=["#334155", TEAL],
-        labels={"jumlah": "jumlah kompetitor", "layanan": ""},
+    svc = data["service_counts"].sort_values("jumlah", ascending=False)
+    css_bars(
+        [(r["layanan"], float(r["jumlah"]), fmt_int(r["jumlah"])) for _, r in svc.iterrows()],
+        key="layanan_svc",
     )
-    fig.update_layout(coloraxis_showscale=False)
-    chart(style_fig(fig, 420, legend=False), "layanan_svc")
 
     st.markdown("#### Benchmark retainer")
     retainer = adcost[adcost["objective"].str.lower() == "retainer"]
@@ -1011,9 +1151,9 @@ with tab_layanan:
         st.info("Belum ada benchmark retainer.")
 
 # ===========================================================================
-# TAB: LAYANAN IMPOST
+# HALAMAN: LAYANAN IMPOST
 # ===========================================================================
-with tab_impost:
+if page == "Layanan IMPOST":
     st.markdown(
         '<div class="warn"><b>Harga ideal masih hipotesis.</b> Harga pasar '
         "disusun dari sinyal publik kompetitor, benchmark pasar, dan laporan "
@@ -1033,21 +1173,24 @@ with tab_impost:
         kpi(
             "Demand tertinggi Kalsel",
             metrics["impost_demand_tertinggi_kalsel"],
-            f"skor {fmt_dec(metrics['impost_demand_kalsel_skor'])}/5",
+            delta=f"skor {fmt_dec(metrics['impost_demand_kalsel_skor'])}/5",
+            direction="up",
             accent=AMBER,
         )
     with c3:
         kpi(
             "Demand tertinggi nasional",
             metrics["impost_demand_tertinggi_nasional"],
-            f"skor {fmt_dec(metrics['impost_demand_nasional_skor'])}/5",
+            delta=f"skor {fmt_dec(metrics['impost_demand_nasional_skor'])}/5",
+            direction="up",
             accent=BLUE,
         )
     with c4:
         kpi(
             "Demand terendah Kalimantan",
             metrics["impost_demand_terendah_kalimantan"],
-            f"skor {fmt_dec(metrics['impost_demand_kalimantan_skor'])}/5",
+            delta=f"skor {fmt_dec(metrics['impost_demand_kalimantan_skor'])}/5",
+            direction="down",
             accent=RED,
         )
 
@@ -1065,7 +1208,7 @@ with tab_impost:
     fig = px.imshow(
         heat_imp,
         aspect="auto",
-        color_continuous_scale=["#1E293B", "#99F6E4", TEAL],
+        color_continuous_scale=["#1E293B", "#E8B39E", AKSEN],
         text_auto=True,
         zmin=1,
         zmax=5,
@@ -1102,7 +1245,7 @@ with tab_impost:
             barmode="group",
             orientation="h",
             text_auto=True,
-            color_discrete_map={"Kalsel": TEAL, "Kalimantan": AMBER, "Nasional": BLUE},
+            color_discrete_map={"Kalsel": AKSEN, "Kalimantan": AMBER, "Nasional": BLUE},
             labels={"layanan": "", "Domain unik": "domain unik"},
         )
         chart(style_fig(fig, 560), "impost_signal")
@@ -1174,13 +1317,13 @@ with tab_impost:
                 x=[mid],
                 y=[r["layanan"]],
                 mode="markers",
-                marker=dict(size=12, color=TEAL, symbol="diamond"),
+                marker=dict(size=12, color=AKSEN, symbol="diamond"),
                 error_x=dict(
                     type="data",
                     symmetric=False,
                     array=[r["harga_ideal_max_rp"] - mid],
                     arrayminus=[mid - r["harga_ideal_min_rp"]],
-                    color=TEAL,
+                    color=AKSEN,
                     thickness=4,
                 ),
                 name="Harga ideal",
@@ -1283,9 +1426,9 @@ with tab_impost:
     )
 
 # ===========================================================================
-# TAB: SOSIAL MEDIA
+# HALAMAN: SOSIAL MEDIA
 # ===========================================================================
-with tab_sosmed:
+if page == "Sosial Media":
     a, b = st.columns([1.15, 1])
     with a:
         st.markdown("#### Jangkauan platform (juta)")
@@ -1325,7 +1468,7 @@ with tab_sosmed:
         "belum sebagai patokan final."
     )
     color_map = {
-        "Awareness": TEAL,
+        "Awareness": AKSEN,
         "Traffic": BLUE,
         "Lead": AMBER,
         "Konten": VIOLET,
@@ -1338,7 +1481,7 @@ with tab_sosmed:
         mid = r["titik_tengah_rp"]
         low = r["batas_bawah_rp"]
         high = r["batas_atas_rp"]
-        color = color_map.get(r["objective"], TEAL)
+        color = color_map.get(r["objective"], AKSEN)
         fig.add_trace(
             go.Scatter(
                 x=[mid],
@@ -1374,7 +1517,7 @@ with tab_sosmed:
     fig = px.imshow(
         channel_top,
         aspect="auto",
-        color_continuous_scale=["#1E293B", "#99F6E4", TEAL],
+        color_continuous_scale=["#1E293B", "#E8B39E", AKSEN],
         text_auto=True,
         labels=dict(color="prioritas"),
     )
@@ -1385,9 +1528,9 @@ with tab_sosmed:
     st.dataframe(channel, width="stretch", height=360)
 
 # ===========================================================================
-# TAB: PAIN POINT OWNER
+# HALAMAN: PAIN POINT OWNER
 # ===========================================================================
-with tab_pain:
+if page == "Pain Point Owner":
     st.markdown(
         '<div class="warn"><b>Skor ini masih hipotesis, belum data survei.</b> Pain point '
         "masih penilaian awal. Validasi lapangan belum dijalankan, jadi jangan dipakai "
@@ -1460,39 +1603,35 @@ with tab_pain:
         )
 
     st.markdown("#### Tabel prioritas pain point")
-    st.dataframe(
-        pain_f[
-            [
-                "peringkat",
-                "segmen",
-                "pain_point",
-                "frekuensi",
-                "dampak",
-                "kesiapan_bayar",
-                "skor_prioritas",
-                "kuadran",
-            ]
-        ].rename(
-            columns={
-                "peringkat": "#",
-                "segmen": "Segmen",
-                "pain_point": "Pain point",
-                "frekuensi": "Frekuensi",
-                "dampak": "Dampak",
-                "kesiapan_bayar": "Kesiapan bayar",
-                "skor_prioritas": "Skor",
-                "kuadran": "Kuadran",
-            }
-        ),
-        hide_index=True,
-        width="stretch",
-        height=420,
+    st.caption("Kuadran: Kritis = sering + berat; badge mengikuti tingkat urgensi.")
+    pain_rows = pain_f[
+        [
+            "peringkat",
+            "segmen",
+            "pain_point",
+            "frekuensi",
+            "dampak",
+            "kesiapan_bayar",
+            "skor_prioritas",
+            "kuadran",
+        ]
+    ]
+    html_table(
+        ["#", "Segmen", "Pain point", "Frekuensi", "Dampak", "Kesiapan bayar", "Skor", "Kuadran"],
+        [
+            [str(int(r["peringkat"])), r["segmen"], r["pain_point"],
+             fmt_dec(r["frekuensi"], 1), fmt_dec(r["dampak"], 1),
+             fmt_dec(r["kesiapan_bayar"], 1), fmt_dec(r["skor_prioritas"]), r["kuadran"]]
+            for _, r in pain_rows.iterrows()
+        ],
+        num_cols=(0, 3, 4, 5, 6),
+        badge_cols=(7,),
     )
 
 # ===========================================================================
-# TAB: PERSEPSI TERHADAP AGENCY
+# HALAMAN: PERSEPSI TERHADAP AGENCY
 # ===========================================================================
-with tab_persepsi:
+if page == "Persepsi Agency":
     st.markdown(
         '<div class="warn"><b>Skor persepsi masih hipotesis, belum data survei.</b> '
         "Kesenjangan kepentingan dan kinerja masih penilaian awal. Validasi lapangan "
@@ -1535,7 +1674,7 @@ with tab_persepsi:
         barmode="group",
         orientation="h",
         color_discrete_map={
-            "Kepentingan klien": TEAL,
+            "Kepentingan klien": AKSEN,
             "Kinerja agency": AMBER,
         },
         labels={"dimensi": "", "Skor": "skor (1-5)"},
@@ -1544,35 +1683,31 @@ with tab_persepsi:
     chart(style_fig(fig, 520), "trust_gap")
 
     st.markdown("#### Tabel kesenjangan")
-    st.dataframe(
-        persepsi[
-            [
-                "prioritas_perbaikan",
-                "dimensi",
-                "kepentingan",
-                "kinerja_agency",
-                "gap",
-                "status",
-            ]
-        ].rename(
-            columns={
-                "prioritas_perbaikan": "Prioritas",
-                "dimensi": "Dimensi",
-                "kepentingan": "Kepentingan",
-                "kinerja_agency": "Kinerja agency",
-                "gap": "Gap",
-                "status": "Status",
-            }
-        ),
-        hide_index=True,
-        width="stretch",
-        height=420,
+    st.caption("Badge tingkat dihitung dari gap: ≥1,00 tinggi, ≥0,50 sedang, di bawahnya baik.")
+
+    def tingkat_gap(g: float) -> str:
+        if g >= 1.0:
+            return "tinggi"
+        if g >= 0.5:
+            return "sedang"
+        return "baik"
+
+    html_table(
+        ["Prioritas", "Dimensi", "Kepentingan", "Kinerja agency", "Gap", "Tingkat"],
+        [
+            [str(int(r["prioritas_perbaikan"])), r["dimensi"],
+             fmt_dec(r["kepentingan"]), fmt_dec(r["kinerja_agency"]),
+             fmt_dec(r["gap"]), tingkat_gap(float(r["gap"]))]
+            for _, r in persepsi.iterrows()
+        ],
+        num_cols=(0, 2, 3, 4),
+        badge_cols=(5,),
     )
 
 # ===========================================================================
-# TAB: METODOLOGI
+# HALAMAN: METODOLOGI
 # ===========================================================================
-with tab_metodologi:
+if page == "Metodologi":
     st.markdown("#### Alur analisis")
     s1, s2, s3 = st.columns(3)
     with s1:
@@ -1599,7 +1734,7 @@ with tab_metodologi:
         st.markdown(
             """
             **3. Keluaran**
-            - Dashboard 10 tab
+            - Dashboard 10 halaman
             - CSV turunan & `metrics.json`
             - Rekomendasi di folder `research/`
             """
@@ -1627,18 +1762,20 @@ with tab_metodologi:
         ],
         columns=["File", "Isi", "Sumber", "Status"],
     )
-    st.dataframe(ddict, hide_index=True, width="stretch")
+    with st.expander("Buka data dictionary (jarang dibuka)"):
+        st.dataframe(ddict, hide_index=True, width="stretch")
 
     st.markdown("#### Sumber & status verifikasi")
-    st.dataframe(
-        sumber[
-            ["id", "topik", "sumber", "tahun", "jenis_data", "status", "url"]
-        ],
-        hide_index=True,
-        width="stretch",
-        height=420,
-        column_config={"url": st.column_config.LinkColumn("URL")},
-    )
+    with st.expander("Buka daftar 42 sumber & status verifikasi"):
+        st.dataframe(
+            sumber[
+                ["id", "topik", "sumber", "tahun", "jenis_data", "status", "url"]
+            ],
+            hide_index=True,
+            width="stretch",
+            height=420,
+            column_config={"url": st.column_config.LinkColumn("URL")},
+        )
 
     st.markdown("#### Jalankan ulang analisis")
     st.caption(
@@ -1653,7 +1790,8 @@ with tab_metodologi:
         st.rerun()
 
     st.markdown("#### Metrics JSON")
-    st.json(metrics)
+    with st.expander("Buka detail metrics.json (jarang dibuka)"):
+        st.json(metrics)
 
 st.markdown("---")
 st.caption(

@@ -30,10 +30,9 @@ lalu buka `http://localhost:8501` di browser Windows.
 
 ```
 dashboard/
-├── app.py                 # UI Streamlit (10 tab, 25 grafik)
+├── app.py                 # UI Streamlit (10 halaman navigasi sidebar, 23 grafik + bar chart CSS)
 ├── analysis.py            # pipeline cleaning, scoring, agregasi
 ├── requirements.txt
-├── .streamlit/config.toml
 └── data/derived/          # output analisis (auto-generated)
     ├── metrics.json
     ├── kota_clean.csv
@@ -82,20 +81,36 @@ Pipeline akan:
 6. Mengagregasi kompetitor: kota, tipe, layanan, transparansi harga.
 7. Menulis `dashboard/data/derived/*.csv` dan `metrics.json`.
 
-## 4. Tab dashboard
+## 4. Halaman dashboard
 
-| Tab | Isi |
+Navigasi memakai radio-style di sidebar (bullet merah bata saat aktif); tiap
+halaman adalah satu blok `if page == ...` di `app.py`.
+
+| Halaman | Isi |
 |---|---|
 | **Industri Winning** | Scatter attractiveness, ranking, radar, dan tabel industri prioritas inti + prioritas |
-| **Pain Point Owner** | Bubble 57 pain point, 12 prioritas, tabel per segmen |
+| **Pain Point Owner** | Bubble 57 pain point, 12 prioritas, tabel per segmen dengan badge kuadran |
 | **Industri Potensial** | Scatter, ranking, radar, dan tabel industri kategori potensial |
-| **Kompetitor Agency** | Sebaran kota Kalimantan, lokal vs nasional, matrix layanan, 50 agency dengan lokasi terverifikasi, sinyal harga |
-| **Layanan Winning** | Tangga paket, paket per industri, add-on, layanan terlaris, benchmark retainer |
+| **Kompetitor Agency** | Sebaran kota Kalimantan, lokal vs nasional, matrix layanan, bar chart CSS layanan terlaris, 50 agency dengan lokasi terverifikasi, sinyal harga |
+| **Layanan Winning** | Tangga paket, paket per industri, add-on, layanan terlaris (bar chart CSS), benchmark retainer |
 | **Sosial Media** | Platform, e-commerce, benchmark biaya iklan, heatmap 11 kanal |
-| **Persepsi Agency** | Trust gap 14 dimensi, gap terbesar, tabel prioritas perbaikan |
+| **Persepsi Agency** | Trust gap 14 dimensi, gap terbesar, tabel prioritas perbaikan dengan badge tingkat |
 | **Layanan IMPOST** | Demand per wilayah, sinyal pencarian, pasokan kompetitor, harga pasar vs ideal |
 | **Pasar Kota** | Peta 9 kota, penduduk, UMK, UMKM, tabel status data |
-| **Metodologi** | Alur, data dictionary, 42 sumber, tombol re-run |
+| **Metodologi** | Alur, data dictionary & metrics.json (expander), 42 sumber, tombol re-run |
+
+## 4b. Gaya tampilan
+
+Gaya dashboard gelap utilitarian dengan tiga titik kustomisasi di `app.py`:
+
+1. **Warna** — semua ada di blok `:root` paling atas CSS: `--aksen` (merah bata),
+   `--netral`, dst. Ganti di sana (plus konstanta `AKSEN` untuk Plotly) dan
+   seluruh halaman ikut berubah.
+2. **Teks/konten** — label kartu metrik, badge, dan placeholder tinggal diganti.
+3. **Radius/lebar** — `--radius` dan `--sidebar` di `:root`.
+
+Otomatis: responsif (sidebar jadi bar atas di layar sempit), animasi stagger
+kartu metrik, dan font IBM Plex Sans + IBM Plex Mono untuk angka.
 
 ## 5. Catatan penting
 
@@ -104,7 +119,7 @@ Pipeline akan:
 - **Harga kompetitor adalah sinyal publik**, bukan quotation resmi.
 - **UMKM kota belum lengkap**; hanya 4 kota yang punya angka terdata.
 - **IMPOST Media dikecualikan** dari daftar kompetitor karena merupakan entitas yang melakukan riset.
-- Untuk menambah kompetitor/kota/industri: edit CSV di `research/data/`, lalu klik **Jalankan ulang analisis** di tab Metodologi.
+- Untuk menambah kompetitor/kota/industri: edit CSV di `research/data/`, lalu klik **Jalankan ulang analisis** di halaman Metodologi.
 
 ## 6. Deploy (opsional)
 
