@@ -1,13 +1,13 @@
 id,topik,sumber,url,tahun,jenis_data,status,catatan
-S01,Pertumbuhan & PDRB Kaltim,BPS Provinsi Kalimantan Timur,https://kaltim.bps.go.id,2025,Statistik resmi,Terverifikasi,"PDRB, pertumbuhan, IPM"
+S01,Pertumbuhan & PDRB Kaltim,BPS Provinsi Kalimantan Timur,https://kaltim.bps.go.id/id/pressrelease/2026/02/05/1230/the-economy-of-kalimantan-timur-province-in-2025-experienced-growth-of-4-53-percent.html,2026,Statistik resmi,Terverifikasi,"Pertumbuhan 2024 6,17%; 2025 4,53%; PDRB, IPM"
 S02,Pertumbuhan & UMKM Kalsel,BPS Provinsi Kalimantan Selatan,https://kalsel.bps.go.id,2025,Statistik resmi,Terverifikasi,"Pertumbuhan, UMKM"
-S03,Pertumbuhan Kalbar,BPS Provinsi Kalimantan Barat,https://kalbar.bps.go.id,2025,Statistik resmi,Terverifikasi,"Pertumbuhan, IPM"
-S04,Pertumbuhan Kalteng,BPS Provinsi Kalimantan Tengah,https://kalteng.bps.go.id,2025,Statistik resmi,Terverifikasi,"Pertumbuhan, IPM"
-S05,Pertumbuhan Kaltara,BPS Provinsi Kalimantan Utara,https://kaltara.bps.go.id,2025,Statistik resmi,Terverifikasi,"Pertumbuhan, IPM"
+S03,Pertumbuhan Kalbar,BPS Provinsi Kalimantan Barat,https://kalbar.bps.go.id,2026,Statistik resmi,Terverifikasi,"Pertumbuhan 2024 4,90%; 2025 5,39%; IPM"
+S04,Pertumbuhan Kalteng,BPS Provinsi Kalimantan Tengah,https://kalteng.bps.go.id/id/pressrelease/2026/02/05/1622/ekonomi-kalimantan-tengah-tahun-2025-tumbuh-4-80-persen.html,2026,Statistik resmi,Terverifikasi,"Pertumbuhan 2024 4,46%; 2025 4,80%; IPM"
+S05,Pertumbuhan Kaltara,BPS Provinsi Kalimantan Utara,https://malinaukab.bps.go.id/id/pressrelease/2025/02/05/447/pertumbuhan-ekonomi-provinsi-kalimantan-utara-triwulan-iv-2024.html,2026,Statistik resmi,Terverifikasi,"Pertumbuhan 2024 4,57%; 2025 4,56% (Niaga.Asia); IPM"
 S06,Penetrasi internet provinsi,APJII - Survei Penetrasi Internet Indonesia 2025,https://apjii.or.id,2025,Survei nasional,Terverifikasi,5 provinsi Kalimantan
 S07,Jangkauan platform,DataReportal/Kepios - Digital 2026 Indonesia,https://datareportal.com/reports/digital-2026-indonesia,2026,Laporan industri,Terverifikasi,"TikTok, YouTube, Facebook, Instagram, LinkedIn, X, Threads"
-S08,UMP Kaltim,Kementerian Ketenagakerjaan RI,https://kemnaker.go.id,2025,Regulasi,Terverifikasi,UMP Rp3.579.313
-S09,UMK Kalsel,GoodStats Data,https://data.goodstats.id/statistic/daftar-umk-kalimantan-selatan-2025-7yrp2,2025,Kompilasi data,Terverifikasi,UMP Rp3.496.194
+S08,UMP & UMK Kaltim,Pemerintah Provinsi Kalimantan Timur,https://www.kaltimprov.go.id/detailberita/kenaikan-umk-2025-di-kaltim-capai-65-persen,2025,Regulasi,Terverifikasi,UMP Rp3.579.313; UMK Samarinda Rp3.724.437; Balikpapan Rp3.701.509; Bontang Rp3.780.013
+S09,UMK Kalsel,GoodStats Data,https://data.goodstats.id/statistic/daftar-umk-kalimantan-selatan-2025-7yrp2,2025,Kompilasi data,Terverifikasi,UMP Rp3.496.194; UMK Banjarmasin Rp3.599.182; Banjarbaru ikut UMP
 S10,UMP Kalbar,Pemerintah Provinsi Kalimantan Barat,https://kalbarprov.go.id,2025,Regulasi,Terverifikasi,UMP Rp2.878.286
 S11,UMP Kalteng,Pemerintah Provinsi Kalimantan Tengah,https://kalteng.go.id,2025,Regulasi,Terverifikasi,UMP Rp3.473.621
 S12,UMP Kaltara,Pemerintah Provinsi Kalimantan Utara,https://kaltaraprov.go.id,2025,Regulasi,Terverifikasi,UMP Rp3.580.160
@@ -21,7 +21,7 @@ S19,Penduduk Banjarbaru,Wikipedia / BPS Kota Banjarbaru,https://id.wikipedia.org
 S20,Penduduk Bontang,Wikipedia / BPS Kota Bontang,https://id.wikipedia.org/wiki/Kota_Bontang,2024,Kompilasi,Perlu verifikasi,191.811 jiwa (2024)
 S21,UMKM Palangka Raya,BPK RI Perwakilan Kalteng,https://kalteng.bpk.go.id/download/pemerintah-kota-palangka-raya-perkuat-pengembangan-umkm,2024,Data pemerintah,Terverifikasi,27.298 unit
 S22,UMKM Samarinda,Satu Data Kota Samarinda,https://satudata.samarindakota.go.id,2025,Data pemerintah,Terverifikasi,17.003 unit terdaftar
-S23,UMKM Balikpapan,Dinas Koperasi & UKM Kota Balikpapan,https://dkukm.balikpapan.go.id,2024,Data pemerintah,Perlu verifikasi,±98.000 unit
+S23,UMKM Balikpapan,Dinas Koperasi UMKM & Perindustrian Kota Balikpapan,https://dkumkmp.balikpapan.go.id/,2025,Data pemerintah,Terverifikasi,±98.000 unit tercatat akhir 2025 (Metro Kaltim; Swara Kaltim); 93 ribu unit aktif per Nov 2025 (Antara)
 S24,Harga & layanan Bima Creative,Bima Creative,https://www.bima.co.id,2026,Website kompetitor,Terverifikasi,Performance marketing
 S25,Harga & layanan Publish Agency,Publish Agency,https://publish.co.id,2026,Website kompetitor,Terverifikasi,"Local SEO, KOL, 130 paket"
 S26,Harga & layanan Etnicode DS,Etnicode DS,https://www.etnicode.com,2026,Website kompetitor,Terverifikasi,Pricelist terbuka
