@@ -50,6 +50,9 @@ PAGES = [
 st.markdown(
     """
     <style>
+    /* @import wajib paling atas sebelum rule apa pun, kalau tidak diabaikan browser */
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
     /* ======:root — satu-satunya tempat menyetel warna, radius, dan lebar ====== */
     :root {
       --bg: #0F172A;           /* latar halaman */
@@ -67,7 +70,6 @@ st.markdown(
       --sidebar: 300px;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
     .block-container { padding-top: 1.5rem; padding-bottom: 3rem; max-width: 1500px; }
     *, body { font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important; }
     [data-testid="stIconMaterial"] { font-family: "Material Symbols Rounded" !important;
