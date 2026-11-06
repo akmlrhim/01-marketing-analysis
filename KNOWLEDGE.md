@@ -287,7 +287,7 @@ bisnis lokal, pengalaman klien yang dipublikasikan). `kinerja_agency` dinilai da
 audit 50 kompetitor: apakah mereka mempublikasi laporan terukur, harga transparan,
 studi kasus, kecepatan respons, dsb.
 
-Contoh: **Akuntabilitas KPI** kepentingan 4,7 vs kinerja 2,3 → gap **2,4** (terbesar).
+Contoh: **Bukti hasil yang terukur** kepentingan 5,0 vs kinerja 2,5 → gap **2,5** (terbesar), disusul **Akuntabilitas KPI** 4,7 vs 2,3 → gap **2,4**.
 Kebalikannya, **Kehadiran lokal** 4,0 vs 3,8 → gap 0,2: agency lokal sudah kuat di sini,
 tidak perlu dijadikan positioning utama.
 
@@ -415,9 +415,10 @@ kompetisi (2) dan margin (3) - makanya tetap Prioritas, bukan Prioritas inti.
 
 5, 5, 5 → `0.4×5 + 0.4×5 + 0.2×5 = 5.00` → kuadran **Kritis**, peringkat 1.
 
-### 8.4 Trust gap - Akuntabilitas KPI
+### 8.4 Trust gap - Bukti hasil yang terukur
 
-`4.7 - 2.3 = 2.4` → prioritas perbaikan #1 → menjadi dasar janji positioning
+`5.0 - 2.5 = 2.5` → prioritas perbaikan #1 (disusul Akuntabilitas KPI `4.7 - 2.3 = 2.4`
+di peringkat #2) → menjadi dasar janji positioning
 "laporan revenue yang bisa diverifikasi".
 
 ---
@@ -532,19 +533,18 @@ pertanyaan ..." di tiap subbab.
 | **CPM / CPC / CPL**              | Tiga cara harga iklan digital diukur. CPM = biaya setiap 1.000 orang _melihat_ iklan (seperti biaya papan iklan disorot mata). CPC = biaya setiap satu orang _mengklik_ (masuk etalase). CPL = biaya setiap satu orang _meninggalkan kontak_ (calon pelanggan nyata). Semakin ke bawah, semakin mahal tapi semakin dekat ke penjualan. |
 | **Demand vs pasokan**            | Demand = seberapa banyak pasar membutuhkan/mencari suatu layanan. Pasokan = seberapa banyak penyedia yang menawarkannya. Peluang bagus = demand tinggi + pasokan rendah (banyak yang cari, sedikit yang jual).                                                                                                                         |
 
-### 12.2 Tab RINGKASAN - "Bagaimana kondisi pasar Kalimantan?"
+### 12.2 Pembuka - "Bagaimana kondisi pasar Kalimantan?"
 
-Peta besar pasar sebelum masuk detail. Kalimat pembuka: _"Sebelum bicara strategi,
-ini gambaran medannya: ekonominya tumbuh, penduduknya sudah online, dan ada
-kompetitor nomor satu yang harus kita kalahkan."_
+Dashboard saat ini **10 tab dan 25 grafik**; tab "Ringkasan" versi awal sudah tidak ada,
+dan grafik makro per provinsi (pertumbuhan ekonomi, penetrasi internet) belum
+ditampilkan di dashboard - angkanya ada di `research/data/makro-kalimantan.csv`
+(kolom `pertumbuhan_2024_persen`, `pertumbuhan_2025_persen`, `penetrasi_internet_2025_persen`).
 
-| Yang tampil                                                         | Menjelaskan apa & cara membacanya                                                                                                                                                                                                        |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| KPI Provinsi/Kota/Kompetitor/Industri/Sumber                        | Ukuran cakupan riset: "kami memetakan 5 provinsi, 9 kota, 50 kompetitor, 30 industri dari 40 sumber" - menunjukkan riset ini tidak asal.                                                                                                 |
-| Grafik **Pertumbuhan ekonomi** (batang 2024 vs 2025)                | Ekonomi tiap provinsi Kalimantan tumbuh berapa persen per tahun. Batang hijau (2025) lebih tinggi = ekonomi memanas = daya beli klien potensial membaik. Catat: Kaltim melambat setelah puncak pembangunan IKN.                          |
-| Grafik **Penetrasi internet** (batang mendatar + garis putus-putus) | Persentase penduduk yang online tiap provinsi. Garis putus-putus = rata-rata nasional. Provinsi di kanan garis = lebih "siap digital" dari rata-rata Indonesia; provinsi paling kiri = iklan digital kurang efektif, perlu kanal luring. |
-| Grafik **Platform terbesar**                                        | Di mana orang Kalimantan/Indonesia berkumpul online (TikTok, Instagram, dst), dalam juta pengguna. Menjawab "iklan kita harus tayang di mana".                                                                                           |
-| Grafik **Skor industri**                                            | Peringkat 30 industri dari yang paling menjanjikan. Batang paling atas = industri yang paling layak digodok dulu.                                                                                                                        |
+Untuk membuka presentasi, bacakan banner **Status data** di atas halaman (jujur: skor
+masih hipotesis), lalu masuk ke tab **Pasar Kota** (bagian 12.3). Jika perlu angka makro
+se-Kalimantan: ekonomi Kalimantan tumbuh 5,43% (2024) vs nasional 5,03%; Kaltim paling
+agresif di 2024 (6,17%) lalu melambat di 2025 (4,53%); Kalbar tumbuh tertinggi di 2025
+(5,39%); penetrasi internet tertinggi Kalteng (89,57%), terendah Kalsel (64,67%).
 
 ### 12.3 Tab PASAR KOTA - "Di kota mana kita bermain?"
 

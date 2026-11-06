@@ -1,7 +1,7 @@
 # Dashboard Riset Pasar Kalimantan
 
 Dashboard Streamlit untuk membaca hasil riset pasar agency digital marketing Kalimantan:
-9 kota, 30 industri, 50 kompetitor Kalimantan, 10 platform, 6 marketplace, 53 pain point, dan 30 sumber.
+9 kota, 30 industri, 50 kompetitor Kalimantan, 10 platform, 6 marketplace, 53 pain point, dan 40 sumber.
 
 ## 1. Jalankan
 
@@ -62,7 +62,7 @@ Data mentah tetap di `research/data/`:
 | `channel-matrix.csv` | 30 industri × 10 kanal |
 | `pain-point.csv` | 53 pain point (hipotesis) |
 | `persepsi.csv` | 14 dimensi trust gap (hipotesis) |
-| `sumber.csv` | 30 sumber + status verifikasi |
+| `sumber.csv` | 40 sumber + status verifikasi |
 
 ## 3. Alur analisis
 
@@ -93,9 +93,9 @@ Pipeline akan:
 | **Layanan Winning** | Tangga paket, paket per industri, add-on, layanan terlaris, benchmark retainer |
 | **Sosial Media** | Platform, e-commerce, benchmark biaya iklan, heatmap 10 kanal |
 | **Persepsi Agency** | Trust gap 14 dimensi, gap terbesar, tabel prioritas perbaikan |
-| **Ringkasan** | KPI, pertumbuhan ekonomi, penetrasi internet, platform, ranking industri |
+| **Layanan IMPOST** | Demand per wilayah, sinyal pencarian, pasokan kompetitor, harga pasar vs ideal |
 | **Pasar Kota** | Peta 9 kota, penduduk, UMK, UMKM, tabel status data |
-| **Metodologi** | Alur, data dictionary, 30 sumber, tombol re-run |
+| **Metodologi** | Alur, data dictionary, 40 sumber, tombol re-run |
 
 ## 5. Catatan penting
 

@@ -8,7 +8,7 @@ Isi utama:
 - `dashboard/` - aplikasi Streamlit + pipeline analisis
 - `graphify-out/` - knowledge graph proyek
 
-Dashboard mencakup **11 tab dan 27 grafik**: Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Ringkasan, Pasar Kota, dan Metodologi.
+Dashboard mencakup **10 tab dan 25 grafik**: Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, dan Metodologi.
 
 ---
 

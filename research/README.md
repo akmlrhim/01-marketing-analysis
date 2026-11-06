@@ -31,7 +31,7 @@
 | `data/layanan-winning.csv` | 5 paket layanan + harga bulanan |
 | `data/layanan-industri.csv` | 4 paket layanan per industri + KPI |
 | `data/layanan-addon.csv` | 5 add-on + harga |
-| `data/sumber.csv` | 30 sumber + status verifikasi |
+| `data/sumber.csv` | 40 sumber + status verifikasi |
 
 **Dashboard:** `dashboard/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard/README.md`.
 
@@ -39,7 +39,7 @@
 
 ## 2. Temuan kunci (ringkas)
 
-1. **Kalimantan tumbuh di atas nasional, tapi tidak merata.** Ekonomi pulau tumbuh 5,3% (2024) vs nasional 5,03%; konstruksi melesat 15,82% karena IKN. Kaltim paling agresif (6,2% pada 2023-2024), Kalbar 5,39% (2024), Kaltara 4,56% (2025), Kalsel ~5,05% (2024), Kalteng ~4,99% (Q2 2025).
+1. **Kalimantan tumbuh di atas nasional, tapi tidak merata.** Ekonomi pulau tumbuh 5,43% (2024) vs nasional 5,03%; konstruksi melesat 15,82% karena IKN. Kaltim paling agresif di 2024 (6,17%) lalu melambat di 2025 (4,53%), Kalbar tumbuh tertinggi di 2025 (5,39%), Kalsel 5,22% (2025), Kalteng 4,80% (2025), Kaltara 4,56% (2025).
 2. **Mesin pertumbuhan riil ada di 4 klaster:** (a) konstruksi-properti-infrastruktur IKN, (b) logistik & perdagangan, (c) F&B/retail/kuliner kota, (d) hilirisasi sawit & tambang. Jasa pendidikan, kesehatan, dan wisata ikut naik.
 3. **Balikpapan adalah pasar UMKM terpadat:** ~98 ribu UMKM akhir 2025, hampir 40% kuliner. Ini pasar volume untuk paket entry, bukan paket korporat.
 4. **TikTok = kanal dengan jangkauan terbesar** (180 juta akun 18+), disusul YouTube (151 juta), Facebook (121 juta), Instagram (108 juta). Untuk bisnis lokal, kombinasi realistis: **IG + TikTok + WhatsApp + Google Maps**, dengan Facebook masih relevan untuk segmen 35+.
@@ -79,9 +79,9 @@
 .venv/bin/streamlit run dashboard/app.py
 ```
 
-Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Sosial Media, Persepsi Agency, Ringkasan, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard/data/derived/`.
+Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard/data/derived/`.
 
-Dashboard mencakup peta 9 kota, 50 kompetitor Kalimantan, 30 industri, 53 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 30 sumber dengan status verifikasi.
+Dashboard mencakup peta 9 kota, 50 kompetitor Kalimantan, 30 industri, 53 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 40 sumber dengan status verifikasi.
 
 ---
 
