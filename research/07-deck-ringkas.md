@@ -14,10 +14,10 @@ _November 2026_
 
 ## Slide 2 - Mengapa Kalimantan, mengapa sekarang
 
-- Ekonomi pulau tumbuh **5,3% (2024)** vs nasional 5,03%.
-- Konstruksi tumbuh **15,82%** karena IKN.
+- Ekonomi pulau tumbuh **3,90% (Q3 2026, y-on-y)** vs nasional 5,47%.
+- Kaltara tertinggi (**6,34%**), Kalteng terendah (**2,05%**).
 - **98.000 UMKM** di Balikpapan; ~40% kuliner.
-- Penetrasi internet Kaltim **88,33%**, Kalteng **89,57%**.
+- Penetrasi internet Kaltim **89,55%**, Kalteng **90,79%** (APJII 2026).
 
 **Pesan:** pasar sudah digital, tetapi belum dilayani dengan sistem yang terukur.
 
@@ -27,11 +27,11 @@ _November 2026_
 
 | Provinsi | Tumbuh          | Kekuatan                           | Internet |
 | -------- | --------------- | ---------------------------------- | -------- |
-| Kaltim   | 6,17% (2024)    | Tambang, konstruksi, IKN           | 88,33%   |
-| Kalsel   | 5,05% (2024)    | Tambang, agro, logistik            | 64,67%   |
-| Kalteng  | 4,99% (Q2 2025) | Sawit, tambang, jasa               | 89,57%   |
-| Kalbar   | 5,39% (2025)    | Tambang, agro, alumina             | 79,37%   |
-| Kaltara  | 4,56% (2025)    | Tambang, perikanan, industri hijau | 70,15%   |
+| Kaltim   | 3,39% (Q3 2026) | Tambang, konstruksi, IKN           | 89,55%   |
+| Kalsel   | 4,97% (Q3 2026) | Tambang, agro, logistik            | 65,89%   |
+| Kalteng  | 2,05% (Q3 2026) | Sawit, tambang, jasa               | 90,79%   |
+| Kalbar   | 5,24% (Q3 2026) | Tambang, agro, alumina             | 80,59%   |
+| Kaltara  | 6,34% (Q3 2026) | Tambang, perikanan, industri hijau | 71,37%   |
 
 **Pesan:** jangan perlakukan Kalimantan sebagai satu pasar.
 
@@ -110,7 +110,7 @@ _November 2026_
 
 ## Slide 9 - Media sosial & channel mix
 
-**Data nasional:** TikTok 180 jt, YouTube 151 jt, Facebook 121 jt, Instagram 108 jt, LinkedIn 37 jt.
+**Data nasional (Okt 2026):** TikTok 240 jt, YouTube 155 jt, Facebook 126 jt, Instagram 116 jt, LinkedIn 45 jt.
 
 **Core 4 untuk bisnis lokal:**
 

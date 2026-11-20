@@ -1,10 +1,10 @@
 kanal,objective,metrik,batas_bawah_rp,batas_atas_rp,satuan,catatan,status
-Meta Ads,Awareness,CPM,15000,45000,per 1.000 impresi,Range pasar Indonesia 2025,Estimasi
-Meta Ads,Traffic,CPC,1500,5000,per klik,Range pasar Indonesia 2025,Estimasi
+Meta Ads,Awareness,CPM,22000,55000,per 1.000 impresi,Range pasar Indonesia 2026 (Arfadia Benchmark 2026),Estimasi
+Meta Ads,Traffic,CPC,1500,5000,per klik,Range pasar Indonesia 2025; belum ada benchmark 2026 yang teraudit,Estimasi
 Meta Ads,Lead,CPL,20000,80000,per lead,Tergantung industri & offer,Estimasi
-TikTok Ads,Awareness,CPM,10000,35000,per 1.000 impresi,Range pasar Indonesia 2025,Estimasi
-TikTok Ads,Traffic,CPC,1000,4000,per klik,Range pasar Indonesia 2025,Estimasi
-Google Search,Lead,CPC,2000,15000,per klik,Keyword komersial,Estimasi
+TikTok Ads,Awareness,CPM,25000,65000,per 1.000 impresi,Range pasar Indonesia 2026 (Arfadia Benchmark 2026),Estimasi
+TikTok Ads,Traffic,CPC,1000,4000,per klik,Range pasar Indonesia 2025; belum ada benchmark 2026 yang teraudit,Estimasi
+Google Search,Lead,CPC,4000,45000,per klik,Keyword komersial; benchmark 2026 Rp4-45 rb,Estimasi
 Google Search,Lead,CPL,50000,250000,per lead,B2B/konstruksi lebih tinggi,Estimasi
 YouTube,Awareness,CPV,100,500,per view,Range pasar Indonesia,Estimasi
 Instagram KOL nano,Konten,per post,500000,2500000,per konten,1-10 rb followers,Estimasi

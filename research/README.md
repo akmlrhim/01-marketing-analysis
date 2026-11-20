@@ -1,7 +1,7 @@
 # Riset Pasar Agency Digital Marketing Kalimantan
 
 **Status:** Fokus saat ini pengumpulan data dari internet (desk research). Riset primer (wawancara & survei) ditunda.
-**Tanggal:** 4 November 2026
+**Tanggal:** 20 November 2026
 **Cakupan geografis:** Kalimantan Timur (Balikpapan, Samarinda, IKN), Kalimantan Selatan (Banjarmasin, Banjarbaru), Kalimantan Barat (Pontianak), Kalimantan Tengah (Palangka Raya), Kalimantan Utara (Tarakan, Tanjung Selor).
 
 ---
@@ -16,8 +16,8 @@
 | `04-pain-point-persepsi.md` | Hipotesis pain point per segmen + persepsi terhadap agency + rencana validasi |
 | `05-media-sosial-kalimantan.md` | Data platform nasional & penetrasi internet Kalimantan, peran kanal per industri |
 | `06-layanan-winning.md` | Paket layanan, harga, positioning, go-to-market 90 hari, KPI |
-| `08-deck-ringkas.md` | Deck 12 slide untuk presentasi internal/klien |
-| `data/kompetitor.csv` | Database **50 kompetitor** (38 lokal Kalimantan, 12 nasional yang menyasar Kalimantan) |
+| `07-deck-ringkas.md` | Deck 12 slide untuk presentasi internal/klien |
+| `data/kompetitor.csv` | Database **56 kompetitor** (44 lokal Kalimantan, 12 nasional yang menyasar Kalimantan) |
 | `data/skor-industri.csv` | Skor attractiveness **30 industri** (bisa diubah bobotnya) |
 | `data/industri-layanan.csv` | 30 industri × 2-3 layanan inti, dasar skor kompetisi terukur |
 | `data/makro-kalimantan.csv` | Data makro 5 provinsi + penduduk, UMP, IPM |
@@ -31,20 +31,22 @@
 | `data/layanan-winning.csv` | 5 paket layanan + harga bulanan |
 | `data/layanan-industri.csv` | 4 paket layanan per industri + KPI |
 | `data/layanan-addon.csv` | 5 add-on + harga |
-| `data/sumber.csv` | 42 sumber + status verifikasi |
+| `data/sumber.csv` | 50 sumber + status verifikasi |
+| `data/scraping/kompetitor-maps-2026-11.csv` | 33 kandidat agency dari Google Maps (20 Nov 2026), belum masuk analisis |
+| `data/verifikasi-status-2026-11.csv` | Status aktif 56 kompetitor: badan hukum, status operasional, bukti, tanggal cek |
 
-**Dashboard:** `dashboard/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard/README.md`.
+**Dashboard:** `dashboard-streamlit/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard-streamlit/README.md`.
 
 ---
 
 ## 2. Temuan kunci (ringkas)
 
-1. **Kalimantan tumbuh di atas nasional, tapi tidak merata.** Ekonomi pulau tumbuh 5,43% (2024) vs nasional 5,03%; konstruksi melesat 15,82% karena IKN. Kaltim paling agresif di 2024 (6,17%) lalu melambat di 2025 (4,53%), Kalbar tumbuh tertinggi di 2025 (5,39%), Kalsel 5,22% (2025), Kalteng 4,80% (2025), Kaltara 4,56% (2025).
+1. **Kalimantan tumbuh positif, tapi tidak merata dan kini di bawah nasional.** Pada Q3 2026 ekonomi pulau tumbuh 3,90% (y-on-y) dan menyumbang 8,25% PDB nasional (nasional 5,47%). Kaltara tertinggi (6,34%), Kalbar 5,24%, Kalsel 4,97%, Kaltim 3,39%, Kalteng 2,05%. Kumulatif Jan-Sep 2026: Kalbar 5,66%, Kalsel 5,29%, Kaltim 3,25%, Kalteng 3,11%.
 2. **Mesin pertumbuhan riil ada di 4 klaster:** (a) konstruksi-properti-infrastruktur IKN, (b) logistik & perdagangan, (c) F&B/retail/kuliner kota, (d) hilirisasi sawit & tambang. Jasa pendidikan, kesehatan, dan wisata ikut naik.
 3. **Balikpapan adalah pasar UMKM terpadat:** ~98 ribu UMKM akhir 2025, hampir 40% kuliner. Ini pasar volume untuk paket entry, bukan paket korporat.
-4. **TikTok = kanal dengan jangkauan terbesar** (180 juta akun 18+), disusul YouTube (151 juta), Facebook (121 juta), Instagram (108 juta). Untuk bisnis lokal, kombinasi realistis: **IG + TikTok + WhatsApp + Google Maps**, dengan Facebook masih relevan untuk segmen 35+.
-5. **Penetrasi internet Kalimantan tidak identik dengan kualitas pasar.** Kalteng (89,57%) dan Kaltim (88,33%) masuk 10 besar nasional; Kalbar 79,37%; Kaltara 70,15%; **Kalsel justru 64,67% (peringkat 35 dari 38)**. Artinya Kalsel butuh pendekatan offline-hybrid, bukan digital-first murni.
-6. **Kompetitor lokal kuat di relationship & produksi konten, lemah di strategi, pengukuran, dan transparansi harga.** Dari **50 kompetitor** yang dipetakan (38 lokal Kalimantan, 12 nasional yang menyasar Kalimantan), hanya **5 yang membuka sinyal harga publik**. Pemain nasional menyerang lewat halaman SEO "jasa digital marketing + nama kota" dan pricelist terbuka.
+4. **TikTok = kanal dengan jangkauan terbesar** (240 juta akun 18+ pada Okt 2026), disusul YouTube (155 juta), Facebook (126 juta), Instagram (116 juta). Untuk bisnis lokal, kombinasi realistis: **IG + TikTok + WhatsApp + Google Maps**, dengan Facebook masih relevan untuk segmen 35+.
+5. **Penetrasi internet Kalimantan tidak identik dengan kualitas pasar.** Kalteng (90,79%) dan Kaltim (89,55%) di atas rata-rata nasional; Kalbar 80,59%; Kaltara 71,37%; **Kalsel justru 65,89% (terendah di Kalimantan)**. Artinya Kalsel butuh pendekatan offline-hybrid, bukan digital-first murni.
+6. **Kompetitor lokal kuat di relationship & produksi konten, lemah di strategi, pengukuran, dan transparansi harga.** Dari **56 kompetitor** yang dipetakan (44 lokal Kalimantan, 12 nasional yang menyasar Kalimantan), hanya **6 yang membuka sinyal harga publik**. Pemain nasional menyerang lewat halaman SEO "jasa digital marketing + nama kota" dan pricelist terbuka.
 7. **Celah terbesar: performance + CRM/WhatsApp + pelaporan revenue, bukan sekadar konten.** Hampir tidak ada agency lokal yang menjual "lead ke closing" sebagai sistem. Ini peluang positioning yang sulit ditiru agency konten.
 8. **Pasar kota terkonsentrasi di 4 kota:** Samarinda (893 rb jiwa), Balikpapan (757 rb), Pontianak (683 rb), Banjarmasin (682 rb). Balikpapan punya UMKM terdata terbesar (±98 ribu), tetapi UMK tertinggi ada di Tarakan (Rp4,74 jt).
 9. **Persepsi negatif yang harus dilawan:** "agency cuma bikin feed cantik", "mahal tapi tidak ada penjualan", "laporan PDF tidak bisa diverifikasi", "agency Jakarta tidak paham lokal". Pemenang adalah yang bisa membuktikan **biaya per lead, waktu respons, dan kontribusi revenue**.
@@ -69,19 +71,19 @@
 - **Sociality MCP sudah dihapus** dari konfigurasi, sehingga tidak ada sumber data social listening/analytics.
 - **UMKM kota belum lengkap**: hanya Balikpapan, Samarinda, Banjarmasin, dan Palangka Raya yang punya angka terdata; kota lain dikosongkan, bukan diestimasi.
 - **Benchmark biaya iklan & e-commerce adalah estimasi pasar**, bukan data akun campaign. Validasi dengan data aktual sebelum dipakai untuk pricing.
-- Data BPS/BI antarprovinsi punya tahun berbeda (2024 vs 2025); setiap angka diberi label tahun agar tidak salah banding.
+- Data BPS/BI antarprovinsi punya tahun berbeda (2025 vs Q3 2026); setiap angka diberi label tahun agar tidak salah banding.
 
 ---
 
 ## 5. Dashboard
 
 ```bash
-.venv/bin/streamlit run dashboard/app.py
+.venv/bin/streamlit run dashboard-streamlit/app.py
 ```
 
-Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard/data/derived/`.
+Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard-streamlit/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard-streamlit/data/derived/`.
 
-Dashboard mencakup peta 9 kota, 50 kompetitor Kalimantan, 30 industri, 57 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 42 sumber dengan status verifikasi.
+Dashboard mencakup peta 9 kota, 56 kompetitor Kalimantan, 30 industri, 57 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 50 sumber dengan status verifikasi.
 
 ---
 
@@ -89,8 +91,9 @@ Dashboard mencakup peta 9 kota, 50 kompetitor Kalimantan, 30 industri, 57 pain p
 
 - BPS Provinsi Kaltim, Kalsel, Kalteng, Kalbar, Kaltara (PDRB & pertumbuhan ekonomi)
 - Bank Indonesia - Laporan Perekonomian Provinsi (2025)
-- APJII - Survei Penetrasi Internet Indonesia 2025
-- DataReportal/Kepios - Digital 2026: Indonesia
+- APJII - Survei Penetrasi Internet Indonesia 2026
+- DataReportal/Kepios - Digital 2027: Indonesia (data Oktober 2026)
+- Google/Temasek/Bain - e-Conomy SEA 2026
 - NEXT Indonesia - Kinerja Ekonomi Kalimantan (Mei 2025)
 - Pemerintah Provinsi/Kota (Balikpapan, Kaltim, Kalbar, Kalteng) dan pemberitaan lokal
 - Website & profil publik kompetitor (Up & Away, Codezy, Wemember Digital, DNA Indonesia, EastKreatif, Karya Studio, Vodeco, Lenteraweb, dll.)

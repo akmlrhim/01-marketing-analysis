@@ -23,15 +23,15 @@ yang "dikarang langsung" tanpa melewati langkah-langkah ini.
 
 Sebelum menilai, semua yang bisa dikutip dikumpulkan dulu:
 
-- Data makro: BPS (PDRB, pertumbuhan), APJII 2025 (penetrasi internet), DataReportal
-  Digital 2026 (platform), Bank Indonesia (laporan perekonomian provinsi).
+- Data makro: BPS (PDRB, pertumbuhan), APJII 2026 (penetrasi internet), DataReportal
+  Digital 2027 (platform), Bank Indonesia (laporan perekonomian provinsi).
 - Data kota: BPS, Dukcapil, situs pemda (penduduk, UMK, UMKM).
-- Kompetitor: audit publik 50 agency lewat Google SERP, Google Maps (Bright Data),
+- Kompetitor: audit publik 56 agency lewat Google SERP, Google Maps (Bright Data),
   verifikasi lokasi/LinkedIn (Tavily), dan scrape situs yang menolak fetch biasa
   (Firecrawl). Direktori "Top 10" pihak ketiga **tidak dipakai** karena isinya template AI.
 - Sinyal harga: pricelist publik kompetitor dan benchmark nasional.
 
-Semua URL tersimpan di `research/data/sumber.csv` (42 sumber).
+Semua URL tersimpan di `research/data/sumber.csv` (50 sumber).
 
 ### Langkah 2 - Tentukan kriteria dan bobotnya
 
@@ -55,7 +55,7 @@ Kolom `catatan` di CSV adalah jejak alasan penilaian tersebut.
 
 ### Langkah 5 - Hitung skor akhir dengan rumus, bukan dengan perasaan
 
-Skor gabungan selalu dihitung oleh kode (`dashboard/analysis.py`), bukan diketik manual.
+Skor gabungan selalu dihitung oleh kode (`dashboard-streamlit/analysis.py`), bukan diketik manual.
 CSV menyimpan skor mentah 1-5 per kriteria; dashboard menghitung skor tertimbang,
 peringkat, dan kategori. Contoh perhitungan utuh ada di bagian 8.
 
@@ -75,7 +75,7 @@ peringkat, dan kategori. Contoh perhitungan utuh ada di bagian 8.
 ## 2. Skor industri: 6 kriteria × bobot
 
 **Sumber data:** `research/data/skor-industri.csv` (30 industri).
-**Perhitungan:** `score_industries()` di `dashboard/analysis.py`.
+**Perhitungan:** `score_industries()` di `dashboard-streamlit/analysis.py`.
 
 ### 2.1 Rumus
 
@@ -156,7 +156,7 @@ jumlah yang realistis untuk kapasitas satu agency kecil.
 ## 3. Kompetisi terukur: mengganti satu angka tebakan dengan angka data
 
 Kriteria `kompetisi_rendah` adalah satu-satunya yang punya versi hipotesis (angka 1-5
-buatan analis) **dan** versi terukur (dihitung dari 50 agency). Versi terukur ada supaya
+buatan analis) **dan** versi terukur (dihitung dari 56 agency). Versi terukur ada supaya
 pembaca bisa melihat seberapa besar efek penilaian manual. Kode: `competitor_supply()`
 dan `measured_competition()`.
 
@@ -177,7 +177,7 @@ Agency tak terverifikasi dengan 1 layanan → bobot 1,1.
 **Langkah B - Pasokan per kategori layanan.** Layanan tiap agency dideteksi dari teks
 `layanan_utama` memakai regex `SERVICE_RULES` (15 kategori: SMM/Konten, Ads, Website,
 Branding, dst.). Pasokan = jumlah bobot semua agency yang menjual kategori itu.
-Hasilnya antara lain: SMM/Konten ±26 agency, Website ±20, Ads ±15, Cyber Security 1.
+Hasilnya antara lain: SMM/Konten bobot 63,5; Website 51,5; Ads 36,8; Cyber Security 4,0.
 
 **Langkah C - Cakupan pesaing per industri.** Setiap industri punya 2-3 layanan inti di
 `research/data/industri-layanan.csv` (pemetaan ini masih penilaian analis - satu-satunya
@@ -216,7 +216,7 @@ terhadap satu kolom penilaian manual - dan alasan kedua versi tetap ditampilkan.
 
 **Sumber data:** `research/data/pain-point.csv` (57 pain point, 3 segmen: UMKM, SME,
 Korporat/B2B, klinik, dll).
-**Perhitungan:** `pain_priority()` di `dashboard/analysis.py`.
+**Perhitungan:** `pain_priority()` di `dashboard-streamlit/analysis.py`.
 
 ### 4.1 Rumus
 
@@ -244,7 +244,7 @@ skor_prioritas = 0.4 × frekuensi + 0.4 × dampak + 0.2 × kesiapan_bayar
 
 Contoh penilaian: _"Lead masuk tapi tidak di-follow up"_ (SME) dapat 5-5-5 karena bukti
 desk-nya melimpah - WhatsApp penuh chat belum dibalas, agency lokal hampir tidak menjual
-CRM/lead system (data 50 kompetitor: kategori CRM/Lead paling sedikit), dan bisnis jelas
+CRM/lead system (data 56 kompetitor: kategori CRM/Lead paling sedikit), dan bisnis jelas
 sudah membayar untuk iklan yang menghasilkan lead itu sendiri.
 
 ### 4.4 Kuadran (aturan potong di kode)
@@ -266,7 +266,7 @@ bukan keluhan kecil.
 ## 5. Persepsi agency (trust gap)
 
 **Sumber data:** `research/data/persepsi.csv` (14 dimensi).
-**Perhitungan:** `trust_gap()` di `dashboard/analysis.py`.
+**Perhitungan:** `trust_gap()` di `dashboard-streamlit/analysis.py`.
 
 ### 5.1 Rumus
 
@@ -284,7 +284,7 @@ gap = kepentingan - kinerja_agency
 
 `kepentingan` dinilai dari pola keluhan yang berulang di desk research (ulasan, grup
 bisnis lokal, pengalaman klien yang dipublikasikan). `kinerja_agency` dinilai dari
-audit 50 kompetitor: apakah mereka mempublikasi laporan terukur, harga transparan,
+audit 56 kompetitor: apakah mereka mempublikasi laporan terukur, harga transparan,
 studi kasus, kecepatan respons, dsb.
 
 Contoh: **Bukti hasil yang terukur** kepentingan 5,0 vs kinerja 2,5 → gap **2,5** (terbesar), disusul **Akuntabilitas KPI** 4,7 vs 2,3 → gap **2,4**.
@@ -303,12 +303,12 @@ Perhitungan hanya agregasi sederhana (rata-rata per industri untuk mengurutkan).
 Setiap sel dinilai 1-5 dengan satu pertanyaan: _"seberapa efektif kanal ini untuk
 menjual ke industri ini di kota Kalimantan?"_ Tiga masukan yang dipakai:
 
-1. **Perilaku kanal:** jangkauan platform (TikTok 180 jt, YouTube 151 jt, Facebook
-   121 jt, Instagram 108 jt - DataReportal Digital 2026) dan penetrasi internet
-   provinsi (APJII 2025).
+1. **Perilaku kanal:** jangkauan platform (TikTok 240 jt, YouTube 155 jt, Facebook
+   126 jt, Instagram 116 jt - DataReportal Digital 2027) dan penetrasi internet
+   provinsi (APJII 2026).
 2. **Sifat pembelian industri:** B2C cepat → skor tinggi di TikTok/IG/Maps; B2B
    relationship → skor tinggi di WhatsApp/LinkedIn/Google Search, rendah di TikTok.
-3. **Pola kompetitor:** kanal yang aktif dipakai agency pemenang (dari audit 50 agency).
+3. **Pola kompetitor:** kanal yang aktif dipakai agency pemenang (dari audit 56 agency).
 
 Anchor umum: **5** = kanal utama, wajib ada; **3** = pendukung; **1** = hampir tak
 berguna. Contoh: Jasa pertambangan dapat `tiktok=1, whatsapp=5, linkedin=5`;
@@ -332,10 +332,10 @@ Kalimantan masih awal (hipotesis; naikkan manual saat ada bukti adopsi lokal).
 
 Harga disusun dengan tiga jangkar, lalu diposisikan di antaranya:
 
-1. **Sinyal harga publik kompetitor.** Dari 50 agency, hanya ±5 yang membuka harga
+1. **Sinyal harga publik kompetitor.** Dari 56 agency, hanya 6 yang membuka harga
    (kolom `harga_transparan` dideteksi otomatis dari teks `sinyal_harga`: mengandung
    "rp/rb/jt/juta" dan TIDAK mengandung "tidak publik/via wa/gaji").
-2. **Benchmark biaya iklan nasional 2025** (`biaya-iklan.csv`, 14 baris CPM/CPC/CPL) -
+2. **Benchmark biaya iklan nasional 2025-2026** (`biaya-iklan.csv`, 14 baris CPM/CPC/CPL) -
    dipakai untuk menakar berapa volume kerja yang mampu dibeli budget tertentu.
 3. **Daya beli kota:** UMK kota (`kota-kalimantan.csv`) dan struktur omzet target
    per tier (<50 jt, 50-250 jt, >250 jt per bulan).
@@ -369,7 +369,7 @@ Dua kolom harga, dua status:
    (kebanyakan dijangkarkan ke tangga paket internal Ignite 2,5 jt → Growth 6,5 jt
    → Market Leader 15 jt → Enterprise 25 jt+ dan menghindari perang harga bawah).
 
-**Rumus demand per wilayah** (di `dashboard/analysis.py`, fungsi `impost_demand`):
+**Rumus demand per wilayah** (di `dashboard-streamlit/analysis.py`, fungsi `impost_demand`):
 
 ```
 sinyal_cari[wilayah]  = jumlah domain unik hasil pencarian "jasa <layanan> <wilayah>"
@@ -434,10 +434,10 @@ di peringkat #2) → menjadi dasar janji positioning
 
 ```bash
 # WSL/Linux
-.venv/bin/python dashboard/analysis.py
+.venv/bin/python dashboard-streamlit/analysis.py
 
 # Windows
-.venv-win\Scripts\python dashboard\analysis.py
+.venv-win\Scripts\python dashboard-streamlit\analysis.py
 ```
 
 Untuk data layanan IMPOST, sinyal pencarian dikumpulkan via **MCP Tavily search API**
@@ -449,17 +449,17 @@ kumpulan query MCP lalu tulis ulang file tersebut:
 ```bash
 $env:PYTHONIOENCODING='utf-8'
 python research\scraping\07-impost-csv.py       # regenerasi impost-layanan.csv (jika ubah harga)
-python dashboard\analysis.py                    # hitung ulang demand + metrik
+python dashboard-streamlit\analysis.py                    # hitung ulang demand + metrik
 ```
 
 Pipeline membaca CSV mentah di `research/data/`, menghitung ulang **semua** skor
 tertimbang, peringkat, prioritas, kuadran, gap, kompetisi terukur, dan menulis hasilnya
-ke `dashboard/data/derived/` (termasuk `metrics.json`). Kolom `selisih_vs_file` pada
-`industri_rank.csv` otomatis membuktikan apakah skor manual di CSV masih konsisten
+ke `dashboard-streamlit/data/derived/` (termasuk `metrics.json`). Kolom `selisih_vs_file` pada
+`industri-rank.csv` otomatis membuktikan apakah skor manual di CSV masih konsisten
 dengan rumus (harus 0,00 semua).
 
 Untuk menguji sensitivitas bobot: cukup edit `INDUSTRY_WEIGHTS` di
-`dashboard/analysis.py` atau skor mentah di `skor-industri.csv`, jalankan ulang, dan
+`dashboard-streamlit/analysis.py` atau skor mentah di `skor-industri.csv`, jalankan ulang, dan
 bandingkan peringkat.
 
 ---
@@ -472,7 +472,7 @@ bandingkan peringkat.
    uji signifikansi. Label `Hipotesis` / `status_data = Hipotesis analis` dipertahankan
    di semua CSV dan dashboard secara sengaja.
 3. **Yang sudah terukur vs belum:** hanya kompetisi (versi terukur) yang sepenuhnya
-   dihitung dari data 50 agency. Pemetaan industri→layanan inti dan 5 kriteria lain
+   dihitung dari data 56 agency. Pemetaan industri→layanan inti dan 5 kriteria lain
    masih penilaian analis.
 4. **Harga dan benchmark iklan adalah estimasi pasar**, bukan data akun campaign.
    Harga ideal layanan IMPOST juga usulan analis; harga pasarnya dirangkai dari
@@ -549,9 +549,9 @@ ditampilkan di dashboard - angkanya ada di `research/data/makro-kalimantan.csv`
 
 Untuk membuka presentasi, bacakan banner **Status data** di atas halaman (jujur: skor
 masih hipotesis), lalu masuk ke tab **Pasar Kota** (bagian 12.3). Jika perlu angka makro
-se-Kalimantan: ekonomi Kalimantan tumbuh 5,43% (2024) vs nasional 5,03%; Kaltim paling
-agresif di 2024 (6,17%) lalu melambat di 2025 (4,53%); Kalbar tumbuh tertinggi di 2025
-(5,39%); penetrasi internet tertinggi Kalteng (89,57%), terendah Kalsel (64,67%).
+se-Kalimantan: ekonomi Kalimantan tumbuh 3,90% (Q3 2026) vs nasional 5,47%; Kaltara
+tertinggi (6,34%), Kalteng terendah (2,05%); penetrasi internet tertinggi Kalteng
+(90,79%), terendah Kalsel (65,89%).
 
 ### 12.3 Tab PASAR KOTA - "Di kota mana kita bermain?"
 
@@ -574,7 +574,7 @@ mana yang paling menguntungkan untuk digodok duluan."_
 | **Bubble chart** (sebaran titik)                       | Tiap titik = satu industri. Sumbu kanan = seberapa mudah masuk & cepat closing; sumbu atas = skor daya tarik total; ukuran gelembung = besarnya pasar; warna = status prioritas. Titik besar di kanan-atas = emas: pasar besar, mudah dikejar, skornya tinggi. |
 | Tabel **Peringkat industri**                           | Daftar lengkap skor dari atas ke bawah - versi rapi dari bubble chart.                                                                                                                                                                                         |
 | **Radar** (sarang laba-laba)                           | Perbandingan satu industri vs rata-rata: makin lebar bentuknya di satu arah, makin kuat industri itu di kriteria tersebut (pasar besar, tumbuh, suka belanja digital, kompetisi longgar, mudah diakses, margin bagus).                                         |
-| Grafik **Dampak data kompetitor** & tabel perbandingan | Bukti kejujuran metodologi: ketika skor kompetisi dihitung dari 50 agency nyata (bukan tebakan), peringkat beberapa industri naik/turun. Naik (hijau) = ternyata lebih longgar dari dugaan; turun (oranye) = lebih ramai.                                      |
+| Grafik **Dampak data kompetitor** & tabel perbandingan | Bukti kejujuran metodologi: ketika skor kompetisi dihitung dari 56 agency nyata (bukan tebakan), peringkat beberapa industri naik/turun. Naik (hijau) = ternyata lebih longgar dari dugaan; turun (oranye) = lebih ramai.                                      |
 
 ### 12.5 Tab INDUSTRI POTENSIAL - "Yang belum utama tapi layak dipantau"
 
@@ -586,7 +586,7 @@ industri ini bisa dicoba, tapi jangan utamakan budget."_
 
 | Yang tampil                              | Menjelaskan apa & cara membacanya                                                                                                                                    |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| KPI Total/Lokal/Nasional/Harga terbuka   | 50 pesaing terpetakan; 38 lokal + 12 nasional; "harga terbuka" = pesaing yang berani memajang harga (makin sedikit, makin banyak yang main tawar-menawar).           |
+| KPI Total/Lokal/Nasional/Harga terbuka   | 56 pesaing terpetakan; 44 lokal + 12 nasional; "harga terbuka" = pesaing yang berani memajang harga (makin sedikit, makin banyak yang main tawar-menawar).           |
 | Grafik **Sebaran kota**                  | Di kota mana pesaing berkantor. Kota dengan batang pendek = pasar yang masih sepi pesaing lokal.                                                                     |
 | Pie **Lokal vs nasional**                | Porsi lawan lokal vs jaringan luar. Nasional kuat di SEO/web; lokal kuat relasi tapi lemah laporan.                                                                  |
 | Grafik **Layanan paling sering dijual**  | Layanan apa yang paling ramai ditawarkan pesaing. Yang paling panjang = paling ramai = paling sulit tampil beda.                                                     |
@@ -610,7 +610,7 @@ industri ini bisa dicoba, tapi jangan utamakan budget."_
 | KPI Demand tertinggi Kalsel/Nasional/Terendah                  | Layanan dengan permintaan terkuat di tiap wilayah (Kalsel: Social Media Management; nasional: Website/App) dan yang paling sepi (Customer Service → posisikan sebagai pelengkap, bukan pintu masuk).                                                                          |
 | **Peta demand per wilayah** (kotak warna)                      | Tiap kotak = skor permintaan relatif 1-5 untuk satu layanan di satu wilayah; makin gelap makin ramai dicari. Bandingkan antar kotak pada kolom yang sama (antar layanan di wilayah yang sama).                                                                                |
 | Grafik **Sinyal pencarian**                                    | Berapa banyak penyedia muncul saat dicari "jasa X di wilayah Y" - proxy ramai-nya permintaan, hasil pengumpulan otomatis via MCP.                                                                                                                                             |
-| Grafik **Pasokan kompetitor**                                  | Berapa dari 50 pesaing yang menjual layanan itu. Pasokan rendah + demand tinggi = celah pasar.                                                                                                                                                                                |
+| Grafik **Pasokan kompetitor**                                  | Berapa dari 56 pesaing yang menjual layanan itu. Pasokan rendah + demand tinggi = celah pasar.                                                                                                                                                                                |
 | **Harga pasar vs harga ideal** (garis abu vs hijau, skala log) | Garis abu-abu = rentang harga yang dipajang pasar; belah ketupat hijau = harga ideal usulan kami. Skala log dipakai karena harganya melompat (ratusan ribu sampai puluhan juta) - jangan bacakan angkanya persis, bacakan posisinya: "ideal kami duduk di bagian mana pasar". |
 | Tabel harga & demand                                           | Angka lengkap + kolom "Ideal vs pasar" (di bawah 1 = lebih murah dari pasar, di atas 1 = premium) + dasar pertimbangan harga. Tekankan label hipotesis: ini usulan yang harus diuji survei.                                                                                   |
 

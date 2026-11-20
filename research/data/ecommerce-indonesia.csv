@@ -1,7 +1,7 @@
-platform,jenis,mau_juta,gmv_2025_usd_miliar,kategori_utama,catatan,status
-Shopee,Marketplace,60,22.0,Fashion; FMCG; elektronik,Estimasi MAU & GMV Indonesia,Estimasi
-Tokopedia,Marketplace,30,8.0,Elektronik; FMCG; rumah tangga,Estimasi MAU & GMV,Estimasi
-TikTok Shop,Social commerce,45,12.0,Fashion; skincare; FMCG,Estimasi MAU & GMV,Estimasi
-Lazada,Marketplace,20,6.0,Elektronik; FMCG,Estimasi MAU & GMV,Estimasi
-Blibli,Marketplace,10,3.0,Elektronik; groceries,Estimasi MAU & GMV,Estimasi
-Bukalapak,Marketplace,5,1.0,FMCG; produk digital,Estimasi MAU & GMV,Estimasi
+platform,jenis,mau_juta,gmv_2025_usd_miliar,kategori_utama,catatan,status,sumber
+Shopee,Marketplace,60,22.0,Fashion; FMCG; elektronik,"Estimasi MAU & GMV platform; agregat pasar e-commerce 2026 US$85 M (+16%)","Estimasi","Estimasi analis; e-Conomy SEA 2026"
+Tokopedia,Marketplace,30,8.0,Elektronik; FMCG; rumah tangga,"Estimasi MAU & GMV platform; agregat pasar e-commerce 2026 US$85 M (+16%)","Estimasi","Estimasi analis; e-Conomy SEA 2026"
+TikTok Shop,Social commerce,45,12.0,Fashion; skincare; FMCG,"Estimasi MAU & GMV platform; konten-commerce makin dominan","Estimasi","Estimasi analis; e-Conomy SEA 2026"
+Lazada,Marketplace,20,6.0,Elektronik; FMCG,"Estimasi MAU & GMV platform","Estimasi","Estimasi analis"
+Blibli,Marketplace,10,3.0,Elektronik; groceries,"Estimasi MAU & GMV platform","Estimasi","Estimasi analis"
+Bukalapak,Marketplace,5,1.0,FMCG; produk digital,"Estimasi MAU & GMV platform","Estimasi","Estimasi analis"

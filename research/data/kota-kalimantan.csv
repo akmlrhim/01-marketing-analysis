@@ -1,10 +1,10 @@
-kota,provinsi,penduduk,umk_rp,umkm_unit,sektor_utama,internet_provinsi_persen,lat,lon,status_data,catatan
-Balikpapan,Kalimantan Timur,757418,3701509,98000,Minyak & gas; konstruksi; jasa; F&B,88.33,-1.2379,116.8529,BPS 2024; UMK akhir 2025; UMKM akhir 2025,"Kota minyak; spillover IKN; pasar premium; UMK 2025 Rp3.701.509; UMKM tercatat ±98 ribu unit akhir 2025"
-Samarinda,Kalimantan Timur,893385,3724437,17003,Batubara; perdagangan; jasa; F&B,88.33,-0.5022,117.1536,Dukcapil 2025; Satudata 2025; UMK 2025,"Penduduk terbesar di Kalimantan; UMKM terdaftar; UMK 2025 Rp3.724.437"
-Bontang,Kalimantan Timur,191811,3780013,,Pupuk; LNG; industri,88.33,0.1333,117.5000,BPS 2024; UMK 2025,"Kota industri; B2B kuat; UMK 2025 Rp3.780.013"
-Banjarmasin,Kalimantan Selatan,682360,3599182,51686,Perdagangan; sungai; F&B; retail,64.67,-3.3186,114.5944,Dukcapil 2025; UMKM 2024; UMK 2025,"Pasar tradisional kuat; internet rendah; UMK 2025 Rp3.599.182 (di atas UMP Rp3.496.194)"
-Banjarbaru,Kalimantan Selatan,289351,3496194,,Pendidikan; pemerintahan; jasa,64.67,-3.4572,114.8320,BPS 2025,Ibu kota Kalsel; bandara; tumbuh cepat
-Pontianak,Kalimantan Barat,682896,3024820,,Perdagangan; logistik; F&B; retail,79.37,-0.0263,109.3425,BPS 2024; UMK 2025,Gateway Kalbar; pasar Tionghoa & Melayu
-Singkawang,Kalimantan Barat,252069,2878286,,Wisata; kuliner; perdagangan,79.37,0.9000,108.9833,BPS 2025,Kota wisata & budaya; UMKM kuliner
-Palangka Raya,Kalimantan Tengah,321831,3525154,27298,Pemerintahan; pendidikan; jasa,89.57,-2.2080,113.9167,BPS 2025; UMKM 2024,Ibu kota Kalteng; internet tinggi
-Tarakan,Kalimantan Utara,257329,4742169,,Minyak & gas; perikanan; logistik,70.15,3.3273,117.5777,Dukcapil 2025; UMK 2026,Kota pulau; biaya logistik tinggi
+kota,provinsi,penduduk,umk_rp,umkm_unit,sektor_utama,internet_provinsi_persen,lat,lon,status_data,catatan,umk_2025_rp
+Balikpapan,Kalimantan Timur,757418,3856694,98000,Minyak & gas; konstruksi; jasa; F&B,89.55,-1.2379,116.8529,BPS 2024; UMK 2026; UMKM akhir 2025,"Kota minyak; spillover IKN; pasar premium; UMK 2026 Rp3.856.694; UMKM tercatat 98 ribu unit akhir 2025",3701509
+Samarinda,Kalimantan Timur,893385,3983882,17003,Batubara; perdagangan; jasa; F&B,89.55,-0.5022,117.1536,Dukcapil 2025; UMK 2026; UMKM 2025,"Penduduk terbesar di Kalimantan; UMK 2026 tertinggi di Kaltim Rp3.983.882; UMKM terdaftar",3724437
+Bontang,Kalimantan Timur,191811,3799480,,Pupuk; LNG; industri,89.55,0.1333,117.5000,BPS 2024; UMK 2026,"Kota industri; B2B kuat; UMK 2026 Rp3.799.480",3780013
+Banjarmasin,Kalimantan Selatan,682360,3855894,51686,Perdagangan; sungai; F&B; retail,65.89,-3.3186,114.5944,Dukcapil 2025; UMKM 2024; UMK 2026,"Pasar tradisional kuat; penetrasi internet terendah di Kalimantan; UMK 2026 Rp3.855.894",3599182
+Banjarbaru,Kalimantan Selatan,289351,3843038,,Pendidikan; pemerintahan; jasa,65.89,-3.4572,114.8320,BPS 2025; UMK 2026,"Ibu kota Kalsel; bandara; UMK 2026 Rp3.843.038 (naik 9,92%)",3496194
+Pontianak,Kalimantan Barat,682896,3205220,,Perdagangan; logistik; F&B; retail,80.59,-0.0263,109.3425,BPS 2024; UMK 2026,"Gateway Kalbar; pasar Tionghoa & Melayu; UMK 2026 Rp3.205.220",3024820
+Singkawang,Kalimantan Barat,252069,3247387,,Wisata; kuliner; perdagangan,80.59,0.9000,108.9833,BPS 2025; UMK 2026,"Kota wisata & budaya; UMKM kuliner; UMK 2026 Rp3.247.387",2878286
+Palangka Raya,Kalimantan Tengah,321831,3724678,27298,Pemerintahan; pendidikan; jasa,90.79,-2.2080,113.9167,BPS 2025; UMKM 2024; UMK 2026,"Ibu kota Kalteng; internet tinggi; UMK 2026 Rp3.724.678",3525154
+Tarakan,Kalimantan Utara,257329,4742169,,Minyak & gas; perikanan; logistik,71.37,3.3273,117.5777,Dukcapil 2025; UMK 2026,"Kota pulau; biaya logistik tinggi; UMK 2026 Rp4.742.169 (tertinggi di Kalimantan)",4460405

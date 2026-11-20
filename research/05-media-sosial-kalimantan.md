@@ -1,38 +1,39 @@
 # 05 - Media Sosial yang Digunakan Bisnis Kalimantan
 
-> **Update dataset (Nov 2026):** platform diperluas menjadi **10 kanal** (termasuk WhatsApp, Google Search, Google Maps), ditambah 6 marketplace/social commerce, 14 benchmark biaya iklan, dan matrix **30 industri × 10 kanal**. Data terbaru ada di `data/platform-indonesia.csv`, `data/ecommerce-indonesia.csv`, `data/biaya-iklan.csv`, `data/channel-matrix.csv`, dan dashboard tab **Media Sosial**.
+> **Update dataset (Nov 2026):** dataset memakai **DataReportal Digital 2027 (Okt 2026)** dan **APJII 2026**: 10 platform, 6 marketplace/social commerce, 14 benchmark biaya iklan, dan matrix **30 industri x 11 kanal**. Data terbaru ada di `data/platform-indonesia.csv`, `data/ecommerce-indonesia.csv`, `data/biaya-iklan.csv`, `data/channel-matrix.csv`, dan dashboard tab **Media Sosial**.
 
 > **Catatan metodologis:** Tidak ada survei publik yang secara spesifik mengukur "platform yang dipakai bisnis Kalimantan". Data di bawah adalah kombinasi (a) data adopsi nasional, (b) penetrasi internet provinsi, (c) observasi kualitatif akun bisnis lokal, dan (d) hipotesis yang harus divalidasi di survei.
 
 ---
 
-## 1. Data nasional (Digital 2026: Indonesia)
+## 1. Data nasional (Digital 2027: Indonesia, data Oktober 2026)
 
-| Platform | Jangkauan iklan (Oktober 2025) | Setara populasi | Implikasi |
+| Platform | Jangkauan iklan (Oktober 2026) | Setara populasi | Implikasi |
 |---|---|---|---|
-| **TikTok** | **180 juta** (usia 18+) | 62,9% populasi; 88,9% orang dewasa | Kanal discovery terbesar; wajib untuk F&B, retail, jasa konsumen |
-| **YouTube** | **151 juta** | 52,7% populasi | Kredibilitas, edukasi, review, konten panjang |
-| **Facebook** | **121 juta** | 42,2% populasi | Segmen 30+, komunitas, marketplace, grup lokal |
-| **Instagram** | **108 juta** | 37,6% populasi | Brand building, katalog, DM, KOL |
-| **LinkedIn** | **37 juta** | 12,9% populasi | B2B, rekrutmen, employer branding |
-| **X** | **22,9 juta** | 8,0% populasi | Isu publik, media, komunitas niche |
-| **Threads** | **8,15 juta** | 2,8% populasi | Eksperimental |
+| **TikTok** | **240 juta** (usia 18+) | 83,3% populasi; 117,0% orang dewasa | Kanal discovery terbesar; wajib untuk F&B, retail, jasa konsumen |
+| **YouTube** | **155 juta** | 53,8% populasi | Kredibilitas, edukasi, review, konten panjang |
+| **Facebook** | **126 juta** | 43,8% populasi | Segmen 30+, komunitas, marketplace, grup lokal |
+| **Instagram** | **116 juta** | 40,3% populasi | Brand building, katalog, DM, KOL |
+| **LinkedIn** | **45 juta** | 15,6% populasi | B2B, rekrutmen, employer branding |
+| **X** | **20,1 juta** | 7,0% populasi | Isu publik, media, komunitas niche |
+| **Threads** | **14,5 juta** | 5,0% populasi | Eksperimental |
+| **WhatsApp** | ~214 juta (estimasi) | 74,3% populasi | 92,7% pengguna internet 16+ memakainya; kanal transaksi |
 
-**Konteks nasional:** 230 juta pengguna internet (80,5%), 180 juta identitas media sosial (62,9%), median usia 30,4 tahun, 60% tinggal di kota. TikTok dan YouTube adalah dua kanal dengan jangkauan terluas.
+**Konteks nasional:** 231 juta pengguna internet (80,2%), 240 juta identitas media sosial (83,2%), populasi 288 juta. TikTok dan YouTube adalah dua kanal dengan jangkauan terluas.
 
 ---
 
-## 2. Penetrasi internet Kalimantan (APJII 2025)
+## 2. Penetrasi internet Kalimantan (APJII 2026)
 
-| Provinsi | Penetrasi | Peringkat nasional | Implikasi pemasaran |
+| Provinsi | Penetrasi | Posisi | Implikasi pemasaran |
 |---|---|---|---|
-| **Kalimantan Tengah** | **89,57%** | 4 | Digital-first; konten & iklan layak agresif |
-| **Kalimantan Timur** | **88,33%** | 6 | Digital-first; pasar paling matang |
-| **Kalimantan Barat** | **79,37%** | 15 | Digital + sosial media; masih di atas rata-rata |
-| **Kalimantan Utara** | **70,15%** | 29 | Digital untuk segmen kota; offline untuk pedalaman |
-| **Kalimantan Selatan** | **64,67%** | 35 | **Hybrid wajib**; digital bukan kanal utama semua segmen |
+| **Kalimantan Tengah** | **90,79%** | Tertinggi di Kalimantan | Digital-first; konten & iklan layak agresif |
+| **Kalimantan Timur** | **89,55%** | Kedua | Digital-first; pasar paling matang |
+| **Kalimantan Barat** | **80,59%** | Ketiga | Digital + sosial media; sedikit di bawah rata-rata nasional 81,72% |
+| **Kalimantan Utara** | **71,37%** | Keempat | Digital untuk segmen kota; offline untuk pedalaman |
+| **Kalimantan Selatan** | **65,89%** | Terendah | **Hybrid wajib**; digital bukan kanal utama semua segmen |
 
-**Rata-rata Kalimantan:** ~78,7% (APJII). Ini lebih rendah dari Kaltim/Kalteng, tetapi jauh lebih tinggi dari daerah tertinggal.
+**Rata-rata Kalimantan:** 80,40% (APJII 2026). Nasional 81,72% dengan 235,26 juta pengguna.
 
 ### Anomali yang harus dipahami
 
@@ -148,8 +149,7 @@ Untuk 40 akun bisnis lokal, catat:
 
 ## Sumber
 
-- DataReportal/Kepios, *Digital 2026: Indonesia* (5 Nov 2025) - https://datareportal.com/reports/digital-2026-indonesia
-- We Are Social, *Digital 2026: Top digital and social media trends in Indonesia* - https://wearesocial.com/id/blog/2025/11/digital-2026-top-digital-and-social-media-trends-in-indonesia/
-- APJII 2025 via Katadata - https://databoks.katadata.co.id/teknologi-telekomunikasi/statistik/68a5b6a1d8cbe/tingkat-penetrasi-internet-di-38-provinsi-indonesia-pada-2025
+- DataReportal/Kepios, *Digital 2027: Indonesia* (data Okt 2026) - https://datareportal.com/reports/digital-2027-indonesia
+- APJII 2026, *Survei Penetrasi Internet 2026* - https://survei.apjii.or.id/uploads/1790827973204-Survei-Penetrasi-Internet-dan-Perilaku-Penggunaan-Internet-2026.pdf
 - Detik Kalimantan, *Penetrasi Internet di Kalimantan Tertinggi Kedua se-Indonesia* - https://www.detik.com/kalimantan/bisnis/d-8500172/penetrasi-internet-di-kalimantan-tertinggi-kedua-se-indonesia-tapi
 - GoodStats, *Tingkat Penetrasi Internet Indonesia Tembus 80% pada 2025* - https://goodstats.id/article/tingkat-penetrasi-internet-indonesia-tembus-80-pada-2025-raped

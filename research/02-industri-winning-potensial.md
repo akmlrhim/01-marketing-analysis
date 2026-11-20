@@ -8,21 +8,21 @@
 
 ## 1. Makro Kalimantan
 
-| Provinsi | Pertumbuhan | Sinyal ekonomi utama | Penetrasi internet (APJII 2025) |
+| Provinsi | Pertumbuhan | Sinyal ekonomi utama | Penetrasi internet (APJII 2026) |
 |---|---|---|---|
-| **Kalimantan Timur** | 6,17% (2024); 4,26% (Q3 2025) | PDRB Rp858,4 T (2024); tambang 38,4%; konstruksi melesat karena IKN; PDRB/kapita Rp212,18 jt | **88,33%** (peringkat 6 nasional) |
-| **Kalimantan Selatan** | 5,05% (2024); 4,81% (Q1 2025) | Tambang 29,47%; pertanian 11,55%; manufaktur 10,95%; perdagangan 9,82%; 509.766 UMKM | **64,67%** (peringkat 35 nasional) |
-| **Kalimantan Tengah** | 4,99% (Q2 2025); 4,04% (Q1 2025) | Sawit, tambang, jasa; PDRB Q1 Rp58 T | **89,57%** (peringkat 4 nasional) |
-| **Kalimantan Barat** | 5,39% (2025); 4,90% (2024) | Tambang & pertanian; PDRB/kapita Rp56,98 jt; hilirisasi bauksit/alumina | **79,37%** |
-| **Kalimantan Utara** | 4,56% (2025); 4,54% (Q2 2025) | Tarakan menyumbang 37,63% ekonomi provinsi; tambang, perikanan, logistik, kawasan industri hijau | **70,15%** |
+| **Kalimantan Timur** | 3,39% (Q3 2026, y-on-y); kumulatif 3,25%; 4,53% (2025) | PDRB kumulatif Rp732,85 T (Jan-Sep 2026); tambang 35,08%; konstruksi 11,31%; listrik-gas +18,15% | **89,55%** |
+| **Kalimantan Selatan** | 4,97% (Q3 2026, y-on-y); kumulatif 5,29%; 5,22% (2025) | Tambang 27,44%; pertanian 14,60% (tumbuh 9,68%); manufaktur 11,12%; 509.766 UMKM | **65,89%** (terendah di Kalimantan) |
+| **Kalimantan Tengah** | 2,05% (Q3 2026, y-on-y); kumulatif 3,11%; 4,80% (2025) | Sawit, tambang, jasa; pertumbuhan terendah di Kalimantan pada Q3 2026 | **90,79%** (tertinggi di Kalimantan) |
+| **Kalimantan Barat** | 5,24% (Q3 2026, y-on-y); kumulatif 5,66%; 5,39% (2025) | Tambang & pertanian; hilirisasi bauksit/alumina; melambat dari 6,14% (Q1) dan 5,61% (Q2) | **80,59%** |
+| **Kalimantan Utara** | 6,34% (Q3 2026, y-on-y); 4,56% (2025) | Tarakan menyumbang 37,63% ekonomi provinsi; industri pengolahan +85,47%; tambang, perikanan, logistik | **71,37%** |
 
-**Agregat pulau:** ekonomi Kalimantan tumbuh **5,3% (2024)** vs nasional 5,03%; konstruksi tumbuh **15,82%** karena IKN; kontribusi Kalimantan ke PDB nasional baru **8,49%** - artinya ruang tumbuh masih besar.
+**Agregat pulau:** ekonomi Kalimantan tumbuh **3,90% (Q3 2026, y-on-y)** dan menyumbang **8,25%** PDB nasional (yang tumbuh 5,47%). Kaltara memimpin (6,34%), Kalteng terendah (2,05%).
 
 ### Insight penting
 
-1. **Kaltim sedang normalisasi.** Setelah dua tahun 6,2% (2023-2024), Q3 2025 turun ke 4,26%. Fase "boom konstruksi" bergeser ke fase "operasional & hunian" - kebutuhan pemasaran berpindah dari kontraktor ke developer, hospitality, retail, dan jasa.
-2. **Kalsel punya paradoks.** Ekonominya besar (tambang + agro + logistik) tetapi penetrasi internetnya **paling rendah di Kalimantan (64,67%)**. Kampanye digital murni akan under-deliver; butuh kombinasi radio/outdoor/komunitas + digital.
-3. **Kalteng dan Kaltim adalah pasar digital-first.** Penetrasi ~89%, di atas rata-rata nasional. Konten, TikTok, dan iklan berbasis lokasi layak jadi kanal utama.
+1. **Kaltim sedang normalisasi.** Setelah dua tahun 6,2% (2023-2024) dan 4,53% (2025), Q3 2026 tumbuh 3,39% (kumulatif 3,25%). Fase "boom konstruksi" bergeser ke fase "operasional & hunian" - kebutuhan pemasaran berpindah dari kontraktor ke developer, hospitality, retail, dan jasa.
+2. **Kalsel punya paradoks.** Ekonominya besar (tambang + agro + logistik) tetapi penetrasi internetnya **paling rendah di Kalimantan (65,89%)**. Kampanye digital murni akan under-deliver; butuh kombinasi radio/outdoor/komunitas + digital.
+3. **Kalteng dan Kaltim adalah pasar digital-first.** Penetrasi 90,79% dan 89,55%, di atas rata-rata nasional 81,72%. Konten, TikTok, dan iklan berbasis lokasi layak jadi kanal utama.
 4. **Kaltara adalah pasar "infrastruktur besar, konsumen kecil".** Ekonomi didorong proyek industri hijau/hidro, tetapi basis UMKM dan agensi masih tipis. Masuk lewat B2B/industrial, bukan retail.
 
 ---
@@ -128,4 +128,5 @@ Angka ini menunjukkan **pasar cukup besar untuk beberapa agency**, tetapi yang m
 - BeritaKaltim, *98 Ribu UMKM di Balikpapan Didominasi Kuliner* (14 Apr 2026) - https://beritakaltim.co/2026/04/14/98-ribu-umkm-di-balikpapan-didominasi-sektor-kuliner-pendaftaran-kini-semakin-mudah/
 - Suara Kaltim, *Dekat IKN, UMKM Balikpapan Melesat* (10 Jul 2025) - https://kaltim.suara.com/read/2025/07/10/163636/dekat-ikn-umkm-balikpapan-melesat-jadi-kekuatan-ekonomi-baru
 - Diskominfo Kalsel, *509.766 UMKM Kalsel* (1 Des 2025) - https://diskominfomc.kalselprov.go.id/2025/12/01/dinas-koperasi-dan-ukm-kalsel-gelar-pasar-rakyat-umkm-untuk-tekan-inflasi-di-banjarmasin-timur/
-- APJII 2025 via Katadata - https://databoks.katadata.co.id/teknologi-telekomunikasi/statistik/68a5b6a1d8cbe/tingkat-penetrasi-internet-di-38-provinsi-indonesia-pada-2025
+- APJII 2026, *Survei Penetrasi Internet 2026* - https://survei.apjii.or.id/uploads/1790827973204-Survei-Penetrasi-Internet-dan-Perilaku-Penggunaan-Internet-2026.pdf
+- BPS provinsi, rilis triwulan III 2026 (5 Nov 2026), dihimpun dari Antara Kaltim/Kalbar/Kalsel, Diskominfo Kalsel, dan BPS Kalteng/Kaltara

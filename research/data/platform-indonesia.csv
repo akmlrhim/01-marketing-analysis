@@ -1,11 +1,11 @@
 platform,jangkauan_iklan_juta,persen_populasi,persen_internet,kategori,catatan,sumber
-TikTok,180,62.9,78.2,Sosial,Ad reach 18+; 88.9% orang dewasa,DataReportal 2026
-YouTube,151,52.7,65.5,Video,Ad reach,DataReportal 2026
-WhatsApp,180,62.9,78.2,Messaging,Estimasi pengguna aktif; tidak ada ad reach resmi,Estimasi industri
-Facebook,121,42.2,52.5,Sosial,Ad reach,DataReportal 2026
-Instagram,108,37.6,46.7,Sosial,Ad reach,DataReportal 2026
-LinkedIn,37,12.9,16.1,Profesional,"Total member terdaftar, bukan MAU",DataReportal 2026
-X,22.9,8.0,9.9,Sosial,Ad reach,DataReportal 2026
-Threads,8.15,2.8,3.5,Sosial,Ad reach terbatas,DataReportal 2026
-Google Search,200,69.9,86.6,Search,Estimasi jangkauan pencarian,Estimasi industri
-Google Maps,100,35.0,43.3,Maps,Estimasi pengguna; penting local SEO,Estimasi industri
+TikTok,240.0,83.3,103.9,Sosial,"Ad reach 18+; 103,8% pengguna internet; 117,0% orang dewasa (data Okt 2026)","DataReportal/Kepios Digital 2027"
+YouTube,155.0,53.8,67.1,Video,"Ad reach; +2,6% YoY","DataReportal/Kepios Digital 2027"
+WhatsApp,214.0,74.3,92.6,Messaging,"Estimasi dari 92,7% pengguna internet 16+ yang memakai WhatsApp; tidak ada ad reach resmi","Estimasi dari DataReportal Digital 2027"
+Facebook,126.0,43.8,54.5,Sosial,"Ad reach; +3,9% YoY","DataReportal/Kepios Digital 2027"
+Instagram,116.0,40.3,50.2,Sosial,"Ad reach; +8,0% YoY","DataReportal/Kepios Digital 2027"
+LinkedIn,45.0,15.6,19.5,Profesional,"Total member terdaftar, bukan MAU","DataReportal/Kepios Digital 2027"
+X,20.1,7.0,8.7,Sosial,"Ad reach; 8,7% pengguna internet","DataReportal/Kepios Digital 2027"
+Threads,14.5,5.0,6.3,Sosial,"Ad reach terbatas; 6,2% pengguna internet","DataReportal/Kepios Digital 2027"
+Google Search,200.0,69.4,86.6,Search,"Estimasi jangkauan pencarian","Estimasi industri"
+Google Maps,100.0,34.7,43.3,Maps,"Estimasi pengguna; penting local SEO","Estimasi industri"

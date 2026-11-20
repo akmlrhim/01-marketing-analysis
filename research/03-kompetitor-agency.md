@@ -1,6 +1,6 @@
 # 03 - Kompetitor Agency Kalimantan
 
-> **Update dataset (Nov 2026):** database kompetitor berisi **50 agency** (38 lokal Kalimantan, 12 nasional yang menyasar Kalimantan) di 9 kota. Setiap baris punya kolom `lokasi_terverifikasi` dan `bukti_lokasi`; agency luar Kalimantan tanpa jejak di pasar ini sudah dikeluarkan. Profil di dokumen ini adalah ringkasan; data terbaru ada di `data/kompetitor.csv`, `data/sumber.csv`, dan dashboard tab **Kompetitor Agency**.
+> **Update dataset (Nov 2026):** database kompetitor berisi **56 agency** (44 lokal Kalimantan, 12 nasional yang menyasar Kalimantan) di 9 kota. Setiap baris punya kolom `lokasi_terverifikasi` dan `bukti_lokasi`; agency luar Kalimantan tanpa jejak di pasar ini sudah dikeluarkan. Pemeriksaan ulang 20 November 2026 menurunkan **Borneo Channel** ke status *Perlu verifikasi* karena situsnya tidak aktif, lalu memverifikasi **6 agency baru** dengan Crawl4AI: LokalSEO ID, Aksepta, Gatra Tech ID, Web Nusantara, MzH Sky, dan Advertising Pontianak. **33 kandidat** lain tetap di `data/scraping/kompetitor-maps-2026-11.csv`. Profil di dokumen ini adalah ringkasan; data terbaru ada di `data/kompetitor.csv`, `data/sumber.csv`, dan dashboard tab **Kompetitor Agency**.
 
 > **Metode:** audit website, profil publik, Instagram/TikTok/LinkedIn, dan halaman pencarian. Harga adalah **sinyal publik**, bukan quotation. Beberapa pemain "lokal" ternyata berbasis di Jawa tetapi menargetkan kota Kalimantan lewat halaman SEO.
 >
@@ -40,9 +40,13 @@
 | 13 | **Kreassi Team** | Pontianak | Creative & branding | SMM, konten, branding | IG | Tidak publik | Kreatif, komunitas | Kapasitas kecil |
 | 14 | **Toekang Digital** | Solo (nasional) | SMM murah bergaransi | SMM, web, ads, marketplace | Website + halaman kota | Via WA | SEO kota, garansi, konten | Eksekusi remote; bukan lokal |
 
-**Catatan:** tabel di atas hanya 14 pemain paling relevan. Daftar lengkap 50 agency ada di `data/kompetitor.csv`. "Borneo Digital Agency" (Tarakan) muncul di direktori AI-generated dan **belum terverifikasi**; jangan dijadikan acuan tanpa cek langsung.
+**Catatan:** tabel di atas hanya 14 pemain paling relevan. Daftar lengkap 56 agency ada di `data/kompetitor.csv`. "Borneo Digital Agency" (Tarakan) muncul di direktori AI-generated dan **belum terverifikasi**; jangan dijadikan acuan tanpa cek langsung.
 
-**Perluasan Nov 2026:** 18 agency baru ditambahkan memakai Bright Data (Google Maps lewat scraping browser), Tavily, dan Firecrawl. Sebaran berubah menjadi Pontianak 13, Balikpapan 9, Samarinda 7, Banjarmasin 5, Palangka Raya 2, Singkawang 1, Tarakan 1. Daftar "Top 10" dari direktori seperti AAMAX tidak dipakai karena isinya template AI, bukan perusahaan nyata.
+**Verifikasi Crawl4AI (20 Nov 2026):** 6 agency baru masuk dataset karena situs, layanan, dan kotanya terbaca jelas — LokalSEO ID (Balikpapan, local SEO), Aksepta (Samarinda, riset + digital marketing), Gatra Tech ID (Balikpapan, software house + SEO/ads), Web Nusantara (Palangka Raya, website/SEO/ads), MzH Sky (Balikpapan, web/konten/brand), dan Advertising Pontianak (Pontianak, advertising indoor/outdoor). Kandidat yang ternyata bukan agency marketing (Karsa Web, PT Jitara, KamiKamu Studio, Jadimudah, Dialognews) atau tidak aktif (Ekomedia Creative) tidak dimasukkan.
+
+**Status aktif (20 Nov 2026):** 33 aktif, 2 aktif-rebranding, 9 profil publik, 10 perlu verifikasi, 2 tidak aktif. Rincian per agency ada di `data/verifikasi-status-2026-11.csv`. Badan hukum yang teridentifikasi: PT Digi Smart Pro, PT Aptana Citra Solusindo, PT Aksepta Strategi Indonesia, CV Gatra Eka Teknik, CV Smartindo Cemerlang Jaya. Status legal AHU tidak dapat diakses publik tanpa login; verifikasi ini berbasis operasional (situs, sosial, lowongan, Google Maps).
+
+**Perluasan Nov 2026:** 24 agency baru ditambahkan memakai Bright Data (Google Maps), Tavily, Crawl4AI, dan Firecrawl. Sebaran berubah menjadi Pontianak 14, Balikpapan 12, Samarinda 8, Banjarmasin 5, Palangka Raya 3, Singkawang 1, Tarakan 1. Daftar "Top 10" dari direktori seperti AAMAX tidak dipakai karena isinya template AI, bukan perusahaan nyata.
 
 ---
 
