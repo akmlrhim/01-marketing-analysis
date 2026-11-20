@@ -1,7 +1,7 @@
 # Dashboard Riset Pasar Kalimantan
 
 Dashboard Streamlit untuk membaca hasil riset pasar agency digital marketing Kalimantan:
-9 kota, 30 industri, 50 kompetitor Kalimantan, 10 platform, 6 marketplace, 57 pain point, dan 42 sumber.
+9 kota, 30 industri, 56 kompetitor Kalimantan, 10 platform, 6 marketplace, 57 pain point, dan 50 sumber.
 
 ## 1. Jalankan
 
@@ -10,10 +10,10 @@ Dari root project:
 ```bash
 # sekali saja
 uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python -r dashboard/requirements.txt
+uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
 
 # jalankan dashboard
-.venv/bin/streamlit run dashboard/app.py
+.venv/bin/streamlit run dashboard-streamlit/app.py
 ```
 
 Buka `http://localhost:8501`.
@@ -21,7 +21,7 @@ Buka `http://localhost:8501`.
 Jika memakai WSL dan browser Windows tidak otomatis terbuka:
 
 ```bash
-.venv/bin/streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/streamlit run dashboard-streamlit/app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
 lalu buka `http://localhost:8501` di browser Windows.
@@ -29,21 +29,21 @@ lalu buka `http://localhost:8501` di browser Windows.
 ## 2. Struktur
 
 ```
-dashboard/
+dashboard-streamlit/
 ├── app.py                 # UI Streamlit (10 halaman navigasi sidebar, 23 grafik + bar chart CSS)
 ├── analysis.py            # pipeline cleaning, scoring, agregasi
 ├── requirements.txt
 └── data/derived/          # output analisis (auto-generated)
     ├── metrics.json
-    ├── kota_clean.csv
-    ├── industri_rank.csv
-    ├── kompetitor_clean.csv
-    ├── kompetitor_by_city.csv
-    ├── harga_kompetitor.csv
-    ├── pain_priority.csv
-    ├── trust_gap.csv
-    ├── biaya_iklan_clean.csv
-    └── sumber_clean.csv
+    ├── kota-clean.csv
+    ├── industri-rank.csv
+    ├── kompetitor-clean.csv
+    ├── kompetitor-by-city.csv
+    ├── harga-kompetitor.csv
+    ├── pain-priority.csv
+    ├── trust-gap.csv
+    ├── biaya-iklan-clean.csv
+    └── sumber-clean.csv
 ```
 
 Data mentah tetap di `research/data/`:
@@ -54,19 +54,19 @@ Data mentah tetap di `research/data/`:
 | `kota-kalimantan.csv` | 9 kota: penduduk, UMK, UMKM, koordinat |
 | `skor-industri.csv` | 30 industri × 6 kriteria attractiveness |
 | `industri-layanan.csv` | 30 industri × 2-3 layanan inti untuk skor kompetisi terukur |
-| `kompetitor.csv` | 50 agency Kalimantan: layanan, kanal, harga, lokasi terverifikasi |
+| `kompetitor.csv` | 56 agency Kalimantan: layanan, kanal, harga, lokasi terverifikasi |
 | `platform-indonesia.csv` | 10 platform + kategori |
 | `ecommerce-indonesia.csv` | 6 marketplace/social commerce |
 | `biaya-iklan.csv` | 14 benchmark CPM/CPC/CPL/retainer |
 | `channel-matrix.csv` | 30 industri × 11 kanal |
 | `pain-point.csv` | 57 pain point (hipotesis) |
 | `persepsi.csv` | 14 dimensi trust gap (hipotesis) |
-| `sumber.csv` | 42 sumber + status verifikasi |
+| `sumber.csv` | 50 sumber + status verifikasi |
 
 ## 3. Alur analisis
 
 ```bash
-.venv/bin/python dashboard/analysis.py
+.venv/bin/python dashboard-streamlit/analysis.py
 ```
 
 Pipeline akan:
@@ -79,7 +79,7 @@ Pipeline akan:
    `0.4 frekuensi + 0.4 dampak + 0.2 kesiapan bayar`.
 5. Menghitung trust gap: `kepentingan - kinerja agency`.
 6. Mengagregasi kompetitor: kota, tipe, layanan, transparansi harga.
-7. Menulis `dashboard/data/derived/*.csv` dan `metrics.json`.
+7. Menulis `dashboard-streamlit/data/derived/*.csv` dan `metrics.json`.
 
 ## 4. Halaman dashboard
 
@@ -91,13 +91,13 @@ halaman adalah satu blok `if page == ...` di `app.py`.
 | **Industri Winning** | Scatter attractiveness, ranking, radar, dan tabel industri prioritas inti + prioritas |
 | **Pain Point Owner** | Bubble 57 pain point, 12 prioritas, tabel per segmen dengan badge kuadran |
 | **Industri Potensial** | Scatter, ranking, radar, dan tabel industri kategori potensial |
-| **Kompetitor Agency** | Sebaran kota Kalimantan, lokal vs nasional, matrix layanan, bar chart CSS layanan terlaris, 50 agency dengan lokasi terverifikasi, sinyal harga |
+| **Kompetitor Agency** | Sebaran kota Kalimantan, lokal vs nasional, matrix layanan, bar chart CSS layanan terlaris, 56 agency dengan lokasi terverifikasi, sinyal harga |
 | **Layanan Winning** | Tangga paket, paket per industri, add-on, layanan terlaris (bar chart CSS), benchmark retainer |
 | **Sosial Media** | Platform, e-commerce, benchmark biaya iklan, heatmap 11 kanal |
 | **Persepsi Agency** | Trust gap 14 dimensi, gap terbesar, tabel prioritas perbaikan dengan badge tingkat |
 | **Layanan IMPOST** | Demand per wilayah, sinyal pencarian, pasokan kompetitor, harga pasar vs ideal |
 | **Pasar Kota** | Peta 9 kota, penduduk, UMK, UMKM, tabel status data |
-| **Metodologi** | Alur, data dictionary & metrics.json (expander), 42 sumber, tombol re-run |
+| **Metodologi** | Alur, data dictionary & metrics.json (expander), 50 sumber, tombol re-run |
 
 ## 4b. Gaya tampilan
 
@@ -128,12 +128,12 @@ dan seleksi dimatikan; hover tetap aktif.
 Streamlit Community Cloud:
 
 1. Push repo ke GitHub.
-2. Pilih `dashboard/app.py` sebagai entry point.
+2. Pilih `dashboard-streamlit/app.py` sebagai entry point.
 3. Set Python 3.12.
 4. Tidak ada secret yang dibutuhkan.
 
 Untuk server internal:
 
 ```bash
-.venv/bin/streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/streamlit run dashboard-streamlit/app.py --server.address 0.0.0.0 --server.port 8501
 ```

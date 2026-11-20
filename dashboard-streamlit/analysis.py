@@ -1,11 +1,11 @@
 """Pipeline analisis data riset pasar Kalimantan.
 
 Jalankan langsung:
-    python dashboard/analysis.py
+    python dashboard-streamlit/analysis.py
 
 Output:
-    dashboard/data/derived/*.csv
-    dashboard/data/derived/metrics.json
+    dashboard-streamlit/data/derived/*.csv
+    dashboard-streamlit/data/derived/metrics.json
 """
 
 from __future__ import annotations
@@ -21,8 +21,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "research" / "data"
 OUT_DIR = Path(__file__).resolve().parent / "data" / "derived"
 
-NATIONAL_INTERNET = 80.66  # APJII 2025, %
-NATIONAL_SOCIAL_USERS = 180.0  # juta identitas, DataReportal Digital 2026
+NATIONAL_INTERNET = 81.72  # APJII 2026, %
+NATIONAL_SOCIAL_USERS = 240.0  # juta identitas, DataReportal Digital 2027 (Okt 2026)
 
 INDUSTRY_WEIGHTS = {
     "ukuran_pasar": 0.20,
@@ -165,6 +165,14 @@ def _text(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
 
 def clean_macro(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
+    for col in [
+        "pertumbuhan_2026_q3_yoy_persen",
+        "ump_2026_rp",
+        "penetrasi_internet_2026_persen",
+        "ipm_2026",
+    ]:
+        if col not in df.columns:
+            df[col] = np.nan
     df["provinsi"] = df["provinsi"].astype(str).str.strip()
     df = _numeric(
         df,
@@ -178,23 +186,40 @@ def clean_macro(df: pd.DataFrame) -> pd.DataFrame:
             "ump_2025_rp",
             "ipm_2025",
             "jumlah_kota",
+            "pertumbuhan_2026_q3_yoy_persen",
+            "ump_2026_rp",
+            "penetrasi_internet_2026_persen",
+            "ipm_2026",
         ],
     )
-    df["pertumbuhan_terbaru"] = df["pertumbuhan_2025_persen"].fillna(
-        df["pertumbuhan_2024_persen"]
+    df["pertumbuhan_terbaru"] = (
+        df["pertumbuhan_2026_q3_yoy_persen"]
+        .fillna(df["pertumbuhan_2025_persen"])
+        .fillna(df["pertumbuhan_2024_persen"])
     )
-    df["tahun_pertumbuhan"] = np.where(
-        df["pertumbuhan_2025_persen"].notna(), "2025", "2024"
+    df["tahun_pertumbuhan"] = np.select(
+        [
+            df["pertumbuhan_2026_q3_yoy_persen"].notna(),
+            df["pertumbuhan_2025_persen"].notna(),
+        ],
+        ["Q3 2026", "2025"],
+        default="2024",
+    )
+    df["penetrasi_internet_terbaru"] = df["penetrasi_internet_2026_persen"].fillna(
+        df["penetrasi_internet_2025_persen"]
     )
     df["gap_internet_vs_nasional"] = (
-        df["penetrasi_internet_2025_persen"] - NATIONAL_INTERNET
+        df["penetrasi_internet_terbaru"] - NATIONAL_INTERNET
     ).round(2)
     df["kelas_penetrasi"] = pd.cut(
-        df["penetrasi_internet_2025_persen"],
+        df["penetrasi_internet_terbaru"],
         bins=[-1, 75, 85, 100],
         labels=["Menengah-rendah", "Menengah", "Tinggi"],
     )
-    df["ump_juta"] = (df["ump_2025_rp"] / 1_000_000).round(2)
+    df["ump_juta"] = (
+        df["ump_2026_rp"].fillna(df["ump_2025_rp"]) / 1_000_000
+    ).round(2)
+    df["ipm_terbaru"] = df["ipm_2026"].fillna(df["ipm_2025"])
     return df
 
 
@@ -603,8 +628,8 @@ def prepare_all(write: bool = True) -> dict:
     impost = impost_demand(impost_raw, supply_impost, demand_ringkas)
 
     fastest = makro.loc[makro["pertumbuhan_terbaru"].idxmax()]
-    highest_net = makro.loc[makro["penetrasi_internet_2025_persen"].idxmax()]
-    lowest_net = makro.loc[makro["penetrasi_internet_2025_persen"].idxmin()]
+    highest_net = makro.loc[makro["penetrasi_internet_terbaru"].idxmax()]
+    lowest_net = makro.loc[makro["penetrasi_internet_terbaru"].idxmin()]
     largest_pop = makro.loc[makro["penduduk_2025"].idxmax()]
     top_industry = industri.iloc[0]
     top_pain = pain.iloc[0]
@@ -677,9 +702,9 @@ def prepare_all(write: bool = True) -> dict:
         "pertumbuhan_tercepat": float(fastest["pertumbuhan_terbaru"]),
         "tahun_pertumbuhan_tercepat": str(fastest["tahun_pertumbuhan"]),
         "provinsi_internet_tertinggi": str(highest_net["provinsi"]),
-        "internet_tertinggi": float(highest_net["penetrasi_internet_2025_persen"]),
+        "internet_tertinggi": float(highest_net["penetrasi_internet_terbaru"]),
         "provinsi_internet_terendah": str(lowest_net["provinsi"]),
-        "internet_terendah": float(lowest_net["penetrasi_internet_2025_persen"]),
+        "internet_terendah": float(lowest_net["penetrasi_internet_terbaru"]),
         "provinsi_penduduk_terbesar": str(largest_pop["provinsi"]),
         "penduduk_provinsi_terbesar": int(largest_pop["penduduk_2025"]),
         "total_penduduk_provinsi": int(makro["penduduk_2025"].sum()),
@@ -698,27 +723,27 @@ def prepare_all(write: bool = True) -> dict:
 
     if write:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
-        makro.to_csv(OUT_DIR / "makro_clean.csv", index=False)
-        kota.to_csv(OUT_DIR / "kota_clean.csv", index=False)
-        industri.to_csv(OUT_DIR / "industri_rank.csv", index=False)
-        supply.to_frame("pasokan").to_csv(OUT_DIR / "layanan_supply.csv")
-        kompetitor.to_csv(OUT_DIR / "kompetitor_clean.csv", index=False)
-        platform.to_csv(OUT_DIR / "platform_summary.csv", index=False)
-        ecommerce.to_csv(OUT_DIR / "ecommerce_summary.csv", index=False)
-        adcost.to_csv(OUT_DIR / "biaya_iklan_clean.csv", index=False)
-        pain.to_csv(OUT_DIR / "pain_priority.csv", index=False)
-        persepsi.to_csv(OUT_DIR / "trust_gap.csv", index=False)
-        layanan.to_csv(OUT_DIR / "layanan_winning.csv", index=False)
-        layanan_industri.to_csv(OUT_DIR / "layanan_industri.csv", index=False)
-        layanan_addon.to_csv(OUT_DIR / "layanan_addon.csv", index=False)
-        impost.to_csv(OUT_DIR / "impost_layanan.csv", index=False)
-        sumber.to_csv(OUT_DIR / "sumber_clean.csv", index=False)
-        by_city.to_csv(OUT_DIR / "kompetitor_by_city.csv", index=False)
-        by_type.to_csv(OUT_DIR / "kompetitor_by_type.csv", index=False)
-        svc_counts.to_csv(OUT_DIR / "service_counts.csv", index=False)
-        matrix.to_csv(OUT_DIR / "service_matrix.csv")
-        prices.to_csv(OUT_DIR / "harga_kompetitor.csv", index=False)
-        channel.to_csv(OUT_DIR / "channel_matrix_clean.csv")
+        makro.to_csv(OUT_DIR / "makro-clean.csv", index=False)
+        kota.to_csv(OUT_DIR / "kota-clean.csv", index=False)
+        industri.to_csv(OUT_DIR / "industri-rank.csv", index=False)
+        supply.to_frame("pasokan").to_csv(OUT_DIR / "layanan-supply.csv")
+        kompetitor.to_csv(OUT_DIR / "kompetitor-clean.csv", index=False)
+        platform.to_csv(OUT_DIR / "platform-summary.csv", index=False)
+        ecommerce.to_csv(OUT_DIR / "ecommerce-summary.csv", index=False)
+        adcost.to_csv(OUT_DIR / "biaya-iklan-clean.csv", index=False)
+        pain.to_csv(OUT_DIR / "pain-priority.csv", index=False)
+        persepsi.to_csv(OUT_DIR / "trust-gap.csv", index=False)
+        layanan.to_csv(OUT_DIR / "layanan-winning.csv", index=False)
+        layanan_industri.to_csv(OUT_DIR / "layanan-industri.csv", index=False)
+        layanan_addon.to_csv(OUT_DIR / "layanan-addon.csv", index=False)
+        impost.to_csv(OUT_DIR / "impost-layanan.csv", index=False)
+        sumber.to_csv(OUT_DIR / "sumber-clean.csv", index=False)
+        by_city.to_csv(OUT_DIR / "kompetitor-by-city.csv", index=False)
+        by_type.to_csv(OUT_DIR / "kompetitor-by-type.csv", index=False)
+        svc_counts.to_csv(OUT_DIR / "service-counts.csv", index=False)
+        matrix.to_csv(OUT_DIR / "service-matrix.csv")
+        prices.to_csv(OUT_DIR / "harga-kompetitor.csv", index=False)
+        channel.to_csv(OUT_DIR / "channel-matrix-clean.csv")
         (OUT_DIR / "metrics.json").write_text(
             json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8"
         )

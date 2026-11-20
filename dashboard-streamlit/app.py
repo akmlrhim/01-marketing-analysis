@@ -501,7 +501,7 @@ with st.sidebar:
             horizontal=True,
             help=(
                 "Terukur data kompetitor menghitung ulang kriteria kompetisi rendah "
-                "dari 50 agency Kalimantan, bukan dari penilaian manual."
+                "dari 56 agency Kalimantan, bukan dari penilaian manual."
             ),
         )
 
@@ -522,11 +522,11 @@ with st.sidebar:
         width="stretch",
     )
     for fname, label in [
-        ("kota_clean.csv", "Data kota"),
-        ("industri_rank.csv", "Peringkat industri"),
-        ("kompetitor_clean.csv", "Data kompetitor"),
-        ("pain_priority.csv", "Prioritas pain point"),
-        ("sumber_clean.csv", "Daftar sumber"),
+        ("kota-clean.csv", "Data kota"),
+        ("industri-rank.csv", "Peringkat industri"),
+        ("kompetitor-clean.csv", "Data kompetitor"),
+        ("pain-priority.csv", "Prioritas pain point"),
+        ("sumber-clean.csv", "Daftar sumber"),
     ]:
         path = OUT_DIR / fname
         if path.exists():
@@ -539,7 +539,7 @@ with st.sidebar:
                 key=f"dl_{fname}",
             )
     st.divider()
-    st.caption("Sumber: BPS, BI, APJII 2025, DataReportal 2026, Dukcapil, website kompetitor.")
+    st.caption("Sumber: BPS, BI, APJII 2026, DataReportal 2027, Dukcapil, website kompetitor.")
 
 industri_f = industri[industri["industri"].isin(industri_sel)].copy()
 if dasar_skor == "Terukur data kompetitor":
@@ -629,7 +629,7 @@ if page == "Pasar Kota":
         chart(style_fig(fig, 350, legend=False), "city_pop")
 
     with b:
-        st.markdown("#### UMK 2025/2026 (Rp juta)")
+        st.markdown("#### UMK 2026 (Rp juta)")
         umk_sorted = kota.sort_values("umk_juta")
         fig = px.bar(
             umk_sorted,
@@ -979,7 +979,8 @@ if page == "Kompetitor Agency":
     st.markdown("#### Database kompetitor")
     st.caption(
         "Basis lokasi sudah dicek satu per satu. Kolom Lokasi terverifikasi berisi "
-        "kota dan provinsi hasil pengecekan situs, LinkedIn, atau profil resmi."
+        "kota dan provinsi hasil pengecekan situs, LinkedIn, atau profil resmi. "
+        "Status aktif dicek 20 Nov 2026 dari situs, sosial, dan Google Maps."
     )
     st.dataframe(
         komp_view[
@@ -992,6 +993,8 @@ if page == "Kompetitor Agency":
                 "kekuatan",
                 "celah",
                 "status_verifikasi",
+                "badan_hukum",
+                "status_aktif",
             ]
         ].rename(
             columns={
@@ -1003,6 +1006,8 @@ if page == "Kompetitor Agency":
                 "kekuatan": "Kekuatan",
                 "celah": "Celah",
                 "status_verifikasi": "Verifikasi",
+                "badan_hukum": "Badan hukum",
+                "status_aktif": "Status aktif",
             }
         ),
         hide_index=True,
@@ -1246,7 +1251,7 @@ if page == "Layanan IMPOST":
     with b:
         st.markdown("#### Pasokan kompetitor")
         st.caption(
-            "Jumlah kompetitor (dari 50 agency teraudit) yang menjual layanan "
+            "Jumlah kompetitor (dari 56 agency teraudit) yang menjual layanan "
             "terkait. Pasokan tinggi = pasar ramai; pasokan rendah = celah "
             "atau demand yang belum tergarap."
         )
@@ -1740,7 +1745,7 @@ if page == "Metodologi":
             ["kota-kalimantan.csv", "9 kota: penduduk, UMK, UMKM, koordinat", "BPS/Dukcapil", "Desk research"],
             ["skor-industri.csv", "30 industri × 6 kriteria", "Penilaian analis", "Hipotesis"],
             ["industri-layanan.csv", "30 industri × 2-3 layanan inti", "Penilaian analis + data kompetitor", "Hipotesis"],
-            ["kompetitor.csv", "50 agency Kalimantan: layanan, kanal, harga, lokasi terverifikasi", "Website/profil publik", "Desk research"],
+            ["kompetitor.csv", "56 agency Kalimantan: layanan, kanal, harga, lokasi terverifikasi", "Website/profil publik", "Desk research"],
             ["platform-indonesia.csv", "10 platform & kategori", "DataReportal 2026", "Desk research/estimasi"],
             ["ecommerce-indonesia.csv", "6 marketplace/social commerce", "Estimasi industri", "Estimasi"],
             ["biaya-iklan.csv", "14 benchmark CPM/CPC/CPL/retainer", "Rentang pasar", "Estimasi"],
@@ -1773,7 +1778,7 @@ if page == "Metodologi":
     st.markdown("#### Jalankan ulang analisis")
     st.caption(
         "Jika CSV di `research/data/` berubah, klik tombol ini atau jalankan "
-        "`python dashboard/analysis.py`."
+        "`python dashboard-streamlit/analysis.py`."
     )
     if st.button("Jalankan ulang analisis", type="primary"):
         with st.spinner("Menghitung ulang metrik..."):

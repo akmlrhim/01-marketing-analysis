@@ -19,10 +19,10 @@ def check(label, cond, detail=""):
 # ---------- jumlah baris per dataset ----------
 claims = {
     "makro-kalimantan.csv": 5, "kota-kalimantan.csv": 9, "skor-industri.csv": 30,
-    "industri-layanan.csv": 30, "kompetitor.csv": 50, "platform-indonesia.csv": 10,
+    "industri-layanan.csv": 30, "kompetitor.csv": 56, "platform-indonesia.csv": 10,
     "ecommerce-indonesia.csv": 6, "biaya-iklan.csv": 14, "channel-matrix.csv": 30,
-    "pain-point.csv": 53, "persepsi.csv": 14, "layanan-winning.csv": 5,
-    "impost-layanan.csv": 11, "sumber.csv": 40,
+    "pain-point.csv": 57, "persepsi.csv": 14, "layanan-winning.csv": 5,
+    "impost-layanan.csv": 13, "sumber.csv": 50,
 }
 print("== Jumlah baris vs klaim README ==")
 for f, exp in claims.items():
@@ -39,11 +39,11 @@ for col in ["status_verifikasi", "jenis_lokasi", "tipe", "lokasi", "cakupan"]:
 
 if "status_verifikasi" in k.columns:
     vc = k["status_verifikasi"].value_counts()
-    check("Terverifikasi=26", vc.get("Terverifikasi", 0) == 26, f"(aktual {vc.get('Terverifikasi',0)})")
+    check("Terverifikasi=31", vc.get("Terverifikasi", 0) == 31, f"(aktual {vc.get('Terverifikasi',0)})")
     check("Profil publik=19", vc.get("Profil publik", 0) == 19, f"(aktual {vc.get('Profil publik',0)})")
-    check("Perlu verifikasi=5", vc.get("Perlu verifikasi", 0) == 5, f"(aktual {vc.get('Perlu verifikasi',0)})")
+    check("Perlu verifikasi=6", vc.get("Perlu verifikasi", 0) == 6, f"(aktual {vc.get('Perlu verifikasi',0)})")
 
-# lokal 38 / nasional 12
+# lokal 44 / nasional 12
 for col in k.columns:
     if k[col].nunique() <= 5 and k[col].astype(str).str.contains("asional|okal", case=False).any():
         print(f"- {col}:", k[col].value_counts().to_dict())
@@ -99,5 +99,5 @@ print(mk.to_string(max_cols=14))
 
 # ---------- derived vs raw ----------
 print("\n== Derived metrics.json ==")
-m = json.load(open("dashboard/data/derived/metrics.json", encoding="utf-8"))
+m = json.load(open("dashboard-streamlit/data/derived/metrics.json", encoding="utf-8"))
 print(json.dumps(m, indent=1, ensure_ascii=False)[:3000])
