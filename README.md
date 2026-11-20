@@ -5,7 +5,8 @@ Repositori ini berisi riset pasar dan dashboard interaktif untuk membantu keputu
 Isi utama:
 
 - `research/` - laporan riset dan dataset mentah CSV
-- `dashboard/` - aplikasi Streamlit + pipeline analisis
+- `dashboard-streamlit/` - aplikasi Streamlit + pipeline analisis
+- `dashboard-react/` - versi React/Vite yang siap deploy ke Vercel
 - `graphify-out/` - knowledge graph proyek
 
 Dashboard mencakup **10 tab dan 25 grafik**: Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, dan Metodologi.
@@ -37,7 +38,7 @@ Jika `python3.12` belum ada, gunakan `uv` untuk mengunduh Python secara otomatis
 
 ```bash
 cd /mnt/e/DataAnalyst/marketing-analysis
-.venv/bin/streamlit run dashboard/app.py
+.venv/bin/streamlit run dashboard-streamlit/app.py
 ```
 
 Buka `http://localhost:8501`. Hentikan dengan `Ctrl+C`.
@@ -51,8 +52,8 @@ cd /d E:\DataAnalyst\marketing-analysis
 py -3.12 -m venv .venv-win
 .venv-win\Scripts\activate
 python -m pip install --upgrade pip
-pip install -r dashboard\requirements.txt
-streamlit run dashboard\app.py
+pip install -r dashboard-streamlit\requirements.txt
+streamlit run dashboard-streamlit\app.py
 ```
 
 Buka `http://localhost:8501`.
@@ -66,12 +67,12 @@ Repositori ini siap deploy tanpa perubahan tambahan:
 1. Push repo ini ke GitHub.
 2. Buka [share.streamlit.io](https://share.streamlit.io) > **Create app** > pilih repo ini.
 3. Isi konfigurasi:
-   - **Main file path**: `dashboard/app.py`
+   - **Main file path**: `dashboard-streamlit/app.py`
    - **Python version**: 3.12 (sudah dikunci lewat file `.python-version`)
 4. Klik **Deploy**.
 
-Dependensi dibaca otomatis dari `dashboard/requirements.txt`, tema dari
-`.streamlit/config.toml` di root repo. Pipeline analisis (`dashboard/analysis.py`)
+Dependensi dibaca otomatis dari `dashboard-streamlit/requirements.txt`, tema dari
+`.streamlit/config.toml` di root repo. Pipeline analisis (`dashboard-streamlit/analysis.py`)
 dijalankan otomatis oleh aplikasi saat pertama kali dimuat, jadi tidak perlu
 langkah build tambahan.
 
@@ -88,7 +89,7 @@ cd /mnt/e/DataAnalyst/marketing-analysis
 uv venv --python 3.12 .venv
 
 # install dependencies
-uv pip install --python .venv/bin/python -r dashboard/requirements.txt
+uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
 ```
 
 Alternatif tanpa `uv`:
@@ -96,8 +97,8 @@ Alternatif tanpa `uv`:
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
-pip install -r dashboard/requirements.txt
-streamlit run dashboard/app.py
+pip install -r dashboard-streamlit/requirements.txt
+streamlit run dashboard-streamlit/app.py
 ```
 
 ---
@@ -107,7 +108,7 @@ streamlit run dashboard/app.py
 Jika memakai WSL dan browser Windows tidak terbuka otomatis:
 
 ```bash
-.venv/bin/streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/streamlit run dashboard-streamlit/app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
 Lalu buka `http://localhost:8501` di browser Windows.
@@ -133,8 +134,8 @@ cd /d E:\DataAnalyst\marketing-analysis
 py -3.12 -m venv .venv-win
 .venv-win\Scripts\activate
 python -m pip install --upgrade pip
-pip install -r dashboard\requirements.txt
-streamlit run dashboard\app.py
+pip install -r dashboard-streamlit\requirements.txt
+streamlit run dashboard-streamlit\app.py
 ```
 
 Buka `http://localhost:8501`.
@@ -145,15 +146,15 @@ Jika `py` tidak tersedia:
 python --version
 python -m venv .venv-win
 .venv-win\Scripts\activate
-pip install -r dashboard\requirements.txt
-streamlit run dashboard\app.py
+pip install -r dashboard-streamlit\requirements.txt
+streamlit run dashboard-streamlit\app.py
 ```
 
 ---
 
 ## 6. Alur analisis data
 
-Dashboard membaca CSV dari `research/data/`, lalu pipeline `dashboard/analysis.py`:
+Dashboard membaca CSV dari `research/data/`, lalu pipeline `dashboard-streamlit/analysis.py`:
 
 1. Memvalidasi kolom wajib.
 2. Membersihkan tipe data.
@@ -161,37 +162,37 @@ Dashboard membaca CSV dari `research/data/`, lalu pipeline `dashboard/analysis.p
 4. Menghitung prioritas pain point.
 5. Menghitung trust gap persepsi.
 6. Mengagregasi kompetitor, kota, platform, dan benchmark iklan.
-7. Menulis output ke `dashboard/data/derived/`.
+7. Menulis output ke `dashboard-streamlit/data/derived/`.
 
 Jalankan manual:
 
 ```bash
 # WSL / Linux
-.venv/bin/python dashboard/analysis.py
+.venv/bin/python dashboard-streamlit/analysis.py
 ```
 
 ```bat
 :: Windows
-.venv-win\Scripts\python dashboard\analysis.py
+.venv-win\Scripts\python dashboard-streamlit\analysis.py
 ```
 
 Output utama:
 
 ```text
-dashboard/data/derived/
+dashboard-streamlit/data/derived/
 ├── metrics.json
-├── kota_clean.csv
-├── industri_rank.csv
-├── kompetitor_clean.csv
-├── harga_kompetitor.csv
-├── pain_priority.csv
-├── trust_gap.csv
-├── layanan_winning.csv
-├── layanan_industri.csv
-├── layanan_addon.csv
-├── impost_layanan.csv
-├── biaya_iklan_clean.csv
-└── sumber_clean.csv
+├── kota-clean.csv
+├── industri-rank.csv
+├── kompetitor-clean.csv
+├── harga-kompetitor.csv
+├── pain-priority.csv
+├── trust-gap.csv
+├── layanan-winning.csv
+├── layanan-industri.csv
+├── layanan-addon.csv
+├── impost-layanan.csv
+├── biaya-iklan-clean.csv
+└── sumber-clean.csv
 ```
 
 Setelah data berubah, dashboard juga bisa dihitung ulang lewat tombol **Jalankan ulang analisis** di tab **Metodologi**.
@@ -208,12 +209,12 @@ Dashboard memakai dua lapis data yang harus dibaca dengan cara berbeda.
 |---|---|---|---|
 | Makro 5 provinsi | Desk research | BPS, APJII, Kemnaker, DataReportal | Terverifikasi atau Desk |
 | 9 kota | Desk research | BPS, Dukcapil, pemerintah daerah | Terverifikasi atau Desk |
-| 50 kompetitor Kalimantan | Audit publik | Website, profil, LinkedIn, halaman kota | Terverifikasi |
-| Platform dan e-commerce | Kajian laporan publik | DataReportal 2026, APJII 2025 | Desk atau estimasi |
-| Benchmark biaya iklan | Range pasar | Benchmark publik 2025 | Estimasi |
+| 56 kompetitor Kalimantan | Audit publik | Website, profil, LinkedIn, halaman kota | Terverifikasi |
+| Platform dan e-commerce | Kajian laporan publik | DataReportal 2027, APJII 2026 | Desk atau estimasi |
+| Benchmark biaya iklan | Range pasar | Benchmark publik 2026 | Estimasi |
 | Paket layanan | Sintesis riset internal | `research/06-layanan-winning.md` | Usulan |
 
-Setiap baris di CSV menyimpan asal datanya di kolom `sumber`, `status_data`, atau `status_verifikasi`. Daftar 42 sumber lengkap dengan URL ada di `research/data/sumber.csv`.
+Setiap baris di CSV menyimpan asal datanya di kolom `sumber`, `status_data`, atau `status_verifikasi`. Daftar 50 sumber lengkap dengan URL ada di `research/data/sumber.csv`.
 
 #### Kriteria masuk data kompetitor
 
@@ -226,12 +227,13 @@ Agency luar Kalimantan yang tidak punya jejak di pasar Kalimantan dikeluarkan. S
 
 ##### Sumber dan alat pencarian
 
-Perluasan dataset dari 32 ke 50 agency memakai tiga jalur:
+Perluasan dataset dari 32 ke 56 agency memakai empat jalur:
 
 | Alat | Dipakai untuk | Catatan |
 |---|---|---|
-| **Bright Data** | Google Maps lewat scraping browser, Google SERP, scrape halaman | Dataset Google Maps terstruktur gagal total (6 error, 0 rekaman), jadi dipakai browser langsung |
+| **Bright Data** | Google Maps discovery per kota, Google SERP, scrape halaman | Penarikan 20 Nov 2026 menghasilkan 179 tempat di 9 kota |
 | **Tavily** | Verifikasi lokasi, LinkedIn, Instagram, Facebook | Paling andal untuk memastikan kota dan badan usaha |
+| **Crawl4AI** | Verifikasi isi situs kandidat agency (markdown extraction) | Dipakai 20 Nov 2026 untuk 19 URL kandidat |
 | **Firecrawl** | Scrape situs yang menolak fetch biasa | Dipakai lewat REST API dengan kunci dari `.env` |
 
 Direktori pihak ketiga seperti daftar "Top 10" dari AAMAX **tidak dipakai**. Isinya template AI: nama "agency" yang muncul hanya kategori generik seperti "Balikpapan Digital Solutions" dan "Energy Sector Marketing", bukan perusahaan nyata.
@@ -242,11 +244,15 @@ Kolom `status_verifikasi` membedakan tiga tingkat:
 
 | Status | Arti | Jumlah |
 |---|---|---|
-| **Terverifikasi** | Ada situs atau badan usaha dengan alamat dan layanan yang bisa dibaca | 26 |
+| **Terverifikasi** | Ada situs atau badan usaha dengan alamat dan layanan yang bisa dibaca | 31 |
 | **Profil publik** | Ada profil resmi (Instagram, Facebook, Google Maps) dengan kota yang jelas | 19 |
-| **Perlu verifikasi** | Jejak publik minim; lokasi dari direktori atau profil karyawan | 5 |
+| **Perlu verifikasi** | Jejak publik minim; lokasi dari direktori atau profil karyawan | 6 |
 
-Baris berstatus **Perlu verifikasi** sebaiknya dicek ulang sebelum dipakai untuk keputusan harga atau positioning.
+Baris berstatus **Perlu verifikasi** sebaiknya dicek ulang sebelum dipakai untuk keputusan harga atau positioning. Pemeriksaan ulang 20 November 2026 menemukan situs **Borneo Channel** sudah tidak dapat diakses, sehingga statusnya turun dari Terverifikasi menjadi Perlu verifikasi; situs **Lingkupin** juga tidak aktif.
+
+Penarikan ulang Google Maps lewat Bright Data pada 20 November 2026 (179 tempat di 9 kota) menghasilkan **33 kandidat agency baru** yang disimpan di `research/data/scraping/kompetitor-maps-2026-11.csv`. Verifikasi lanjutan memakai **Crawl4AI** pada hari yang sama memindahkan **6 kandidat** yang situs dan layanannya jelas ke `kompetitor.csv`: LokalSEO ID, Aksepta, Gatra Tech ID, Web Nusantara, MzH Sky, dan Advertising Pontianak.
+
+**Cek status aktif 20 November 2026** (`research/data/verifikasi-status-2026-11.csv`): dari 56 kompetitor, **33 aktif** (situs hidup/konten 2026), **2 aktif tetapi rebranding** (Bima Creative → oRili, GetFound → GTMLab.AI), **9 profil publik** (Instagram/Facebook/LinkedIn/Maps, tanggal post tidak terbaca), **10 perlu verifikasi** (sosial terakhir 2021-2025, situs 502, atau data ambigu), dan **2 tidak aktif** (Lingkupin, Borneo Channel). Badan hukum yang bisa diidentifikasi publik: **PT Digi Smart Pro, PT Aptana Citra Solusindo, PT Aksepta Strategi Indonesia, CV Gatra Eka Teknik, CV Smartindo Cemerlang Jaya**. Status legal AHU tidak bisa dicek tanpa login; yang diverifikasi adalah aktivitas operasional publik.
 
 Contoh kasus yang pernah salah masuk: Vodeco (Slawi/Semarang, Jawa Tengah) dan Lenteraweb (Kediri, Jawa Timur) sebelumnya diberi label lokal Banjarmasin dan Pontianak. Keduanya tetap dimasukkan, tetapi sekarang berstatus **nasional** karena memang menyasar kota Kalimantan. Peter&Co (Singapura, Jakarta, Bandung) dan Rocket Digital (Jakarta) dikeluarkan karena tidak menyasar Kalimantan sama sekali.
 
@@ -264,7 +270,7 @@ Angka 1 sampai 5 pada dataset berikut bukan hasil survei. Metodenya adalah desk 
 - **Channel matrix**: 30 industri x 11 kanal, masing-masing dinilai 1 sampai 5.
 - **Paket layanan**: usulan harga dari riset layanan, bukan hasil survei harga.
 
-Rumus di atas dijalankan di `dashboard/analysis.py`. Setiap baris diberi label `Hipotesis` atau `status_data = Hipotesis analis`.
+Rumus di atas dijalankan di `dashboard-streamlit/analysis.py`. Setiap baris diberi label `Hipotesis` atau `status_data = Hipotesis analis`.
 
 ### 7.3 Kriteria kompetisi versi terukur
 
@@ -272,12 +278,12 @@ Kriteria `kompetisi_rendah` punya dua versi yang bisa dipilih di sidebar lewat *
 
 **Versi hipotesis** (default): angka 1-5 di `skor-industri.csv`, penilaian analis.
 
-**Versi terukur**: dihitung dari 50 agency Kalimantan dan tidak memakai penilaian manual.
+**Versi terukur**: dihitung dari 56 agency Kalimantan dan tidak memakai penilaian manual.
 
 1. Setiap agency diberi bobot kekuatan:
    `1 + 0,5 (status terverifikasi) + 0,5 (jumlah layanan ÷ 5)`.
 2. Setiap kategori layanan dihitung pasokannya: jumlah bobot agency yang menjual layanan itu.
-   Contoh: SMM/Konten 26 agency, Website 20, Ads 15, Cyber Security 1.
+   Contoh bobot: SMM/Konten 63,5; Website 51,5; Ads 36,8; Cyber Security 4,0.
 3. Setiap industri punya 2-3 layanan inti di `research/data/industri-layanan.csv`.
 4. `cakupan_pesaing` = rata-rata pasokan layanan inti ÷ pasokan terbesar.
 5. `kompetisi_terukur` = `1 + 4 × (1 - cakupan_pesaing)`.
@@ -312,7 +318,7 @@ Edit CSV di `research/data/`:
 | `kota-kalimantan.csv` | 9 kota: penduduk, UMK, UMKM, koordinat |
 | `skor-industri.csv` | 30 industri × 6 kriteria |
 | `industri-layanan.csv` | 30 industri × 2-3 layanan inti (dasar skor kompetisi terukur) |
-| `kompetitor.csv` | 50 agency Kalimantan + lokasi terverifikasi |
+| `kompetitor.csv` | 56 agency Kalimantan + lokasi terverifikasi |
 | `platform-indonesia.csv` | 10 platform |
 | `ecommerce-indonesia.csv` | 6 marketplace/social commerce |
 | `biaya-iklan.csv` | 14 benchmark biaya iklan |
@@ -323,12 +329,14 @@ Edit CSV di `research/data/`:
 | `layanan-industri.csv` | 4 paket per industri + KPI |
 | `layanan-addon.csv` | 5 add-on + harga |
 | `impost-layanan.csv` | 13 layanan IMPOST: harga pasar vs harga ideal + demand per wilayah |
-| `sumber.csv` | 42 sumber |
+| `sumber.csv` | 50 sumber |
+
+Kolom baru per November 2026: `makro-kalimantan.csv` menyimpan `pertumbuhan_2026_q3_yoy_persen`, `ump_2026_rp`, `penetrasi_internet_2026_persen`, dan `ipm_2026`; `kota-kalimantan.csv` menyimpan `umk_2025_rp` sebagai pembanding; `kompetitor.csv` menyimpan `badan_hukum`, `status_aktif`, `bukti_aktif`, dan `tanggal_cek`. `analysis.py` otomatis memakai kolom terbaru dan jatuh ke kolom 2025 bila kosong.
 
 Setelah edit:
 
 ```bash
-.venv/bin/python dashboard/analysis.py
+.venv/bin/python dashboard-streamlit/analysis.py
 ```
 
 lalu refresh browser.
@@ -348,14 +356,19 @@ marketing-analysis/
 │   ├── 04-pain-point-persepsi.md
 │   ├── 05-media-sosial-kalimantan.md
 │   ├── 06-layanan-winning.md
-│   ├── 08-deck-ringkas.md
+│   ├── 07-deck-ringkas.md
 │   └── data/
-├── dashboard/
+├── dashboard-streamlit/
 │   ├── app.py
 │   ├── analysis.py
 │   ├── requirements.txt
 │   ├── README.md
 │   └── data/derived/
+├── dashboard-react/
+│   ├── src/
+│   ├── scripts/
+│   ├── vercel.json
+│   └── README.md
 └── graphify-out/
 ```
 
@@ -369,13 +382,13 @@ Itu terjadi karena `.venv/bin/...` adalah path Linux/WSL. Di Windows gunakan:
 
 ```bat
 .venv-win\Scripts\activate
-streamlit run dashboard\app.py
+streamlit run dashboard-streamlit\app.py
 ```
 
 atau langsung:
 
 ```bat
-.venv-win\Scripts\streamlit run dashboard\app.py
+.venv-win\Scripts\streamlit run dashboard-streamlit\app.py
 ```
 
 ### `'run' is not recognized`
@@ -383,13 +396,13 @@ atau langsung:
 Perintahnya kurang `streamlit`. Yang benar:
 
 ```bat
-streamlit run dashboard\app.py
+streamlit run dashboard-streamlit\app.py
 ```
 
 bukan:
 
 ```bat
-run dashboard/app.py
+run dashboard-streamlit/app.py
 ```
 
 ### `streamlit: command not found`
@@ -397,19 +410,19 @@ run dashboard/app.py
 Gunakan path venv:
 
 ```bash
-.venv/bin/streamlit run dashboard/app.py
+.venv/bin/streamlit run dashboard-streamlit/app.py
 ```
 
 atau aktifkan venv dulu:
 
 ```bash
 source .venv/bin/activate
-streamlit run dashboard/app.py
+streamlit run dashboard-streamlit/app.py
 ```
 
 ### `ModuleNotFoundError: No module named 'plotly'`
 
-Error di `dashboard/app.py` baris `import plotly.express as px` berarti package
+Error di `dashboard-streamlit/app.py` baris `import plotly.express as px` berarti package
 `plotly` belum terpasang di Python yang dipakai Streamlit.
 
 Pastikan Anda memakai venv Windows:
@@ -419,7 +432,7 @@ cd /d E:\DataAnalyst\marketing-analysis
 py -3.12 -m venv .venv-win
 .venv-win\Scripts\activate
 python -m pip install --upgrade pip
-python -m pip install -r dashboard\requirements.txt
+python -m pip install -r dashboard-streamlit\requirements.txt
 ```
 
 Cek instalasi:
@@ -431,7 +444,7 @@ python -c "import streamlit, pandas, plotly, numpy; print('plotly', plotly.__ver
 Lalu jalankan:
 
 ```bat
-streamlit run dashboard\app.py
+streamlit run dashboard-streamlit\app.py
 ```
 
 Prompt CMD harus menampilkan `(.venv-win)` sebelum menjalankan perintah.
@@ -442,12 +455,12 @@ Install ulang dependencies:
 
 ```bash
 # WSL / Linux
-uv pip install --python .venv/bin/python -r dashboard/requirements.txt
+uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
 ```
 
 ```bat
 :: Windows
-.venv-win\Scripts\python -m pip install -r dashboard\requirements.txt
+.venv-win\Scripts\python -m pip install -r dashboard-streamlit\requirements.txt
 ```
 
 ### Port 8501 sudah dipakai
@@ -455,7 +468,7 @@ uv pip install --python .venv/bin/python -r dashboard/requirements.txt
 Pakai port lain:
 
 ```bash
-.venv/bin/streamlit run dashboard/app.py --server.port 8502
+.venv/bin/streamlit run dashboard-streamlit/app.py --server.port 8502
 ```
 
 lalu buka `http://localhost:8502`.
@@ -470,7 +483,7 @@ Klik **Jalankan ulang analisis** di tab **Metodologi**, atau restart:
 
 ```bash
 # Ctrl+C, lalu
-.venv/bin/streamlit run dashboard/app.py
+.venv/bin/streamlit run dashboard-streamlit/app.py
 ```
 
 ### Dashboard menampilkan peringatan hipotesis
@@ -488,4 +501,4 @@ Itu memang disengaja. Pain point, persepsi, skor industri, dan channel matrix ma
 
 Metodologi dan asal setiap dataset dijelaskan di bagian 7.
 
-Untuk detail dashboard, lihat `dashboard/README.md`. Untuk detail riset, lihat `research/README.md`.
+Untuk detail dashboard, lihat `dashboard-streamlit/README.md`. Untuk detail riset, lihat `research/README.md`.
