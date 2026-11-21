@@ -17,7 +17,7 @@ jobs:
       - run: |
           python - <<'EOF'
           from playwright.sync_api import sync_playwright
-          URL = "https://nama-app-kamu.streamlit.app"
+          URL = "https://marketing-analysis-dqmqu4djm5yneayhmfjrmj.streamlit.app"
           with sync_playwright() as p:
               b = p.chromium.launch()
               page = b.new_page()
