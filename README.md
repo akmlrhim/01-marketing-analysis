@@ -251,6 +251,13 @@ Baris berstatus **Perlu verifikasi** sebaiknya dicek ulang sebelum dipakai untuk
 
 Penarikan ulang Google Maps lewat Bright Data pada 20 November 2026 (179 tempat di 9 kota) menghasilkan **33 kandidat agency baru** yang disimpan di `research/data/scraping/kompetitor-maps-2026-11.csv`. Verifikasi lanjutan memakai **Crawl4AI** pada hari yang sama memindahkan **6 kandidat** yang situs dan layanannya jelas ke `kompetitor.csv`: LokalSEO ID, Aksepta, Gatra Tech ID, Web Nusantara, MzH Sky, dan Advertising Pontianak.
 
+Pembaruan 21 November 2026 menarik ulang Google Maps (Bright Data) di 9 kota dan
+menyimpan 116 tempat mentah di `research/data/scraping/kompetitor-maps-2026-11-21.csv`.
+Kandidat masih menunggu verifikasi, sehingga jumlah kompetitor di dashboard tetap
+56. Pengecekan ulang 41 situs/profil membuat status WebNesia naik menjadi **Aktif**;
+angka makro, UMP/UMK, APJII, IPM, dan DataReportal diverifikasi tanpa perubahan.
+Sinyal demand IMPOST juga diambil ulang memakai 78 query Tavily.
+
 **Cek status aktif 20 November 2026** (`research/data/verifikasi-status-2026-11.csv`): dari 56 kompetitor, **33 aktif** (situs hidup/konten 2026), **2 aktif tetapi rebranding** (Bima Creative → oRili, GetFound → GTMLab.AI), **9 profil publik** (Instagram/Facebook/LinkedIn/Maps, tanggal post tidak terbaca), **10 perlu verifikasi** (sosial terakhir 2021-2025, situs 502, atau data ambigu), dan **2 tidak aktif** (Lingkupin, Borneo Channel). Badan hukum yang bisa diidentifikasi publik: **PT Digi Smart Pro, PT Aptana Citra Solusindo, PT Aksepta Strategi Indonesia, CV Gatra Eka Teknik, CV Smartindo Cemerlang Jaya**. Status legal AHU tidak bisa dicek tanpa login; yang diverifikasi adalah aktivitas operasional publik.
 
 Contoh kasus yang pernah salah masuk: Vodeco (Slawi/Semarang, Jawa Tengah) dan Lenteraweb (Kediri, Jawa Timur) sebelumnya diberi label lokal Banjarmasin dan Pontianak. Keduanya tetap dimasukkan, tetapi sekarang berstatus **nasional** karena memang menyasar kota Kalimantan. Peter&Co (Singapura, Jakarta, Bandung) dan Rocket Digital (Jakarta) dikeluarkan karena tidak menyasar Kalimantan sama sekali.

@@ -1,7 +1,7 @@
 # Riset Pasar Agency Digital Marketing Kalimantan
 
 **Status:** Fokus saat ini pengumpulan data dari internet (desk research). Riset primer (wawancara & survei) ditunda.
-**Tanggal:** 20 November 2026
+**Tanggal:** 21 November 2026
 **Cakupan geografis:** Kalimantan Timur (Balikpapan, Samarinda, IKN), Kalimantan Selatan (Banjarmasin, Banjarbaru), Kalimantan Barat (Pontianak), Kalimantan Tengah (Palangka Raya), Kalimantan Utara (Tarakan, Tanjung Selor).
 
 ---
@@ -34,6 +34,7 @@
 | `data/sumber.csv` | 50 sumber + status verifikasi |
 | `data/scraping/kompetitor-maps-2026-11.csv` | 33 kandidat agency dari Google Maps (20 Nov 2026), belum masuk analisis |
 | `data/verifikasi-status-2026-11.csv` | Status aktif 56 kompetitor: badan hukum, status operasional, bukti, tanggal cek |
+| `data/scraping/kompetitor-maps-2026-11-21.csv` | Penarikan ulang Google Maps 21 Nov 2026: 116 tempat di 9 kota, belum diverifikasi |
 
 **Dashboard:** `dashboard/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard/README.md`.
 
@@ -98,5 +99,14 @@ Dashboard mencakup peta 9 kota, 56 kompetitor Kalimantan, 30 industri, 57 pain p
 - Pemerintah Provinsi/Kota (Balikpapan, Kaltim, Kalbar, Kalteng) dan pemberitaan lokal
 - Website & profil publik kompetitor (Up & Away, Codezy, Wemember Digital, DNA Indonesia, EastKreatif, Karya Studio, Vodeco, Lenteraweb, dll.)
 - **Catatan:** IMPOST Media tidak dimasukkan sebagai kompetitor karena merupakan entitas yang melakukan riset ini.
+
+---
+
+## 7. Pembaruan data 21 November 2026
+
+- **Google Maps (Bright Data):** penarikan ulang 9 kota menghasilkan 116 tempat mentah di `data/scraping/kompetitor-maps-2026-11-21.csv`. Sebagian besar adalah kandidat baru yang belum diverifikasi; kandidat dengan situs hidup dan layanan jelas antara lain clicknet.id, banjart.com, zagdigitalid.com, corefreelancers.id, dan borcha.co.id. Database `kompetitor.csv` sengaja tetap 56 agency sampai verifikasi selesai.
+- **Status kompetitor:** 41 URL situs/profil dicek ulang. WebNesia berubah dari "Perlu verifikasi" menjadi **Aktif** (situs hidup kembali, konten 2026). Lingkupin dan Borneo Channel masih tidak dapat diakses; profil Instagram yang ditinjau belum menunjukkan postingan baru.
+- **Data makro & kota:** angka Q3 2026, UMP/UMK 2026, APJII 2026, IPM 2026, dan DataReportal 2027 diverifikasi ulang lewat Tavily dan sumber resminya. Tidak ada perubahan nilai, sehingga CSV tidak diubah.
+- **Sinyal demand IMPOST:** 78 query Tavily dijalankan ulang (13 layanan × 3 wilayah × 2 lokasi) dan `data/scraping/demand-ringkas.csv` ditulis ulang. Pipeline dijalankan ulang sehingga `dashboard/data/derived/` mengikuti sinyal terbaru.
 
 Daftar URL lengkap ada di bagian "Sumber" setiap dokumen.
