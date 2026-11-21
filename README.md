@@ -5,8 +5,7 @@ Repositori ini berisi riset pasar dan dashboard interaktif untuk membantu keputu
 Isi utama:
 
 - `research/` - laporan riset dan dataset mentah CSV
-- `dashboard-streamlit/` - aplikasi Streamlit + pipeline analisis
-- `dashboard-react/` - versi React/Vite yang siap deploy ke Vercel
+- `dashboard/` - aplikasi Streamlit + pipeline analisis
 - `graphify-out/` - knowledge graph proyek
 
 Dashboard mencakup **10 tab dan 25 grafik**: Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, dan Metodologi.
@@ -38,7 +37,7 @@ Jika `python3.12` belum ada, gunakan `uv` untuk mengunduh Python secara otomatis
 
 ```bash
 cd /mnt/e/DataAnalyst/marketing-analysis
-.venv/bin/streamlit run dashboard-streamlit/app.py
+.venv/bin/streamlit run dashboard/app.py
 ```
 
 Buka `http://localhost:8501`. Hentikan dengan `Ctrl+C`.
@@ -52,8 +51,8 @@ cd /d E:\DataAnalyst\marketing-analysis
 py -3.12 -m venv .venv-win
 .venv-win\Scripts\activate
 python -m pip install --upgrade pip
-pip install -r dashboard-streamlit\requirements.txt
-streamlit run dashboard-streamlit\app.py
+pip install -r dashboard\requirements.txt
+streamlit run dashboard\app.py
 ```
 
 Buka `http://localhost:8501`.
@@ -67,12 +66,12 @@ Repositori ini siap deploy tanpa perubahan tambahan:
 1. Push repo ini ke GitHub.
 2. Buka [share.streamlit.io](https://share.streamlit.io) > **Create app** > pilih repo ini.
 3. Isi konfigurasi:
-   - **Main file path**: `dashboard-streamlit/app.py`
+   - **Main file path**: `dashboard/app.py`
    - **Python version**: 3.12 (sudah dikunci lewat file `.python-version`)
 4. Klik **Deploy**.
 
-Dependensi dibaca otomatis dari `dashboard-streamlit/requirements.txt`, tema dari
-`.streamlit/config.toml` di root repo. Pipeline analisis (`dashboard-streamlit/analysis.py`)
+Dependensi dibaca otomatis dari `dashboard/requirements.txt`, tema dari
+`.streamlit/config.toml` di root repo. Pipeline analisis (`dashboard/analysis.py`)
 dijalankan otomatis oleh aplikasi saat pertama kali dimuat, jadi tidak perlu
 langkah build tambahan.
 
@@ -89,7 +88,7 @@ cd /mnt/e/DataAnalyst/marketing-analysis
 uv venv --python 3.12 .venv
 
 # install dependencies
-uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
+uv pip install --python .venv/bin/python -r dashboard/requirements.txt
 ```
 
 Alternatif tanpa `uv`:
@@ -97,8 +96,8 @@ Alternatif tanpa `uv`:
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
-pip install -r dashboard-streamlit/requirements.txt
-streamlit run dashboard-streamlit/app.py
+pip install -r dashboard/requirements.txt
+streamlit run dashboard/app.py
 ```
 
 ---
@@ -108,7 +107,7 @@ streamlit run dashboard-streamlit/app.py
 Jika memakai WSL dan browser Windows tidak terbuka otomatis:
 
 ```bash
-.venv/bin/streamlit run dashboard-streamlit/app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
 Lalu buka `http://localhost:8501` di browser Windows.
@@ -134,8 +133,8 @@ cd /d E:\DataAnalyst\marketing-analysis
 py -3.12 -m venv .venv-win
 .venv-win\Scripts\activate
 python -m pip install --upgrade pip
-pip install -r dashboard-streamlit\requirements.txt
-streamlit run dashboard-streamlit\app.py
+pip install -r dashboard\requirements.txt
+streamlit run dashboard\app.py
 ```
 
 Buka `http://localhost:8501`.
@@ -146,15 +145,15 @@ Jika `py` tidak tersedia:
 python --version
 python -m venv .venv-win
 .venv-win\Scripts\activate
-pip install -r dashboard-streamlit\requirements.txt
-streamlit run dashboard-streamlit\app.py
+pip install -r dashboard\requirements.txt
+streamlit run dashboard\app.py
 ```
 
 ---
 
 ## 6. Alur analisis data
 
-Dashboard membaca CSV dari `research/data/`, lalu pipeline `dashboard-streamlit/analysis.py`:
+Dashboard membaca CSV dari `research/data/`, lalu pipeline `dashboard/analysis.py`:
 
 1. Memvalidasi kolom wajib.
 2. Membersihkan tipe data.
@@ -162,24 +161,24 @@ Dashboard membaca CSV dari `research/data/`, lalu pipeline `dashboard-streamlit/
 4. Menghitung prioritas pain point.
 5. Menghitung trust gap persepsi.
 6. Mengagregasi kompetitor, kota, platform, dan benchmark iklan.
-7. Menulis output ke `dashboard-streamlit/data/derived/`.
+7. Menulis output ke `dashboard/data/derived/`.
 
 Jalankan manual:
 
 ```bash
 # WSL / Linux
-.venv/bin/python dashboard-streamlit/analysis.py
+.venv/bin/python dashboard/analysis.py
 ```
 
 ```bat
 :: Windows
-.venv-win\Scripts\python dashboard-streamlit\analysis.py
+.venv-win\Scripts\python dashboard\analysis.py
 ```
 
 Output utama:
 
 ```text
-dashboard-streamlit/data/derived/
+dashboard/data/derived/
 ├── metrics.json
 ├── kota-clean.csv
 ├── industri-rank.csv
@@ -270,7 +269,7 @@ Angka 1 sampai 5 pada dataset berikut bukan hasil survei. Metodenya adalah desk 
 - **Channel matrix**: 30 industri x 11 kanal, masing-masing dinilai 1 sampai 5.
 - **Paket layanan**: usulan harga dari riset layanan, bukan hasil survei harga.
 
-Rumus di atas dijalankan di `dashboard-streamlit/analysis.py`. Setiap baris diberi label `Hipotesis` atau `status_data = Hipotesis analis`.
+Rumus di atas dijalankan di `dashboard/analysis.py`. Setiap baris diberi label `Hipotesis` atau `status_data = Hipotesis analis`.
 
 ### 7.3 Kriteria kompetisi versi terukur
 
@@ -336,7 +335,7 @@ Kolom baru per November 2026: `makro-kalimantan.csv` menyimpan `pertumbuhan_2026
 Setelah edit:
 
 ```bash
-.venv/bin/python dashboard-streamlit/analysis.py
+.venv/bin/python dashboard/analysis.py
 ```
 
 lalu refresh browser.
@@ -358,17 +357,12 @@ marketing-analysis/
 │   ├── 06-layanan-winning.md
 │   ├── 07-deck-ringkas.md
 │   └── data/
-├── dashboard-streamlit/
+├── dashboard/
 │   ├── app.py
 │   ├── analysis.py
 │   ├── requirements.txt
 │   ├── README.md
 │   └── data/derived/
-├── dashboard-react/
-│   ├── src/
-│   ├── scripts/
-│   ├── vercel.json
-│   └── README.md
 └── graphify-out/
 ```
 
@@ -382,13 +376,13 @@ Itu terjadi karena `.venv/bin/...` adalah path Linux/WSL. Di Windows gunakan:
 
 ```bat
 .venv-win\Scripts\activate
-streamlit run dashboard-streamlit\app.py
+streamlit run dashboard\app.py
 ```
 
 atau langsung:
 
 ```bat
-.venv-win\Scripts\streamlit run dashboard-streamlit\app.py
+.venv-win\Scripts\streamlit run dashboard\app.py
 ```
 
 ### `'run' is not recognized`
@@ -396,13 +390,13 @@ atau langsung:
 Perintahnya kurang `streamlit`. Yang benar:
 
 ```bat
-streamlit run dashboard-streamlit\app.py
+streamlit run dashboard\app.py
 ```
 
 bukan:
 
 ```bat
-run dashboard-streamlit/app.py
+run dashboard/app.py
 ```
 
 ### `streamlit: command not found`
@@ -410,19 +404,19 @@ run dashboard-streamlit/app.py
 Gunakan path venv:
 
 ```bash
-.venv/bin/streamlit run dashboard-streamlit/app.py
+.venv/bin/streamlit run dashboard/app.py
 ```
 
 atau aktifkan venv dulu:
 
 ```bash
 source .venv/bin/activate
-streamlit run dashboard-streamlit/app.py
+streamlit run dashboard/app.py
 ```
 
 ### `ModuleNotFoundError: No module named 'plotly'`
 
-Error di `dashboard-streamlit/app.py` baris `import plotly.express as px` berarti package
+Error di `dashboard/app.py` baris `import plotly.express as px` berarti package
 `plotly` belum terpasang di Python yang dipakai Streamlit.
 
 Pastikan Anda memakai venv Windows:
@@ -432,7 +426,7 @@ cd /d E:\DataAnalyst\marketing-analysis
 py -3.12 -m venv .venv-win
 .venv-win\Scripts\activate
 python -m pip install --upgrade pip
-python -m pip install -r dashboard-streamlit\requirements.txt
+python -m pip install -r dashboard\requirements.txt
 ```
 
 Cek instalasi:
@@ -444,7 +438,7 @@ python -c "import streamlit, pandas, plotly, numpy; print('plotly', plotly.__ver
 Lalu jalankan:
 
 ```bat
-streamlit run dashboard-streamlit\app.py
+streamlit run dashboard\app.py
 ```
 
 Prompt CMD harus menampilkan `(.venv-win)` sebelum menjalankan perintah.
@@ -455,12 +449,12 @@ Install ulang dependencies:
 
 ```bash
 # WSL / Linux
-uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
+uv pip install --python .venv/bin/python -r dashboard/requirements.txt
 ```
 
 ```bat
 :: Windows
-.venv-win\Scripts\python -m pip install -r dashboard-streamlit\requirements.txt
+.venv-win\Scripts\python -m pip install -r dashboard\requirements.txt
 ```
 
 ### Port 8501 sudah dipakai
@@ -468,7 +462,7 @@ uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
 Pakai port lain:
 
 ```bash
-.venv/bin/streamlit run dashboard-streamlit/app.py --server.port 8502
+.venv/bin/streamlit run dashboard/app.py --server.port 8502
 ```
 
 lalu buka `http://localhost:8502`.
@@ -483,7 +477,7 @@ Klik **Jalankan ulang analisis** di tab **Metodologi**, atau restart:
 
 ```bash
 # Ctrl+C, lalu
-.venv/bin/streamlit run dashboard-streamlit/app.py
+.venv/bin/streamlit run dashboard/app.py
 ```
 
 ### Dashboard menampilkan peringatan hipotesis
@@ -501,4 +495,4 @@ Itu memang disengaja. Pain point, persepsi, skor industri, dan channel matrix ma
 
 Metodologi dan asal setiap dataset dijelaskan di bagian 7.
 
-Untuk detail dashboard, lihat `dashboard-streamlit/README.md`. Untuk detail riset, lihat `research/README.md`.
+Untuk detail dashboard, lihat `dashboard/README.md`. Untuk detail riset, lihat `research/README.md`.
