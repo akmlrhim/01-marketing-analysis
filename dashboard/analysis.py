@@ -216,9 +216,7 @@ def clean_macro(df: pd.DataFrame) -> pd.DataFrame:
         bins=[-1, 75, 85, 100],
         labels=["Menengah-rendah", "Menengah", "Tinggi"],
     )
-    df["ump_juta"] = (
-        df["ump_2026_rp"].fillna(df["ump_2025_rp"]) / 1_000_000
-    ).round(2)
+    df["ump_juta"] = (df["ump_2026_rp"].fillna(df["ump_2025_rp"]) / 1_000_000).round(2)
     df["ipm_terbaru"] = df["ipm_2026"].fillna(df["ipm_2025"])
     return df
 
@@ -238,9 +236,7 @@ def clean_cities(df: pd.DataFrame) -> pd.DataFrame:
         ],
     )
     df["umk_juta"] = (df["umk_rp"] / 1_000_000).round(2)
-    df["umkm_per_1000_penduduk"] = (
-        df["umkm_unit"] / df["penduduk"] * 1000
-    ).round(1)
+    df["umkm_per_1000_penduduk"] = (df["umkm_unit"] / df["penduduk"] * 1000).round(1)
     return df.sort_values("penduduk", ascending=False).reset_index(drop=True)
 
 
@@ -294,9 +290,7 @@ def measured_competition(
     ).round(2)
 
     df["peringkat_terukur"] = (
-        df["skor_tertimbang_terukur"]
-        .rank(ascending=False, method="min")
-        .astype(int)
+        df["skor_tertimbang_terukur"].rank(ascending=False, method="min").astype(int)
     )
     df["prioritas_terukur"] = pd.cut(
         df["skor_tertimbang_terukur"],
@@ -389,16 +383,16 @@ def clean_competitors(df: pd.DataFrame) -> pd.DataFrame:
 def platform_summary(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df = _text(df, ["platform", "kategori", "catatan", "sumber"])
-    df = _numeric(
-        df, ["jangkauan_iklan_juta", "persen_populasi", "persen_internet"]
-    )
+    df = _numeric(df, ["jangkauan_iklan_juta", "persen_populasi", "persen_internet"])
     df["peringkat"] = (
         df["jangkauan_iklan_juta"].rank(ascending=False, method="min").astype(int)
     )
     df["share_dari_terbesar"] = (
         df["jangkauan_iklan_juta"] / df["jangkauan_iklan_juta"].max() * 100
     ).round(1)
-    return df.sort_values("jangkauan_iklan_juta", ascending=False).reset_index(drop=True)
+    return df.sort_values("jangkauan_iklan_juta", ascending=False).reset_index(
+        drop=True
+    )
 
 
 def ecommerce_summary(df: pd.DataFrame) -> pd.DataFrame:
@@ -413,9 +407,7 @@ def adcost_summary(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df = _text(df, ["kanal", "objective", "metrik", "satuan", "catatan", "status"])
     df = _numeric(df, ["batas_bawah_rp", "batas_atas_rp"])
-    df["titik_tengah_rp"] = (
-        (df["batas_bawah_rp"] + df["batas_atas_rp"]) / 2
-    ).round(0)
+    df["titik_tengah_rp"] = ((df["batas_bawah_rp"] + df["batas_atas_rp"]) / 2).round(0)
     df["rentang"] = df.apply(
         lambda r: f"Rp{r['batas_bawah_rp']:,.0f} - Rp{r['batas_atas_rp']:,.0f}".replace(
             ",", "."
@@ -507,8 +499,14 @@ def impost_supply(kompetitor_df: pd.DataFrame, impost: pd.DataFrame) -> pd.Serie
     sup = {}
     for layanan in impost["layanan"]:
         terkait = impost.loc[impost["layanan"] == layanan, "layanan_terkait"].iloc[0]
-        labels = [s.strip() for s in str(terkait).split(";") if s.strip() in SERVICE_RULES]
-        values = [int(kompetitor_df[label].sum()) for label in labels if label in kompetitor_df]
+        labels = [
+            s.strip() for s in str(terkait).split(";") if s.strip() in SERVICE_RULES
+        ]
+        values = [
+            int(kompetitor_df[label].sum())
+            for label in labels
+            if label in kompetitor_df
+        ]
         sup[layanan] = max(values) if values else 0
     return pd.Series(sup, dtype=int)
 
@@ -528,14 +526,23 @@ def impost_demand(
     df = _numeric(
         df,
         [
-            "harga_pasar_min_rp", "harga_pasar_max_rp",
-            "harga_ideal_min_rp", "harga_ideal_max_rp",
+            "harga_pasar_min_rp",
+            "harga_pasar_max_rp",
+            "harga_ideal_min_rp",
+            "harga_ideal_max_rp",
         ],
     )
     df = _text(
         df,
-        ["kategori", "layanan_terkait", "satuan_pasar", "sumber_harga_pasar",
-         "satuan_ideal", "dasar_harga_ideal", "status_harga_ideal"],
+        [
+            "kategori",
+            "layanan_terkait",
+            "satuan_pasar",
+            "sumber_harga_pasar",
+            "satuan_ideal",
+            "dasar_harga_ideal",
+            "status_harga_ideal",
+        ],
     )
     df["tengah_pasar_rp"] = (
         (df["harga_pasar_min_rp"] + df["harga_pasar_max_rp"]) / 2
@@ -543,9 +550,7 @@ def impost_demand(
     df["tengah_ideal_rp"] = (
         (df["harga_ideal_min_rp"] + df["harga_ideal_max_rp"]) / 2
     ).round(0)
-    df["posisi_vs_pasar"] = (
-        df["tengah_ideal_rp"] / df["tengah_pasar_rp"]
-    ).round(2)
+    df["posisi_vs_pasar"] = (df["tengah_ideal_rp"] / df["tengah_pasar_rp"]).round(2)
 
     df["pasokan_kompetitor"] = df["layanan"].map(supply).fillna(0).astype(int)
     sup_max = max(float(supply.max()) if len(supply) else 0.0, 1.0)
@@ -579,9 +584,7 @@ def prepare_all(write: bool = True) -> dict:
     adcost = adcost_summary(_read("biaya-iklan.csv"))
     pain = pain_priority(_read("pain-point.csv"))
     persepsi = trust_gap(_read("persepsi.csv"))
-    layanan = _numeric(
-        _read("layanan-winning.csv"), ["harga_min_rp", "harga_max_rp"]
-    )
+    layanan = _numeric(_read("layanan-winning.csv"), ["harga_min_rp", "harga_max_rp"])
     layanan = _text(layanan, ["tier", "target", "satuan", "isi", "tujuan"])
     layanan_industri = _numeric(
         _read("layanan-industri.csv"), ["harga_min_rp", "harga_max_rp"]
@@ -672,7 +675,9 @@ def prepare_all(write: bool = True) -> dict:
         "delta_peringkat_min": int(industri["delta_peringkat"].min()),
         "n_kompetitor": int(len(kompetitor)),
         "n_kompetitor_lokal": int((kompetitor["tipe_sederhana"] == "Lokal").sum()),
-        "n_kompetitor_nasional": int((kompetitor["tipe_sederhana"] == "Nasional").sum()),
+        "n_kompetitor_nasional": int(
+            (kompetitor["tipe_sederhana"] == "Nasional").sum()
+        ),
         "n_harga_transparan": int(kompetitor["harga_transparan"].sum()),
         "n_pain_point": int(len(pain)),
         "n_pain_kritis": int((pain["kuadran"] == "Kritis").sum()),
@@ -692,10 +697,18 @@ def prepare_all(write: bool = True) -> dict:
         "impost_demand_terendah_kalimantan": str(imp_lowest["layanan"]),
         "impost_demand_kalimantan_skor": float(imp_lowest["demand_kalimantan"]),
         "paket_entry": str(entry_offer["tier"]) if entry_offer is not None else "-",
-        "harga_entry_rp": int(entry_offer["harga_min_rp"]) if entry_offer is not None else 0,
-        "harga_growth_rp": int(growth_offer["harga_min_rp"].iloc[0]) if len(growth_offer) else 0,
-        "layanan_terlaris": str(top_service["layanan"]) if top_service is not None else "-",
-        "layanan_terlaris_jumlah": int(top_service["jumlah"]) if top_service is not None else 0,
+        "harga_entry_rp": int(entry_offer["harga_min_rp"])
+        if entry_offer is not None
+        else 0,
+        "harga_growth_rp": int(growth_offer["harga_min_rp"].iloc[0])
+        if len(growth_offer)
+        else 0,
+        "layanan_terlaris": str(top_service["layanan"])
+        if top_service is not None
+        else "-",
+        "layanan_terlaris_jumlah": int(top_service["jumlah"])
+        if top_service is not None
+        else 0,
         "internet_nasional": NATIONAL_INTERNET,
         "social_users_juta": NATIONAL_SOCIAL_USERS,
         "provinsi_tumbuh_tercepat": str(fastest["provinsi"]),
@@ -717,8 +730,12 @@ def prepare_all(write: bool = True) -> dict:
         "platform_terbesar_juta": float(top_platform["jangkauan_iklan_juta"]),
         "ecommerce_terbesar": str(top_ecommerce["platform"]),
         "kanal_prioritas": str(channel_top),
-        "kota_umkm_terbesar": str(top_city_umkm["kota"]) if top_city_umkm is not None else "-",
-        "umkm_kota_terbesar": int(top_city_umkm["umkm_unit"]) if top_city_umkm is not None else 0,
+        "kota_umkm_terbesar": str(top_city_umkm["kota"])
+        if top_city_umkm is not None
+        else "-",
+        "umkm_kota_terbesar": int(top_city_umkm["umkm_unit"])
+        if top_city_umkm is not None
+        else 0,
     }
 
     if write:
@@ -782,17 +799,26 @@ if __name__ == "__main__":
     print(f"  Provinsi          : {m['n_provinsi']}")
     print(f"  Kota              : {m['n_kota']}")
     print(f"  Industri          : {m['n_industri']}")
-    print(f"  Kompetitor        : {m['n_kompetitor']} "
-          f"({m['n_kompetitor_lokal']} lokal / {m['n_kompetitor_nasional']} nasional)")
-    print(f"  Pain point        : {m['n_pain_point']} "
-          f"({m['n_pain_kritis']} kritis)")
-    print(f"  Paket layanan     : {m['n_paket']} paket + "
-          f"{m['n_paket_industri']} paket industri + {m['n_addon']} add-on")
+    print(
+        f"  Kompetitor        : {m['n_kompetitor']} "
+        f"({m['n_kompetitor_lokal']} lokal / {m['n_kompetitor_nasional']} nasional)"
+    )
+    print(f"  Pain point        : {m['n_pain_point']} ({m['n_pain_kritis']} kritis)")
+    print(
+        f"  Paket layanan     : {m['n_paket']} paket + "
+        f"{m['n_paket_industri']} paket industri + {m['n_addon']} add-on"
+    )
     print(f"  Sumber            : {m['n_sumber']}")
-    print(f"  Tumbuh tercepat   : {m['provinsi_tumbuh_tercepat']} "
-          f"{m['pertumbuhan_tercepat']:.2f}%")
-    print(f"  Internet tertinggi: {m['provinsi_internet_tertinggi']} "
-          f"{m['internet_tertinggi']:.2f}%")
-    print(f"  Industri prioritas: {m['industri_prioritas']} "
-          f"({m['skor_industri_prioritas']:.2f})")
+    print(
+        f"  Tumbuh tercepat   : {m['provinsi_tumbuh_tercepat']} "
+        f"{m['pertumbuhan_tercepat']:.2f}%"
+    )
+    print(
+        f"  Internet tertinggi: {m['provinsi_internet_tertinggi']} "
+        f"{m['internet_tertinggi']:.2f}%"
+    )
+    print(
+        f"  Industri prioritas: {m['industri_prioritas']} "
+        f"({m['skor_industri_prioritas']:.2f})"
+    )
     print(f"  Output            : {OUT_DIR}")
