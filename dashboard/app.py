@@ -1778,7 +1778,7 @@ if page == "Metodologi":
     st.markdown("#### Jalankan ulang analisis")
     st.caption(
         "Jika CSV di `research/data/` berubah, klik tombol ini atau jalankan "
-        "`python dashboard-streamlit/analysis.py`."
+        "`python dashboard/analysis.py`."
     )
     if st.button("Jalankan ulang analisis", type="primary"):
         with st.spinner("Menghitung ulang metrik..."):

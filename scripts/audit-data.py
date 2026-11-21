@@ -99,5 +99,5 @@ print(mk.to_string(max_cols=14))
 
 # ---------- derived vs raw ----------
 print("\n== Derived metrics.json ==")
-m = json.load(open("dashboard-streamlit/data/derived/metrics.json", encoding="utf-8"))
+m = json.load(open("dashboard/data/derived/metrics.json", encoding="utf-8"))
 print(json.dumps(m, indent=1, ensure_ascii=False)[:3000])

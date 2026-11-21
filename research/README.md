@@ -35,7 +35,7 @@
 | `data/scraping/kompetitor-maps-2026-11.csv` | 33 kandidat agency dari Google Maps (20 Nov 2026), belum masuk analisis |
 | `data/verifikasi-status-2026-11.csv` | Status aktif 56 kompetitor: badan hukum, status operasional, bukti, tanggal cek |
 
-**Dashboard:** `dashboard-streamlit/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard-streamlit/README.md`.
+**Dashboard:** `dashboard/app.py` - Streamlit + Plotly, **10 tab, 25 grafik**. Cara menjalankan ada di `dashboard/README.md`.
 
 ---
 
@@ -78,10 +78,10 @@
 ## 5. Dashboard
 
 ```bash
-.venv/bin/streamlit run dashboard-streamlit/app.py
+.venv/bin/streamlit run dashboard/app.py
 ```
 
-Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard-streamlit/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard-streamlit/data/derived/`.
+Buka `http://localhost:8501`. Tab: **Industri Winning, Pain Point Owner, Industri Potensial, Kompetitor Agency, Layanan Winning, Layanan IMPOST, Sosial Media, Persepsi Agency, Pasar Kota, Metodologi**. Pipeline analisis ada di `dashboard/analysis.py` dan menghasilkan ulang CSV + `metrics.json` di `dashboard/data/derived/`.
 
 Dashboard mencakup peta 9 kota, 56 kompetitor Kalimantan, 30 industri, 57 pain point, 14 benchmark biaya iklan, 10 platform, 6 marketplace, dan daftar 50 sumber dengan status verifikasi.
 

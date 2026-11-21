@@ -10,10 +10,10 @@ Dari root project:
 ```bash
 # sekali saja
 uv venv --python 3.12 .venv
-uv pip install --python .venv/bin/python -r dashboard-streamlit/requirements.txt
+uv pip install --python .venv/bin/python -r dashboard/requirements.txt
 
 # jalankan dashboard
-.venv/bin/streamlit run dashboard-streamlit/app.py
+.venv/bin/streamlit run dashboard/app.py
 ```
 
 Buka `http://localhost:8501`.
@@ -21,7 +21,7 @@ Buka `http://localhost:8501`.
 Jika memakai WSL dan browser Windows tidak otomatis terbuka:
 
 ```bash
-.venv/bin/streamlit run dashboard-streamlit/app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
 lalu buka `http://localhost:8501` di browser Windows.
@@ -29,7 +29,7 @@ lalu buka `http://localhost:8501` di browser Windows.
 ## 2. Struktur
 
 ```
-dashboard-streamlit/
+dashboard/
 ├── app.py                 # UI Streamlit (10 halaman navigasi sidebar, 23 grafik + bar chart CSS)
 ├── analysis.py            # pipeline cleaning, scoring, agregasi
 ├── requirements.txt
@@ -66,7 +66,7 @@ Data mentah tetap di `research/data/`:
 ## 3. Alur analisis
 
 ```bash
-.venv/bin/python dashboard-streamlit/analysis.py
+.venv/bin/python dashboard/analysis.py
 ```
 
 Pipeline akan:
@@ -79,7 +79,7 @@ Pipeline akan:
    `0.4 frekuensi + 0.4 dampak + 0.2 kesiapan bayar`.
 5. Menghitung trust gap: `kepentingan - kinerja agency`.
 6. Mengagregasi kompetitor: kota, tipe, layanan, transparansi harga.
-7. Menulis `dashboard-streamlit/data/derived/*.csv` dan `metrics.json`.
+7. Menulis `dashboard/data/derived/*.csv` dan `metrics.json`.
 
 ## 4. Halaman dashboard
 
@@ -128,12 +128,12 @@ dan seleksi dimatikan; hover tetap aktif.
 Streamlit Community Cloud:
 
 1. Push repo ke GitHub.
-2. Pilih `dashboard-streamlit/app.py` sebagai entry point.
+2. Pilih `dashboard/app.py` sebagai entry point.
 3. Set Python 3.12.
 4. Tidak ada secret yang dibutuhkan.
 
 Untuk server internal:
 
 ```bash
-.venv/bin/streamlit run dashboard-streamlit/app.py --server.address 0.0.0.0 --server.port 8501
+.venv/bin/streamlit run dashboard/app.py --server.address 0.0.0.0 --server.port 8501
 ```

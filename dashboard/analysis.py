@@ -1,11 +1,11 @@
 """Pipeline analisis data riset pasar Kalimantan.
 
 Jalankan langsung:
-    python dashboard-streamlit/analysis.py
+    python dashboard/analysis.py
 
 Output:
-    dashboard-streamlit/data/derived/*.csv
-    dashboard-streamlit/data/derived/metrics.json
+    dashboard/data/derived/*.csv
+    dashboard/data/derived/metrics.json
 """
 
 from __future__ import annotations

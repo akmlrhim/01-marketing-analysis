@@ -55,7 +55,7 @@ Kolom `catatan` di CSV adalah jejak alasan penilaian tersebut.
 
 ### Langkah 5 - Hitung skor akhir dengan rumus, bukan dengan perasaan
 
-Skor gabungan selalu dihitung oleh kode (`dashboard-streamlit/analysis.py`), bukan diketik manual.
+Skor gabungan selalu dihitung oleh kode (`dashboard/analysis.py`), bukan diketik manual.
 CSV menyimpan skor mentah 1-5 per kriteria; dashboard menghitung skor tertimbang,
 peringkat, dan kategori. Contoh perhitungan utuh ada di bagian 8.
 
@@ -75,7 +75,7 @@ peringkat, dan kategori. Contoh perhitungan utuh ada di bagian 8.
 ## 2. Skor industri: 6 kriteria × bobot
 
 **Sumber data:** `research/data/skor-industri.csv` (30 industri).
-**Perhitungan:** `score_industries()` di `dashboard-streamlit/analysis.py`.
+**Perhitungan:** `score_industries()` di `dashboard/analysis.py`.
 
 ### 2.1 Rumus
 
@@ -216,7 +216,7 @@ terhadap satu kolom penilaian manual - dan alasan kedua versi tetap ditampilkan.
 
 **Sumber data:** `research/data/pain-point.csv` (57 pain point, 3 segmen: UMKM, SME,
 Korporat/B2B, klinik, dll).
-**Perhitungan:** `pain_priority()` di `dashboard-streamlit/analysis.py`.
+**Perhitungan:** `pain_priority()` di `dashboard/analysis.py`.
 
 ### 4.1 Rumus
 
@@ -266,7 +266,7 @@ bukan keluhan kecil.
 ## 5. Persepsi agency (trust gap)
 
 **Sumber data:** `research/data/persepsi.csv` (14 dimensi).
-**Perhitungan:** `trust_gap()` di `dashboard-streamlit/analysis.py`.
+**Perhitungan:** `trust_gap()` di `dashboard/analysis.py`.
 
 ### 5.1 Rumus
 
@@ -369,7 +369,7 @@ Dua kolom harga, dua status:
    (kebanyakan dijangkarkan ke tangga paket internal Ignite 2,5 jt → Growth 6,5 jt
    → Market Leader 15 jt → Enterprise 25 jt+ dan menghindari perang harga bawah).
 
-**Rumus demand per wilayah** (di `dashboard-streamlit/analysis.py`, fungsi `impost_demand`):
+**Rumus demand per wilayah** (di `dashboard/analysis.py`, fungsi `impost_demand`):
 
 ```
 sinyal_cari[wilayah]  = jumlah domain unik hasil pencarian "jasa <layanan> <wilayah>"
@@ -434,10 +434,10 @@ di peringkat #2) → menjadi dasar janji positioning
 
 ```bash
 # WSL/Linux
-.venv/bin/python dashboard-streamlit/analysis.py
+.venv/bin/python dashboard/analysis.py
 
 # Windows
-.venv-win\Scripts\python dashboard-streamlit\analysis.py
+.venv-win\Scripts\python dashboard\analysis.py
 ```
 
 Untuk data layanan IMPOST, sinyal pencarian dikumpulkan via **MCP Tavily search API**
@@ -449,17 +449,17 @@ kumpulan query MCP lalu tulis ulang file tersebut:
 ```bash
 $env:PYTHONIOENCODING='utf-8'
 python research\scraping\07-impost-csv.py       # regenerasi impost-layanan.csv (jika ubah harga)
-python dashboard-streamlit\analysis.py                    # hitung ulang demand + metrik
+python dashboard\analysis.py                    # hitung ulang demand + metrik
 ```
 
 Pipeline membaca CSV mentah di `research/data/`, menghitung ulang **semua** skor
 tertimbang, peringkat, prioritas, kuadran, gap, kompetisi terukur, dan menulis hasilnya
-ke `dashboard-streamlit/data/derived/` (termasuk `metrics.json`). Kolom `selisih_vs_file` pada
+ke `dashboard/data/derived/` (termasuk `metrics.json`). Kolom `selisih_vs_file` pada
 `industri-rank.csv` otomatis membuktikan apakah skor manual di CSV masih konsisten
 dengan rumus (harus 0,00 semua).
 
 Untuk menguji sensitivitas bobot: cukup edit `INDUSTRY_WEIGHTS` di
-`dashboard-streamlit/analysis.py` atau skor mentah di `skor-industri.csv`, jalankan ulang, dan
+`dashboard/analysis.py` atau skor mentah di `skor-industri.csv`, jalankan ulang, dan
 bandingkan peringkat.
 
 ---
